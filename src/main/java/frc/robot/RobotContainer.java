@@ -8,7 +8,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.Constants;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -25,15 +27,23 @@ public class RobotContainer {
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-
+  private final Joystick[] joystick = new Joystick[1];
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
+    joystick[0] = new Joystick(Constants.driveController);
     configureButtonBindings();
   }
+
+  public double getAxisDeadzonedSquared(int joystickID, int axisID, double deadZone) {
+    double result = joystick[joystickID].getRawAxis(axisID);
+    result = result * Math.abs(result);
+    return Math.abs(result) > deadZone ? result : 0;
+  }
+
 
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
