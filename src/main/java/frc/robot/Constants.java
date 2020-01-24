@@ -16,4 +16,18 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    //drive
+    public final static int driveTalonLeftMotor1 = 0;
+    public final static int driveTalonLeftMotor2 = 0;
+    public final static int driveTalonRightMotor1 = 0;
+    public final static int driveTalonRightMotor2 = 0;  //0 should be replaced
+
+    //encoders
+    public final static double encoderTicks = 2048.0;   //encoder ticks per wheel rotation is 2048
+    public final static double wheelDiameter = 6.0;
+    public final static double driveEncoderToInches = 1 / wheelDiameter * Math.PI / encoderTicks;   //makes number inches
+    public final static double speedModeRPSToTalonOutput = encoderTicks / 10.0; 
+    public final static double driveEncoderVelocityToRPS = 1.0 / encoderTicks * 10;
+    public final static double driveMaxSpeedRPS = 8.0;
 }
+
