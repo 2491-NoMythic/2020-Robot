@@ -18,6 +18,7 @@ package frc.robot;
 public final class Constants {
     //controllers
     public final static int driveController = 0;
+    public final static double deadzone = 0.05;
 
     //drive
     public final static int driveTurnAxis = 0;
