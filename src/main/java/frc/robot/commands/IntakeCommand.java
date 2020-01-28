@@ -16,8 +16,8 @@ public class IntakeCommand extends CommandBase {
    */
   Intake intakeInstance;
   double intakeInitSpeed;
-  public IntakeCommand(double intakeSpeed) {
-    intakeInstance = new Intake();
+  public IntakeCommand(Intake intakeTransfer, double intakeSpeed) {
+    intakeInstance = intakeTransfer;
     addRequirements(intakeInstance);
     intakeInitSpeed = intakeSpeed;
 
