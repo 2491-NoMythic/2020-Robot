@@ -11,4 +11,7 @@ package frc.robot.Controllers;
  * Add your docs here.
  */
 public interface IDriveController {
+//IDriveController is where all of the drive related controls will go so they can be implemented by drive controllers
+ 
 }
+        
