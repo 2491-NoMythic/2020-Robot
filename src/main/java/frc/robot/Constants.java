@@ -21,6 +21,8 @@ public final class Constants {
     public final static double deadzone = 0.05;
 
     //drive
+    public static boolean useLinerAcceleration = true;
+    public static double accelerationSpeed = 0;
     public final static int driveTurnAxis = 0;
     public final static int driveMainAxis = 0;
     public final static int driveTalonLeftMotor1 = 0;
