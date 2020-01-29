@@ -18,20 +18,20 @@ public class NoMythicJoystick {
     private Joystick m_joystick = new Joystick(0);
 
     public NoMythicJoystick(){
-        m_joystick = new Joystick(Constants.driveController);
+        m_joystick = new Joystick(Constants.Drivetrain.driveController);
     }
 
     private double getAxisDeadzoned(int axisID) {
         double result = m_joystick.getRawAxis(axisID);
         result = result * Math.abs(result);
-        return Math.abs(result) > Constants.deadzone ? result : 0;
+        return Math.abs(result) > Constants.Drivetrain.deadzone ? result : 0;
     }
 
     public double getTurnAxis() {
-        return getAxisDeadzoned(Constants.driveTurnAxis);
+        return getAxisDeadzoned(Constants.Drivetrain.driveTurnAxis);
     }
 
     public double getDriveAxis() {
-        return getAxisDeadzoned(Constants.driveMainAxis);
+        return getAxisDeadzoned(Constants.Drivetrain.driveMainAxis);
     }
 }

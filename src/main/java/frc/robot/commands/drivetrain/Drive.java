@@ -48,23 +48,23 @@ public class Drive extends CommandBase {
 		currentLeftSpeed = -nomythicJoystick.getDriveAxis() + turnSpeed;
 		currentRightSpeed = -nomythicJoystick.getDriveAxis() - turnSpeed;
 		
-		if (Constants.useLinerAcceleration) {
+		if (Constants.Drivetrain.useLinerAcceleration) {
 			double leftAcceleration = (currentLeftSpeed - lastLeftSpeed);
 			double signOfLeftAcceleration = leftAcceleration / Math.abs(leftAcceleration);
-			if (Math.abs(leftAcceleration) > Constants.accelerationSpeed) { // otherwise the power is below accel and is fine
+			if (Math.abs(leftAcceleration) > Constants.Drivetrain.accelerationSpeed) { // otherwise the power is below accel and is fine
 				if (Math.abs(currentLeftSpeed) - Math.abs(lastLeftSpeed) > 0) {
 					//System.out.println(currentLeftSpeed + " was too high, setting to " + (lastLeftSpeed + (Variables.accelerationSpeed * signOfLeftAcceleration)));
-					currentLeftSpeed = lastLeftSpeed + (Constants.accelerationSpeed * signOfLeftAcceleration);
+					currentLeftSpeed = lastLeftSpeed + (Constants.Drivetrain.accelerationSpeed * signOfLeftAcceleration);
 					
 				}
 				// if the difference between the numbers is positive it is going up
 			}
 			double rightAcceleration = (currentRightSpeed - lastRightSpeed);
 			double signOfRightAcceleration = rightAcceleration / Math.abs(rightAcceleration);
-			if (Math.abs(rightAcceleration) > Constants.accelerationSpeed) { // otherwise the power is below 0.05 accel and is fine
+			if (Math.abs(rightAcceleration) > Constants.Drivetrain.accelerationSpeed) { // otherwise the power is below 0.05 accel and is fine
 				if (Math.abs(currentRightSpeed) - Math.abs(lastRightSpeed) > 0) {
 					//System.out.println(currentRightSpeed + " was too high, setting to " + (lastRightSpeed + (Variables.accelerationSpeed * signOfRightAcceleration)));
-					currentRightSpeed = lastRightSpeed + (Constants.accelerationSpeed * signOfRightAcceleration);
+					currentRightSpeed = lastRightSpeed + (Constants.Drivetrain.accelerationSpeed * signOfRightAcceleration);
 				}
 				// if the difference between the numbers is positive it is going up
 			}

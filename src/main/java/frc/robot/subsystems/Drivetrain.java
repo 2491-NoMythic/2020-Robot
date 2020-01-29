@@ -19,10 +19,10 @@ public class Drivetrain extends SubsystemBase {
   public Drivetrain() {
 
     //creating motors
-    driveLeftMotor1 = new TalonFX(Constants.driveTalonLeftMotor1);
-    driveLeftMotor2 = new TalonFX(Constants.driveTalonLeftMotor2);
-    driveRightMotor1 = new TalonFX(Constants.driveTalonRightMotor1);
-    driveRightMotor2 = new TalonFX(Constants.driveTalonRightMotor2);
+    driveLeftMotor1 = new TalonFX(Constants.Drivetrain.driveTalonLeftMotor1);
+    driveLeftMotor2 = new TalonFX(Constants.Drivetrain.driveTalonLeftMotor2);
+    driveRightMotor1 = new TalonFX(Constants.Drivetrain.driveTalonRightMotor1);
+    driveRightMotor2 = new TalonFX(Constants.Drivetrain.driveTalonRightMotor2);
 
     //making right motors go right
     driveRightMotor1.setInverted(true);
@@ -71,10 +71,10 @@ public class Drivetrain extends SubsystemBase {
 
   //getting encoder distance and rate
   public double getRightEncoderDistance() {
-    return driveRightMotor1.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
+    return driveRightMotor1.getSelectedSensorPosition(0) * Constants.Drivetrain.driveEncoderToInches;
   }
   public double getLeftEncoderDistance() {
-    return driveLeftMotor1.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
+    return driveLeftMotor1.getSelectedSensorPosition(0) * Constants.Drivetrain.driveEncoderToInches;
   }
   public double getLeftEncoderDistanceRaw() {
     return driveLeftMotor1.getSelectedSensorPosition(0);
@@ -86,10 +86,10 @@ public class Drivetrain extends SubsystemBase {
     return ((getLeftEncoderDistance() + getRightEncoderDistance()) / 2);
   }
   public double getLeftEncoderRate() {
-    return driveLeftMotor1.getSelectedSensorVelocity(0) * Constants.driveEncoderVelocityToRPS;
+    return driveLeftMotor1.getSelectedSensorVelocity(0) * Constants.Drivetrain.driveEncoderVelocityToRPS;
   }
   public double getRightEncoderRate() {
-    return driveRightMotor1.getSelectedSensorVelocity(0) * Constants.driveEncoderVelocityToRPS;
+    return driveRightMotor1.getSelectedSensorVelocity(0) * Constants.Drivetrain.driveEncoderVelocityToRPS;
   }
   public double getEncoderRate() {
     return ((getRightEncoderRate() + getLeftEncoderRate()) / 2);

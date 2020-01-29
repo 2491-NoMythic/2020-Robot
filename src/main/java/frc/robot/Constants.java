@@ -16,26 +16,31 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    //controllers
-    public final static int driveController = 0;
-    public final static double deadzone = 0.05;
+    
+    public final class Drivetrain{
 
-    //drive
-    public static boolean useLinerAcceleration = true;
-    public static double accelerationSpeed = 0;
-    public final static int driveTurnAxis = 0;
-    public final static int driveMainAxis = 0;
-    public final static int driveTalonLeftMotor1 = 0;
-    public final static int driveTalonLeftMotor2 = 0;
-    public final static int driveTalonRightMotor1 = 0;
-    public final static int driveTalonRightMotor2 = 0;  //0 should be replaced
+        //controllers
+        public final static int driveController = 0;
+        public final static double deadzone = 0.05;
 
-    //encoders
-    public final static double encoderTicks = 2048.0;   //encoder ticks per wheel rotation is 2048
-    public final static double wheelDiameter = 6.0;
-    public final static double driveEncoderToInches = 1 / wheelDiameter * Math.PI / encoderTicks;   //makes number inches
-    public final static double speedModeRPSToTalonOutput = encoderTicks / 10.0; 
-    public final static double driveEncoderVelocityToRPS = 1.0 / encoderTicks * 10;
-    public final static double driveMaxSpeedRPS = 8.0;
+        //drive
+        public final static boolean useLinerAcceleration = true;
+        public final static double accelerationSpeed = 0;
+        public final static int driveTurnAxis = 0;
+        public final static int driveMainAxis = 0;
+        public final static int driveTalonLeftMotor1 = 0;
+        public final static int driveTalonLeftMotor2 = 0;
+        public final static int driveTalonRightMotor1 = 0;
+        public final static int driveTalonRightMotor2 = 0;  //0 should be replaced
+
+        //encoders
+        public final static double encoderTicks = 2048.0;   //encoder ticks per wheel rotation is 2048
+        public final static double wheelDiameter = 6.0;
+        public final static double driveEncoderToInches = 1 / wheelDiameter * Math.PI / encoderTicks;   //makes number inches
+        public final static double speedModeRPSToTalonOutput = encoderTicks / 10.0; 
+        public final static double driveEncoderVelocityToRPS = 1.0 / encoderTicks * 10;
+        public final static double driveMaxSpeedRPS = 8.0;
+        
+    }
 }
 
