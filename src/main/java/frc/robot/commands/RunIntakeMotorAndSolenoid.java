@@ -10,13 +10,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
-public class IntakeCommand extends CommandBase {
+public class RunIntakeMotorAndSolenoid extends CommandBase {
   /**
    * Creates a new IntakeCommand.
    */
   Intake intakeInstance;
   double intakeInitSpeed;
-  public IntakeCommand(Intake intakeTransfer, double intakeSpeed) {
+  public RunIntakeMotorAndSolenoid(Intake intakeTransfer, double intakeSpeed) {
     intakeInstance = intakeTransfer;
     addRequirements(intakeInstance);
     intakeInitSpeed = intakeSpeed;
