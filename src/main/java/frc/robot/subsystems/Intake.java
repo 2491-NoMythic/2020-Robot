@@ -7,29 +7,31 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
-  Talon CoreIntakeMotor;
+  TalonSRX CoreIntakeMotor;
   Solenoid IntakeSolenoid;
   /**
    * Creates a new Intake.
    */
   public Intake() {
-    CoreIntakeMotor = new Talon(Constants.intakeMotorPort);
-    IntakeSolenoid = new Solenoid(Constants.intakeSolenoidPort);
+    CoreIntakeMotor = new TalonSRX(Constants.Intake.intakeMotorPort);
+    IntakeSolenoid = new Solenoid(Constants.Intake.intakeSolenoidPort);
     IntakeSolenoid.set(false);
   }
   
   public void StartIntakeMotor(double motorPercent) {
-    CoreIntakeMotor.set(motorPercent);
+    CoreIntakeMotor.set(ControlMode.PercentOutput, motorPercent);
   }
 
   public void StopIntakeMotor() {
-    CoreIntakeMotor.set(0);
+    CoreIntakeMotor.set(ControlMode.PercentOutput,0);
   }
 
   public void toggleIntakeSolenoid() {
