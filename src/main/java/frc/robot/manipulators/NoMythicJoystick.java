@@ -8,7 +8,7 @@
 package frc.robot.manipulators;
 
 import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.Constants;
+import frc.robot.Settings.Constants;
 
 /**
  * Add your docs here.
