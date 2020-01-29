@@ -58,8 +58,10 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
+
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return null;
+    //TODO: change null to m_autonomousCommand once it has been coded
   }
 }
