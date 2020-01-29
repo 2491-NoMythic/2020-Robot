@@ -17,8 +17,7 @@ package frc.robot;
  */
 public final class Constants {
     
-    public final class Drivetrain{
-
+    public final class Drivetrain {
         //controllers
         public final static int driveController = 0;
         public final static double deadzone = 0.05;
@@ -40,7 +39,12 @@ public final class Constants {
         public final static double speedModeRPSToTalonOutput = encoderTicks / 10.0; 
         public final static double driveEncoderVelocityToRPS = 1.0 / encoderTicks * 10;
         public final static double driveMaxSpeedRPS = 8.0;
-        
     }
+
+    public final class Intake {
+        public static final int intakeMotorPort = 0;
+        public static final int intakeSolenoidPort = 0;
+    }
+  
 }
 
