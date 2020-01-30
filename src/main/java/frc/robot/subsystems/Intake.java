@@ -19,8 +19,8 @@ public class Intake extends SubsystemBase {
    * Creates a new Intake.
    */
   public Intake() {
-    CoreIntakeMotor = new Talon(Constants.intakeMotorPort);
-    IntakeSolenoid = new Solenoid(Constants.intakeSolenoidPort);
+    CoreIntakeMotor = new Talon(Constants.Intake.intakeMotorPort);
+    IntakeSolenoid = new Solenoid(Constants.Intake.intakeSolenoidPort);
     IntakeSolenoid.set(false);
   }
   

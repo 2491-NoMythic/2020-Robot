@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -22,10 +23,10 @@ public class Drivetrain extends SubsystemBase {
   public Drivetrain() {
 
     //creating motors
-    driveLeftMotor1 = new WPI_TalonFX(Constants.driveTalonLeftMotor1);
-    driveLeftMotor2 = new WPI_TalonFX(Constants.driveTalonLeftMotor2);
-    driveRightMotor1 = new WPI_TalonFX(Constants.driveTalonRightMotor1);
-    driveRightMotor2 = new WPI_TalonFX(Constants.driveTalonRightMotor2);
+    driveLeftMotor1 = new WPI_TalonFX(Constants.Drivetrain.driveTalonLeftMotor1);
+    driveLeftMotor2 = new WPI_TalonFX(Constants.Drivetrain.driveTalonLeftMotor2);
+    driveRightMotor1 = new WPI_TalonFX(Constants.Drivetrain.driveTalonRightMotor1);
+    driveRightMotor2 = new WPI_TalonFX(Constants.Drivetrain.driveTalonRightMotor2);
 
     driveRightMotor1.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
     driveLeftMotor1.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
@@ -66,31 +67,6 @@ public class Drivetrain extends SubsystemBase {
   }
   public void driveRightPercentOutput(double speed){
     driveRightMotor1.set(ControlMode.PercentOutput, speed);
-  }
-
-  //creating drive velocity for both right and left
-  public void driveVelocity(double speed){
-    driveVelocity(speed, speed);
-  }
-  public void driveVelocity(double leftSpeed, double rightSpeed){
-    driveLeftVelocity(leftSpeed);
-    driveRightVelocity(rightSpeed);
-  }
-  public void driveLeftVelocity(double speed){
-    driveLeftMotor1.set(ControlMode.Velocity, speed);
-  }
-  public void driveRightVelocity(double speed){
-    driveRightMotor1.set(ControlMode.Velocity, speed);
-  }
-  public void driveVoltage(double leftOutputVolts, double rightOutputVolts){
-    driveRightVoltage(rightOutputVolts);
-    driveLeftVoltage(leftOutputVolts);
-  }
-  public void driveRightVoltage(double outputVolts){
-    driveRightMotor1.setVoltage(outputVolts);
-  }
-  public void driveLeftVoltage(double outputVolts){
-    driveLeftMotor1.setVoltage(outputVolts);
   }
 
   //creative drive voltage for both right and left
