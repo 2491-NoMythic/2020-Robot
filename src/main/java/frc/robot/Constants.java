@@ -34,8 +34,8 @@ public final class Constants {
 
         //encoders
         public final static double encoderTicks = 2048.0;   //encoder ticks per wheel rotation is 2048
-        public final static double wheelDiameter = 6.0;
-        public final static double driveEncoderToInches = 1 / wheelDiameter * Math.PI / encoderTicks;   //makes number inches
+        public final static double wheelDiameter = 6.0;     //inches
+        public final static double driveEncoderToInches = wheelDiameter * Math.PI / encoderTicks;   //makes number inches
         public final static double speedModeRPSToTalonOutput = encoderTicks / 10.0; 
         public final static double driveEncoderVelocityToRPS = 1.0 / encoderTicks * 10;
         public final static double driveMaxSpeedRPS = 8.0;

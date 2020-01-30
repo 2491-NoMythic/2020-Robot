@@ -27,6 +27,9 @@ public class Drivetrain extends SubsystemBase {
     driveRightMotor1 = new WPI_TalonFX(Constants.driveTalonRightMotor1);
     driveRightMotor2 = new WPI_TalonFX(Constants.driveTalonRightMotor2);
 
+    driveRightMotor1.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    driveLeftMotor1.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+
     //making right motors go right
     driveRightMotor1.setInverted(true);
     driveRightMotor2.setInverted(true);
@@ -79,6 +82,16 @@ public class Drivetrain extends SubsystemBase {
   public void driveRightVelocity(double speed){
     driveRightMotor1.set(ControlMode.Velocity, speed);
   }
+  public void driveVoltage(double leftOutputVolts, double rightOutputVolts){
+    driveRightVoltage(rightOutputVolts);
+    driveLeftVoltage(leftOutputVolts);
+  }
+  public void driveRightVoltage(double outputVolts){
+    driveRightMotor1.setVoltage(outputVolts);
+  }
+  public void driveLeftVoltage(double outputVolts){
+    driveLeftMotor1.setVoltage(outputVolts);
+  }
 
   //creative drive voltage for both right and left
   public void driveVoltage(double outputVolts){
@@ -97,7 +110,7 @@ public class Drivetrain extends SubsystemBase {
 
   //robot can stop
   public void stop(){
-    driveVelocity(0, 0);
+    drivePercentOutput(0, 0);
   }
 
   //getting encoder distance and rate
