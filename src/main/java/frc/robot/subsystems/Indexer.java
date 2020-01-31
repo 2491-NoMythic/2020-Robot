@@ -23,11 +23,11 @@ public class Indexer extends SubsystemBase {
    * Creates a new Indexer.
    */
   public Indexer() {
-    index1 = new TalonFX(Constants.index1TalonID);
-    index2 = new TalonFX(Constants.index2TalonID);
-    funnel1 = new TalonFX(Constants.funnel1TalonID);
-    funnel2 = new TalonFX(Constants.funnel2TalonID);
-    indexSolenoid = new Solenoid(Constants.indexSolenoidID);
+    index1 = new TalonFX(Constants.Indexer.index1TalonID);
+    index2 = new TalonFX(Constants.Indexer.index2TalonID);
+    funnel1 = new TalonFX(Constants.Indexer.funnel1TalonID);
+    funnel2 = new TalonFX(Constants.Indexer.funnel2TalonID);
+    indexSolenoid = new Solenoid(Constants.Indexer.indexSolenoidID);
 
     index2.follow(index2);
 
