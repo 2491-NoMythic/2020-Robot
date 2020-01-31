@@ -8,30 +8,51 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Settings.Constants;
+import frc.robot.Constants;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.kauailabs.navx.frc.AHRS;
 
 public class Drivetrain extends SubsystemBase {
-  private TalonFX driveLeftMotor1,driveLeftMotor2,driveRightMotor1,driveRightMotor2;
+  private WPI_TalonFX driveLeftMotor1,driveLeftMotor2,driveRightMotor1,driveRightMotor2;
+  private AHRS gyro;
 
   public Drivetrain() {
 
     //creating motors
-    driveLeftMotor1 = new TalonFX(Constants.Drivetrain.driveTalonLeftMotor1);
-    driveLeftMotor2 = new TalonFX(Constants.Drivetrain.driveTalonLeftMotor2);
-    driveRightMotor1 = new TalonFX(Constants.Drivetrain.driveTalonRightMotor1);
-    driveRightMotor2 = new TalonFX(Constants.Drivetrain.driveTalonRightMotor2);
+    driveLeftMotor1 = new WPI_TalonFX(Constants.Drivetrain.driveTalonLeftMotor1);
+    driveLeftMotor2 = new WPI_TalonFX(Constants.Drivetrain.driveTalonLeftMotor2);
+    driveRightMotor1 = new WPI_TalonFX(Constants.Drivetrain.driveTalonRightMotor1);
+    driveRightMotor2 = new WPI_TalonFX(Constants.Drivetrain.driveTalonRightMotor2);
+
+    driveRightMotor1.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    driveLeftMotor1.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
 
     //making right motors go right
     driveRightMotor1.setInverted(true);
     driveRightMotor2.setInverted(true);
     driveLeftMotor1.setInverted(false);
     driveLeftMotor2.setInverted(false);
+
+    gyro = new AHRS(Port.kUSB);
+
+    resetGyro();
   }
 
 
+  //gyro tingz
+  public void resetGyro(){
+    gyro.reset();
+  }
+  public double getGyroAngle(){
+    return(getRawGyroAngle() % 360 + 360) % 360;
+  }
+  public double getRawGyroAngle() {
+    return gyro.getAngle();
+  }
 
   //creating percent output for both right and left
   public void drivePercentOutput(double speed){
@@ -48,6 +69,21 @@ public class Drivetrain extends SubsystemBase {
     driveRightMotor1.set(ControlMode.PercentOutput, speed);
   }
 
+  //creative drive voltage for both right and left
+  public void driveVoltage(double outputVolts){
+    driveVoltage(outputVolts, outputVolts);
+  }
+  public void driveVoltage(double leftOutputVolts, double rightOutputVolts){
+    driveRightVoltage(rightOutputVolts);
+    driveLeftVoltage(leftOutputVolts);
+  }
+  public void driveRightVoltage(double outputVolts){
+    driveRightMotor1.setVoltage(outputVolts);
+  }
+  public void driveLeftVoltage(double outputVolts){
+    driveLeftMotor1.setVoltage(outputVolts);
+  }
+
   //creating drive velocity for both right and left
   public void driveVelocity(double speed){
     driveVelocity(speed, speed);
@@ -61,12 +97,11 @@ public class Drivetrain extends SubsystemBase {
   }
   public void driveRightVelocity(double speed){
     driveRightMotor1.set(ControlMode.Velocity, speed);
-  
   }
 
   //robot can stop
   public void stop(){
-    driveVelocity(0, 0);
+    drivePercentOutput(0, 0);
   }
 
   //getting encoder distance and rate
