@@ -84,6 +84,21 @@ public class Drivetrain extends SubsystemBase {
     driveLeftMotor1.setVoltage(outputVolts);
   }
 
+  //creating drive velocity for both right and left
+  public void driveVelocity(double speed){
+    driveVelocity(speed, speed);
+  }
+  public void driveVelocity(double leftSpeed, double rightSpeed){
+    driveLeftVelocity(leftSpeed);
+    driveRightVelocity(rightSpeed);
+  }
+  public void driveLeftVelocity(double speed){
+    driveLeftMotor1.set(ControlMode.Velocity, speed);
+  }
+  public void driveRightVelocity(double speed){
+    driveRightMotor1.set(ControlMode.Velocity, speed);
+  }
+
   //robot can stop
   public void stop(){
     drivePercentOutput(0, 0);
