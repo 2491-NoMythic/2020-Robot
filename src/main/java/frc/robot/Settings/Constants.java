@@ -64,6 +64,17 @@ public final class Constants {
         public final static double shooterWheelDiameter = 4.0; //Inches
         public final static double shooterEncoderToInches = shooterWheelDiameter * Math.PI / shooterEncoderTicks; //Makes number inches
         public final static double shooterEncoderVelocityToRPS = 1.0 / shooterEncoderTicks * 10;
+
+        //PID
+        public final static int SlotIdx = 0;
+        public final static int PIDLoopIdx = 0;
+        public final static int TimeoutMs = 0;
+        public final static double kP = 0;
+	    public final static double kI = 0;
+	    public final static double kD = 0;
+	    public final static double kF = 0;
+	    public final static int kIzone = 0;
+	    public final static double PeakOutput = 0;
     }
 }
 
