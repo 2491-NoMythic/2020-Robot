@@ -8,22 +8,22 @@
 package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.ControlBoard;
 import frc.robot.Settings.Constants;
-import frc.robot.manipulators.NoMythicJoystick;
 import frc.robot.subsystems.Drivetrain;
 
 public class Drive extends CommandBase {
 
   private Drivetrain drivetrain;
-  private NoMythicJoystick nomythicJoystick;
+  private ControlBoard m_ControlBoard;
 
   /**
    * Creates a new Drive.
    */
-  public Drive(NoMythicJoystick nomythicJoystick, Drivetrain drivetrain) {
+  public Drive(ControlBoard controlBoard, Drivetrain drivetrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.drivetrain = drivetrain;
-    this.nomythicJoystick = nomythicJoystick;
+    m_ControlBoard = controlBoard;
     addRequirements(drivetrain);
   }
 
@@ -40,13 +40,13 @@ public class Drive extends CommandBase {
     double currentLeftSpeed = 0;
     double currentRightSpeed = 0;
 
-    turnSpeed = 0.5 * nomythicJoystick.getTurnAxis();
+    turnSpeed = 0.5 * m_ControlBoard.getRawTurnAxis();
 		
 		lastLeftSpeed = currentLeftSpeed;
 		lastRightSpeed = currentRightSpeed;
 		
-		currentLeftSpeed = -nomythicJoystick.getDriveAxis() + turnSpeed;
-		currentRightSpeed = -nomythicJoystick.getDriveAxis() - turnSpeed;
+		currentLeftSpeed = -m_ControlBoard.getDriveAxisDeadzone() + turnSpeed;
+		currentRightSpeed = -m_ControlBoard.getDriveAxisDeadzone() - turnSpeed;
 		
 		if (Constants.Drivetrain.useLinerAcceleration) {
 			double leftAcceleration = (currentLeftSpeed - lastLeftSpeed);

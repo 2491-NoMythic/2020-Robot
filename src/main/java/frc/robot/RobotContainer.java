@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Settings.Constants;
 import frc.robot.commands.drivetrain.Drive;
-import frc.robot.manipulators.NoMythicJoystick;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -25,7 +24,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain m_drivetrain = new Drivetrain();
-  private final NoMythicJoystick m_NoMythicJoystick = new NoMythicJoystick();
+
+  private final ControlBoard m_ControlBoard = ControlBoard.getInstance();
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -37,7 +37,7 @@ public class RobotContainer {
     //Set the default command to grab controller axis
     m_drivetrain.setDefaultCommand(
       new Drive(
-        m_NoMythicJoystick,
+        m_ControlBoard,
         m_drivetrain)
     );
   }
