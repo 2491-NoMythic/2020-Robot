@@ -33,11 +33,11 @@ public final class Constants {
         public final static int driveTalonRightMotor2 = 0;  //0 should be replaced
 
         //encoders
-        public final static double encoderTicks = 2048.0;   //encoder ticks per wheel rotation is 2048
-        public final static double wheelDiameter = 6.0;     //inches
-        public final static double driveEncoderToInches = wheelDiameter * Math.PI / encoderTicks;   //makes number inches
-        public final static double speedModeRPSToTalonOutput = encoderTicks / 10.0; 
-        public final static double driveEncoderVelocityToRPS = 1.0 / encoderTicks * 10;
+        public final static double driveEncoderTicks = 2048.0;   //encoder ticks per wheel rotation is 2048
+        public final static double driveWheelDiameter = 6.0;     //inches
+        public final static double driveEncoderToInches = driveWheelDiameter * Math.PI / driveEncoderTicks;   //makes number inches
+        public final static double speedModeRPSToTalonOutput = driveEncoderTicks / 10.0; 
+        public final static double driveEncoderVelocityToRPS = 1.0 / driveEncoderTicks * 10;
         public final static double driveMaxSpeedRPS = 8.0;
     }
 
@@ -54,5 +54,16 @@ public final class Constants {
         public static final int indexSolenoidID = 0;
     }
   
+    public final class Shooter {
+        //shooter
+        public static final int shooterTalonLeftMotor = 0;
+        public static final int shooterTalonRightMotor = 0;
+
+        //encoders
+        public final static double shooterEncoderTicks = 2048.0; //Encoder ticks per wheel rotation is 2048
+        public final static double shooterWheelDiameter = 4.0; //Inches
+        public final static double shooterEncoderToInches = shooterWheelDiameter * Math.PI / shooterEncoderTicks; //Makes number inches
+        public final static double shooterEncoderVelocityToRPS = 1.0 / shooterEncoderTicks * 10;
+    }
 }
 
