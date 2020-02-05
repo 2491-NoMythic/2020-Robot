@@ -5,18 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
-public class RunIntakeMotorAndSolenoid extends CommandBase {
+public class ManualIntake extends CommandBase {
   /**
    * Creates a new IntakeCommand.
    */
   Intake intakeInstance;
   double intakeInitSpeed;
-  public RunIntakeMotorAndSolenoid(Intake intakeTransfer, double intakeSpeed) {
+  public ManualIntake(Intake intakeTransfer, double intakeSpeed) {
     intakeInstance = intakeTransfer;
     addRequirements(intakeInstance);
     intakeInitSpeed = intakeSpeed;
