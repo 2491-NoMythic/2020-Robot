@@ -45,13 +45,21 @@ public final class Constants {
         public static final int intakeMotorPort = 0;
         public static final int intakeSolenoidPort = 0;
     }
-
     public final class Indexer {
         public static final int index1TalonID = 0;
         public static final int index2TalonID = 0;
         public static final int funnel1TalonID = 0;
         public static final int funnel2TalonID = 0;
         public static final int indexSolenoidID = 0;
+
+        public static final int sensor1Pin = 1;
+        public static final int sensor2Pin = 2;
+        public static final int sensor3Pin = 3;
+        public static final int sensor4Pin = 4;
+        public static final int sensor5Pin = 5;
+        public static final int sensor6Pin = 6;
+        public static final int sensor7Pin = 7;
+        public static final int sensor8Pin = 8;
     }
   
     public final class Shooter {

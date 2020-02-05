@@ -8,7 +8,7 @@
 package frc.robot.subsystems;
 
 import frc.robot.Settings.Constants;
-
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -18,6 +18,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 public class Indexer extends SubsystemBase {
   TalonFX index1, index2, funnel1, funnel2;
   Solenoid indexSolenoid;
+  DigitalInput sensor1, sensor2, sensor3, sensor4, sensor5, sensor6, sensor7, sensor8;
 
   /**
    * Creates a new Indexer.
@@ -60,6 +61,16 @@ public class Indexer extends SubsystemBase {
     indexSolenoid.set(state);
   }
 
+  public void sensors(){
+    sensor1 = new DigitalInput(Constants.Indexer.sensor1Pin);
+    sensor2 = new DigitalInput(Constants.Indexer.sensor2Pin);
+    sensor3 = new DigitalInput(Constants.Indexer.sensor3Pin);
+    sensor4 = new DigitalInput(Constants.Indexer.sensor4Pin);
+    sensor5 = new DigitalInput(Constants.Indexer.sensor5Pin);
+    sensor6 = new DigitalInput(Constants.Indexer.sensor6Pin);
+    sensor7 = new DigitalInput(Constants.Indexer.sensor7Pin);
+    sensor8 = new DigitalInput(Constants.Indexer.sensor8Pin);
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
