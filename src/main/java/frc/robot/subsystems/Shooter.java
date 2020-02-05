@@ -37,7 +37,7 @@ public class Shooter extends SubsystemBase {
     shooterLeftMotor.configFactoryDefault();
 
     //Config sensor used for velocity pid
-    shooterLeftMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, Constants.Shooter.PIDLoopIdx, Constants.Shooter.TimeoutMs);
+    shooterLeftMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, Constants.Shooter.PIDLoopIdx, Constants.Shooter.TimeoutMs);
 
     //Phase sensor
     shooterLeftMotor.setSensorPhase(true);
