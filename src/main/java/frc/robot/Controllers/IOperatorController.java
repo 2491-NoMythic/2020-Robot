@@ -7,10 +7,15 @@
 
 package frc.robot.Controllers;
 
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Settings.Constants;
+
 /**
  * Add your docs here.
  */
 public interface IOperatorController {
-     // IOperatorController is where all of the non drive robot controls will go so they can be implemented by operator controllers
+
+     public JoystickButton returnIntakeButton();
+
 }
 
