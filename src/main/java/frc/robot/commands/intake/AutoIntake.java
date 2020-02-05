@@ -27,13 +27,15 @@ public class AutoIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    if (m_Intake.checkIntakeSolenoid() == false) {
+      m_Intake.toggleIntakeSolenoid();
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     m_Intake.StartIntakeMotor(Constants.Intake.autoIntakeSpeed);
-    m_Intake.toggleIntakeSolenoid();
 
   }
 
