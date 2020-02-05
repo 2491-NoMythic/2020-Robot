@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
@@ -29,6 +30,29 @@ public class Shooter extends SubsystemBase {
     shooterRightMotor.follow(shooterLeftMotor);
     shooterLeftMotor.setInverted(false);
     shooterRightMotor.setInverted(InvertType.FollowMaster);
+
+    //PID
+
+    //Fac default to prevent unexpected behavour
+    shooterLeftMotor.configFactoryDefault();
+
+    //Config sensor used for velocity pid
+    shooterLeftMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, Constants.Shooter.PIDLoopIdx, Constants.Shooter.TimeoutMs);
+
+    //Phase sensor
+    shooterLeftMotor.setSensorPhase(true);
+
+    //Config peak and nominal outputs
+    shooterLeftMotor.configNominalOutputForward(0, Constants.Shooter.TimeoutMs);
+    shooterLeftMotor.configNominalOutputReverse(0, Constants.Shooter.TimeoutMs);
+    shooterLeftMotor.configPeakOutputForward(1, Constants.Shooter.TimeoutMs);
+    shooterLeftMotor.configPeakOutputReverse(0, Constants.Shooter.TimeoutMs);
+
+    //Config velocity closed loop gains in slot0
+    shooterLeftMotor.config_kF(Constants.Shooter.PIDLoopIdx, Constants.Shooter.kF, Constants.Shooter.TimeoutMs);
+    shooterLeftMotor.config_kP(Constants.Shooter.PIDLoopIdx, Constants.Shooter.kP, Constants.Shooter.TimeoutMs);
+    shooterLeftMotor.config_kI(Constants.Shooter.PIDLoopIdx, Constants.Shooter.kI, Constants.Shooter.TimeoutMs);
+    shooterLeftMotor.config_kD(Constants.Shooter.PIDLoopIdx, Constants.Shooter.kD, Constants.Shooter.TimeoutMs);
   }
 
   //Creating Drive Velocity for Motors
