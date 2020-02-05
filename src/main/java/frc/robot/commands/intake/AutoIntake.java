@@ -10,12 +10,12 @@ package frc.robot.commands.intake;
 import frc.robot.commands.intake.ManualIntake;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Settings.Constants;
 
 public class AutoIntake extends CommandBase {
   /**
    * Creates a new AutoIntake.
    */
-
   Intake m_Intake;
 
   public AutoIntake(Intake intake) {
@@ -27,19 +27,22 @@ public class AutoIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-  }
+    m_Intake.StartIntakeMotor(Constants.Intake.autoIntakeSpeed);
+    m_Intake.toggleIntakeSolenoid();
 
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_Intake.toggleIntakeSolenoid();
+    m_Intake.StopIntakeMotor();
+
   }
 
   // Returns true when the command should end.
