@@ -62,14 +62,14 @@ public final class Constants {
         public static final int funnel2TalonID = 0;
         public static final int indexSolenoidID = 0;
 
-        public static final int sensor1Pin = 1;
-        public static final int sensor2Pin = 2;
-        public static final int sensor3Pin = 3;
-        public static final int sensor4Pin = 4;
-        public static final int sensor5Pin = 5;
-        public static final int sensor6Pin = 6;
-        public static final int sensor7Pin = 7;
-        public static final int sensor8Pin = 8;
+        public static final int sensorOnePin = 1;
+        public static final int sensorTwoPin = 2;
+        public static final int sensorThreePin = 3;
+        public static final int sensorFourPin = 4;
+        public static final int sensorFivePin = 5;
+        public static final int sensorSixPin = 6;
+        public static final int sensorSevenPin = 7;
+        public static final int sensorEightPin = 8;
     }
   
     public final class Shooter {
