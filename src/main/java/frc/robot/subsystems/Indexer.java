@@ -18,7 +18,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 public class Indexer extends SubsystemBase {
   TalonFX index1, index2, funnel1, funnel2;
   Solenoid indexSolenoid;
-  DigitalInput sensor1, sensor2, sensor3, sensor4, sensor5, sensor6, sensor7, sensor8;
+  DigitalInput sensorBallEnter, sensorBallLeave, sensorPositionOne, sensorPositionTwo, sensorPositionThree, sensorPositionFour, sensorPositionFive, sensorPositionSix;
 
   /**
    * Creates a new Indexer.
@@ -29,6 +29,8 @@ public class Indexer extends SubsystemBase {
     funnel1 = new TalonFX(Constants.Indexer.funnel1TalonID);
     funnel2 = new TalonFX(Constants.Indexer.funnel2TalonID);
     indexSolenoid = new Solenoid(Constants.Indexer.indexSolenoidID);
+
+    sensors();
 
     index2.follow(index2);
 
@@ -62,14 +64,38 @@ public class Indexer extends SubsystemBase {
   }
 
   public void sensors(){
-    sensor1 = new DigitalInput(Constants.Indexer.sensor1Pin);
-    sensor2 = new DigitalInput(Constants.Indexer.sensor2Pin);
-    sensor3 = new DigitalInput(Constants.Indexer.sensor3Pin);
-    sensor4 = new DigitalInput(Constants.Indexer.sensor4Pin);
-    sensor5 = new DigitalInput(Constants.Indexer.sensor5Pin);
-    sensor6 = new DigitalInput(Constants.Indexer.sensor6Pin);
-    sensor7 = new DigitalInput(Constants.Indexer.sensor7Pin);
-    sensor8 = new DigitalInput(Constants.Indexer.sensor8Pin);
+    sensorBallEnter = new DigitalInput(Constants.Indexer.sensorOnePin);
+    sensorBallLeave = new DigitalInput(Constants.Indexer.sensorTwoPin);
+    sensorPositionOne = new DigitalInput(Constants.Indexer.sensorThreePin);
+    sensorPositionTwo = new DigitalInput(Constants.Indexer.sensorFourPin);
+    sensorPositionThree = new DigitalInput(Constants.Indexer.sensorFivePin);
+    sensorPositionFour = new DigitalInput(Constants.Indexer.sensorSixPin);
+    sensorPositionFive = new DigitalInput(Constants.Indexer.sensorSevenPin);
+    sensorPositionSix = new DigitalInput(Constants.Indexer.sensorEightPin);
+  }
+  public void sensorBallEnter(){
+    sensorBallEnter.get();
+  }
+  public void sensorBallLeave(){
+    sensorBallLeave.get();
+  }
+  public void sensorPositionOne(){
+    sensorPositionOne.get();
+  }
+  public void sensorPositionTwo(){
+    sensorPositionTwo.get();
+  }
+  public void sensorPositionThree(){
+    sensorPositionThree.get();
+  }
+  public void sensorPositionFour(){
+    sensorPositionFour.get();
+  }
+  public void sensorPositionFive(){
+    sensorPositionFive.get();
+  }
+  public void sensorPositionSix(){
+    sensorPositionSix.get();
   }
   @Override
   public void periodic() {
