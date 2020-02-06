@@ -92,7 +92,10 @@ public final class Constants {
 	    public final static double kD = 0;
 	    public final static double kF = 0;
 	    public final static int kIzone = 0;
-	    public final static double PeakOutput = 0;
+        public final static double PeakOutput = 0;
+        
+        //Values
+        public final static double testSpeed = 0;
     }
 }
 
