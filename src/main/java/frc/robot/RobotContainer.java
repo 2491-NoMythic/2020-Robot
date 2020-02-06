@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Settings.Constants;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.shooter.RunShooterAtSpeedPID;
-import frc.robot.manipulators.NoMythicJoystick;
+import frc.robot.manipulators.TM;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -29,7 +29,6 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain m_drivetrain = new Drivetrain();
   private final Shooter m_Shooter = new Shooter();
-  private final NoMythicJoystick m_NoMythicJoystick = new NoMythicJoystick();
 
   private final ControlBoard m_ControlBoard = ControlBoard.getInstance();
 
