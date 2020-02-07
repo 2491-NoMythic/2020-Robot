@@ -8,15 +8,15 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Settings.Constants;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.DefaultIntakeRoutine;
 import frc.robot.commands.shooter.RunShooterAtSpeedPID;
-import frc.robot.manipulators.TM;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -29,6 +29,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain m_drivetrain = new Drivetrain();
   private final Shooter m_Shooter = new Shooter();
+  private final Indexer m_Indexer = new Indexer();
+  private final Intake m_Intake = new Intake();
 
   private final ControlBoard m_ControlBoard = ControlBoard.getInstance();
 
@@ -46,6 +48,11 @@ public class RobotContainer {
       new Drive(
         m_ControlBoard,
         m_drivetrain)
+    );
+    m_Indexer.setDefaultCommand(
+      new DefaultIntakeRoutine(
+        m_Indexer,
+        m_Intake)
     );
   }
 
