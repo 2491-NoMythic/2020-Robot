@@ -97,5 +97,10 @@ public final class Constants {
         //Values
         public final static double testSpeed = 0;
     }
-}
+
+    public final class Climber {
+        public static final int liftMotorID = 0;
+    }
+    }
+
 
