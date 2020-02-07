@@ -14,9 +14,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class Indexer extends SubsystemBase {
-  TalonFX index1, index2, funnel1, funnel2;
+  TalonSRX indexerBelt, index, funnel1, funnel2;
   Solenoid indexSolenoid;
   DigitalInput sensorBallEnter, sensorBallLeave, sensorPositionOne, sensorPositionTwo, sensorPositionThree, sensorPositionFour, sensorPositionFive, sensorPositionSix;
 
@@ -24,22 +25,20 @@ public class Indexer extends SubsystemBase {
    * Creates a new Indexer.
    */
   public Indexer() {
-    index1 = new TalonFX(Constants.Indexer.index1TalonID);
-    index2 = new TalonFX(Constants.Indexer.index2TalonID);
-    funnel1 = new TalonFX(Constants.Indexer.funnel1TalonID);
-    funnel2 = new TalonFX(Constants.Indexer.funnel2TalonID);
+    indexerBelt = new TalonSRX(Constants.Indexer.index1TalonID);
+    index = new TalonSRX(Constants.Indexer.index2TalonID);
+    funnel1 = new TalonSRX(Constants.Indexer.funnel1TalonID);
+    funnel2 = new TalonSRX(Constants.Indexer.funnel2TalonID);
     indexSolenoid = new Solenoid(Constants.Indexer.indexSolenoidID);
 
     sensors();
-
-    index2.follow(index2);
 
     indexSolenoid.set(true);
   }
 
   // runs the index motors using percent output
-  public void runIndexMotors(double speed) {
-    index1.set(ControlMode.PercentOutput, speed);
+  public void runIndexMotor(double speed) {
+    indexerBelt.set(ControlMode.PercentOutput, speed);
   }
 
   // runs funnel motor using percent output
@@ -63,6 +62,12 @@ public class Indexer extends SubsystemBase {
     indexSolenoid.set(state);
   }
 
+  public void stop() {
+    runIndexMotor(0);
+    runFunnelMotor1(0);
+    runFunnelMotor2(0);
+  }
+
   public void sensors(){
     sensorBallEnter = new DigitalInput(Constants.Indexer.sensorOnePin);
     sensorBallLeave = new DigitalInput(Constants.Indexer.sensorTwoPin);
@@ -73,29 +78,29 @@ public class Indexer extends SubsystemBase {
     sensorPositionFive = new DigitalInput(Constants.Indexer.sensorSevenPin);
     sensorPositionSix = new DigitalInput(Constants.Indexer.sensorEightPin);
   }
-  public void sensorBallEnter(){
-    sensorBallEnter.get();
+  public boolean getSensorBallEnter(){
+    return sensorBallEnter.get();
   }
-  public void sensorBallLeave(){
-    sensorBallLeave.get();
+  public boolean getSensorBallLeave(){
+    return sensorBallLeave.get();
   }
-  public void sensorPositionOne(){
-    sensorPositionOne.get();
+  public boolean getSensorPositionOne(){
+    return sensorPositionOne.get();
   }
-  public void sensorPositionTwo(){
-    sensorPositionTwo.get();
+  public boolean getSensorPositionTwo(){
+    return sensorPositionTwo.get();
   }
-  public void sensorPositionThree(){
-    sensorPositionThree.get();
+  public boolean getSensorPositionThree(){
+    return sensorPositionThree.get();
   }
-  public void sensorPositionFour(){
-    sensorPositionFour.get();
+  public boolean getSensorPositionFour(){
+    return sensorPositionFour.get();
   }
-  public void sensorPositionFive(){
-    sensorPositionFive.get();
+  public boolean getSensorPositionFive(){
+    return sensorPositionFive.get();
   }
-  public void sensorPositionSix(){
-    sensorPositionSix.get();
+  public boolean getSensorPositionSix(){
+    return sensorPositionSix.get();
   }
   @Override
   public void periodic() {
