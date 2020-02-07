@@ -22,12 +22,13 @@ public class Climber extends SubsystemBase {
    */
   public Climber() {
     lift = new TalonSRX(Constants.Climber.liftMotorID);
+    lift.configFactoryDefault();
 
     lift.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
   }
 
-  public void runLift(double speed) {
-    lift.set(ControlMode.Position, speed);
+  public void runLift(double position) {
+    lift.set(ControlMode.Position, position);
   }
 
   @Override
