@@ -7,10 +7,14 @@
 
 package frc.robot.subsystems;
 
+import java.util.ArrayList;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.music.Orchestra;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -23,12 +27,24 @@ public class Shooter extends SubsystemBase {
 
   double fGain, pGain, iGain, dGain;
 
+  Orchestra orchestra;
+
+
   /**
    * Creates a new Shooter.
    */
   public Shooter() {
     shooterLeftMotor = new WPI_TalonFX(Constants.Shooter.shooterTalonLeftMotor);
     shooterRightMotor = new WPI_TalonFX(Constants.Shooter.shooterTalonRightMotor);
+
+    ArrayList<TalonFX> instruments = new ArrayList<TalonFX>();
+
+    instruments.add(shooterLeftMotor);
+    instruments.add(shooterRightMotor);
+
+    orchestra = new Orchestra(instruments);
+
+    orchestra.loadMusic("Meglo.chrip");
 
     shooterRightMotor.follow(shooterLeftMotor);
     shooterLeftMotor.setInverted(false);
@@ -67,14 +83,15 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putNumber("kP", pGain);
     SmartDashboard.putNumber("kI", iGain);
     SmartDashboard.putNumber("kD", dGain);
+    SmartDashboard.putNumber("FUN", 0);
   }
 
   //Creating Drive Velocity for Motors
-  public void runLeftShooterVelocity(double speed) {
+  public void runLeftShooterVelocity(final double speed) {
     shooterLeftMotor.set(ControlMode.Velocity, speed);
   }
 
-  //Getting encoder distance and rate
+  // Getting encoder distance and rate
   public double getRightEncoderDistance() {
     return shooterRightMotor.getSelectedSensorPosition(0) * Constants.Shooter.shooterEncoderToInches;
   }
@@ -102,18 +119,24 @@ public class Shooter extends SubsystemBase {
   public double getLeftEncoderRate() {
     return shooterLeftMotor.getSelectedSensorVelocity(0) * Constants.Shooter.shooterEncoderVelocityToRPS;
   }
-  
+
   public double getEncoderRate() {
-    return((getRightEncoderRate() + getLeftEncoderRate()) / 2);
+    return ((getRightEncoderRate() + getLeftEncoderRate()) / 2);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    double p = SmartDashboard.getNumber("kP", 0);
-    double i = SmartDashboard.getNumber("kI", 0);
-    double d = SmartDashboard.getNumber("kD", 0);
-    double f = SmartDashboard.getNumber("kF", 0);
+    final double p = SmartDashboard.getNumber("kP", 0);
+    final double i = SmartDashboard.getNumber("kI", 0);
+    final double d = SmartDashboard.getNumber("kD", 0);
+    final double f = SmartDashboard.getNumber("kF", 0);
+
+    if(SmartDashboard.getNumber("FUN", 0) == 1 && !orchestra.isPlaying()){
+      orchestra.play();
+    }else if(SmartDashboard.getNumber("FUN", 0) == 0 && orchestra.isPlaying()){
+      orchestra.stop();
+    }
 
     // if PID coefficients on SmartDashboard have changed, write new values to controller
     if((p != pGain)) { shooterLeftMotor.config_kP(Constants.Shooter.PIDLoopIdx, p, Constants.Shooter.TimeoutMs); pGain = p; }
