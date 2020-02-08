@@ -132,6 +132,7 @@ public class Shooter extends SubsystemBase {
     final double d = SmartDashboard.getNumber("kD", 0);
     final double f = SmartDashboard.getNumber("kF", 0);
 
+    // Music shitpost
     if(SmartDashboard.getNumber("FUN", 0) == 1 && !orchestra.isPlaying()){
       orchestra.play();
     }else if(SmartDashboard.getNumber("FUN", 0) == 0 && orchestra.isPlaying()){
