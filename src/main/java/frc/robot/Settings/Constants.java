@@ -27,10 +27,10 @@ public final class Constants {
         public final static double accelerationSpeed = 0;
         public final static int driveTurnAxis = 0;
         public final static int driveMainAxis = 0;
-        public final static int driveTalonLeftMotor1 = 0;
-        public final static int driveTalonLeftMotor2 = 0;
+        public final static int driveTalonLeftMotor1 = 2;
+        public final static int driveTalonLeftMotor2 = 3;
         public final static int driveTalonRightMotor1 = 0;
-        public final static int driveTalonRightMotor2 = 0;  //0 should be replaced
+        public final static int driveTalonRightMotor2 = 1;  //0 should be replaced
 
         //encoders
         public final static double driveEncoderTicks = 2048.0;   //encoder ticks per wheel rotation is 2048
@@ -51,19 +51,21 @@ public final class Constants {
     }
 
     public final class Intake {
-        public static final int intakeMotorPort = 0;
+        public static final int intakeMotorPort = 6;
         public static final int intakeSolenoidPort = 0;
+        //Speed
         public static final int autoIntakeSpeed = 0;
     }
     public final class Indexer {
         //Motors
-        public static final int index1TalonID = 0;
-        public static final int index2TalonID = 0;
-        public static final int funnel1TalonID = 0;
-        public static final int funnel2TalonID = 0;
+        public static final int indexBeltTalonID = 9;
+        public static final int shooterFeederTalonID = 11;
+        public static final int funnelLeftTalonID = 8;
+        public static final int funnelRightTalonID = 7;
         public static final int indexSolenoidID = 0;
         //Motor Speeds
         public static final double indexIntakeSpeed = 0;
+        public static final double shooterFeederSpeed = 0;
         //Sensors
         public static final int sensorOnePin = 1;
         public static final int sensorTwoPin = 2;
@@ -77,15 +79,16 @@ public final class Constants {
   
     public final class Shooter {
         //shooter
-        public static final int shooterTalonLeftMotor = 0;
-        public static final int shooterTalonRightMotor = 0;
-
+        public static final int shooterTalonLeftMotor = 4;
+        public static final int shooterTalonRightMotor = 5;
         //encoders
         public final static double shooterEncoderTicks = 2048.0; //Encoder ticks per wheel rotation is 2048
         public final static double shooterWheelDiameter = 4.0; //Inches
         public final static double shooterEncoderToInches = shooterWheelDiameter * Math.PI / shooterEncoderTicks; //Makes number inches
         public final static double shooterEncoderVelocityToRPS = 1.0 / shooterEncoderTicks * 10;
-
+        //Speeds
+        public static final double shootSpeedRpm = 0; //Rpm
+        public static final double shootSpeedRps = shootSpeedRpm / 60;
         //PID
         public final static int SlotIdx = 0;
         public final static int PIDLoopIdx = 0;
@@ -102,7 +105,7 @@ public final class Constants {
     }
 
     public final class Climber {
-        public static final int liftMotorID = 0;
+        public static final int liftMotorID = 10;
     }
     }
 
