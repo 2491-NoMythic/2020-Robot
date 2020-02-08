@@ -10,23 +10,23 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Settings.Constants;
 import frc.robot.Settings.Variables;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Indexer;
-import frc.robot.subsystems.Intake;
 
-public class DefaultIntakeRoutine extends CommandBase {
+public class ShooterRoutine extends CommandBase {
 
   private Indexer indexer;
-  private Intake intake;
+  private Shooter shooter;
 
   /**
-   * Creates a new IntakeRoutine.
+   * Creates a new ShooterRoutine.
    */
-  public DefaultIntakeRoutine(Indexer indexer, Intake intake) {
+  public ShooterRoutine(Shooter shooter, Indexer indexer) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.indexer = indexer;
-    this.intake = intake;
+    this.shooter = shooter;
     addRequirements(indexer);
-    addRequirements(intake);
+    addRequirements(shooter);
   }
 
   // Called when the command is initially scheduled.
@@ -37,23 +37,11 @@ public class DefaultIntakeRoutine extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    shooter.runLeftShooterVelocity(Constants.Shooter.shootSpeedRpm);
 
-    if(indexer.getSensorBallEnter() & !Variables.Indexer.finalBallLoaded){
-      indexer.runIndexMotor(Constants.Indexer.indexIntakeSpeed);
-      indexer.toggleIndexSolenoid();
-
-      Variables.Indexer.ballsLoaded ++;
-    }
-
-    if(indexer.getSensorPositionOne() & !Variables.Indexer.finalBallLoaded){
-      indexer.toggleIndexSolenoid();
-    }
-
-    if(indexer.getSensorBallLeave()){
-      Variables.Indexer.finalBallLoaded = true;
-    }
-    else{
-      Variables.Indexer.finalBallLoaded = false;
+    if(shooter.getEncoderRate() >= Constants.Shooter.shootSpeedRps & Variables.Indexer.ballsLoaded >= 1){
+      indexer.runShooterFeederMotor(Constants.Indexer.shooterFeederSpeed);
+      Variables.Indexer.ballsLoaded --;
     }
   }
 
@@ -61,6 +49,7 @@ public class DefaultIntakeRoutine extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     indexer.stop();
+    shooter.stop();
   }
 
   // Returns true when the command should end.

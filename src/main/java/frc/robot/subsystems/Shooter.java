@@ -74,6 +74,11 @@ public class Shooter extends SubsystemBase {
     shooterLeftMotor.set(ControlMode.Velocity, speed);
   }
 
+  //Stop the shooter motors
+  public void stop() {
+    shooterLeftMotor.set(ControlMode.PercentOutput, 0);
+  }
+
   //Getting encoder distance and rate
   public double getRightEncoderDistance() {
     return shooterRightMotor.getSelectedSensorPosition(0) * Constants.Shooter.shooterEncoderToInches;

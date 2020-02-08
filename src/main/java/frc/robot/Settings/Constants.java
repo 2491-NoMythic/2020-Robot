@@ -64,6 +64,7 @@ public final class Constants {
         public static final int indexSolenoidID = 0;
         //Motor Speeds
         public static final double indexIntakeSpeed = 0;
+        public static final double shooterFeederSpeed = 0;
         //Sensors
         public static final int sensorOnePin = 1;
         public static final int sensorTwoPin = 2;
@@ -79,13 +80,14 @@ public final class Constants {
         //shooter
         public static final int shooterTalonLeftMotor = 0;
         public static final int shooterTalonRightMotor = 0;
-
         //encoders
         public final static double shooterEncoderTicks = 2048.0; //Encoder ticks per wheel rotation is 2048
         public final static double shooterWheelDiameter = 4.0; //Inches
         public final static double shooterEncoderToInches = shooterWheelDiameter * Math.PI / shooterEncoderTicks; //Makes number inches
         public final static double shooterEncoderVelocityToRPS = 1.0 / shooterEncoderTicks * 10;
-
+        //Speeds
+        public static final double shootSpeedRpm = 0; //Rpm
+        public static final double shootSpeedRps = shootSpeedRpm / 60;
         //PID
         public final static int SlotIdx = 0;
         public final static int PIDLoopIdx = 0;

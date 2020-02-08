@@ -17,7 +17,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class Indexer extends SubsystemBase {
-  TalonSRX indexerBelt, index, funnel1, funnel2;
+  TalonSRX indexerBelt, shooterFeeder, funnel1, funnel2;
   Solenoid indexSolenoid;
   DigitalInput sensorBallEnter, sensorBallLeave, sensorPositionOne, sensorPositionTwo, sensorPositionThree, sensorPositionFour, sensorPositionFive, sensorPositionSix;
 
@@ -26,7 +26,7 @@ public class Indexer extends SubsystemBase {
    */
   public Indexer() {
     indexerBelt = new TalonSRX(Constants.Indexer.index1TalonID);
-    index = new TalonSRX(Constants.Indexer.index2TalonID);
+    shooterFeeder = new TalonSRX(Constants.Indexer.index2TalonID);
     funnel1 = new TalonSRX(Constants.Indexer.funnel1TalonID);
     funnel2 = new TalonSRX(Constants.Indexer.funnel2TalonID);
     indexSolenoid = new Solenoid(Constants.Indexer.indexSolenoidID);
@@ -39,6 +39,11 @@ public class Indexer extends SubsystemBase {
   // runs the index motors using percent output
   public void runIndexMotor(double speed) {
     indexerBelt.set(ControlMode.PercentOutput, speed);
+  }
+
+  // runs the shooter feeder using percent output
+  public void runShooterFeederMotor(double speed) {
+    shooterFeeder.set(ControlMode.PercentOutput, speed);
   }
 
   // runs funnel motor using percent output
@@ -64,6 +69,7 @@ public class Indexer extends SubsystemBase {
 
   public void stop() {
     runIndexMotor(0);
+    runShooterFeederMotor(0);
     runFunnelMotor1(0);
     runFunnelMotor2(0);
   }
