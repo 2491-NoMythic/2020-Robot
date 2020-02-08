@@ -25,10 +25,10 @@ public class Indexer extends SubsystemBase {
    * Creates a new Indexer.
    */
   public Indexer() {
-    indexerBelt = new TalonSRX(Constants.Indexer.index1TalonID);
-    shooterFeeder = new TalonSRX(Constants.Indexer.index2TalonID);
-    funnel1 = new TalonSRX(Constants.Indexer.funnel1TalonID);
-    funnel2 = new TalonSRX(Constants.Indexer.funnel2TalonID);
+    indexerBelt = new TalonSRX(Constants.Indexer.indexBeltTalonID);
+    shooterFeeder = new TalonSRX(Constants.Indexer.shooterFeederTalonID);
+    funnel1 = new TalonSRX(Constants.Indexer.funnelLeftTalonID);
+    funnel2 = new TalonSRX(Constants.Indexer.funnelRightTalonID);
     indexSolenoid = new Solenoid(Constants.Indexer.indexSolenoidID);
 
     sensors();
