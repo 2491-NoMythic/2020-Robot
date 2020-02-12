@@ -44,11 +44,10 @@ public class Shooter extends SubsystemBase {
 
     orchestra = new Orchestra(instruments);
 
-    orchestra.loadMusic("Meglo.chrip");
+    orchestra.loadMusic("MegloNew.chrp");
 
     shooterRightMotor.follow(shooterLeftMotor);
-    shooterLeftMotor.setInverted(false);
-    shooterRightMotor.setInverted(InvertType.FollowMaster);
+    shooterRightMotor.setInverted(InvertType.OpposeMaster);
 
     //PID
 
@@ -84,6 +83,7 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putNumber("kI", iGain);
     SmartDashboard.putNumber("kD", dGain);
     SmartDashboard.putNumber("FUN", 0);
+    SmartDashboard.putNumber("SpeedRightNow", getLeftEncoderRate());
   }
 
   //Creating Drive Velocity for Motors
@@ -123,7 +123,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public double getLeftEncoderRate() {
-    return shooterLeftMotor.getSelectedSensorVelocity(0) * Constants.Shooter.shooterEncoderVelocityToRPS;
+    return shooterLeftMotor.getSelectedSensorVelocity(0);
   }
 
   public double getEncoderRate() {
