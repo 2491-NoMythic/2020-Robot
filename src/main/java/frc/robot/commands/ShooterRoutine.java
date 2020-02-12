@@ -40,7 +40,7 @@ public class ShooterRoutine extends CommandBase {
     shooter.runLeftShooterVelocity(Constants.Shooter.shootSpeedRpm);
 
     if(shooter.getEncoderRate() >= Constants.Shooter.shootSpeedRps & Variables.Indexer.ballsLoaded >= 1){
-      indexer.runShooterFeederMotor(Constants.Indexer.shooterFeederSpeed);
+      indexer.runConnectorMotor(Constants.Indexer.connectorTalonSpeed);
       Variables.Indexer.ballsLoaded --;
     }
   }

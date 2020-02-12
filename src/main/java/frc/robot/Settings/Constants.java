@@ -59,13 +59,13 @@ public final class Constants {
     public final class Indexer {
         //Motors
         public static final int indexBeltTalonID = 9;
-        public static final int shooterFeederTalonID = 11;
+        public static final int connectorTalonID = 11;
         public static final int funnelLeftTalonID = 8;
         public static final int funnelRightTalonID = 7;
         public static final int indexSolenoidID = 0;
         //Motor Speeds
         public static final double indexIntakeSpeed = 0;
-        public static final double shooterFeederSpeed = 0;
+        public static final double connectorTalonSpeed = 0;
         //Sensors
         public static final int sensorOnePin = 1;
         public static final int sensorTwoPin = 2;

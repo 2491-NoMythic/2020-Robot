@@ -17,7 +17,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class Indexer extends SubsystemBase {
-  TalonSRX indexerBelt, shooterFeeder, funnel1, funnel2;
+  TalonSRX indexerBelt, connector, funnel1, funnel2;
   Solenoid indexSolenoid;
   DigitalInput sensorBallEnter, sensorBallLeave, sensorPositionOne, sensorPositionTwo, sensorPositionThree, sensorPositionFour, sensorPositionFive, sensorPositionSix;
 
@@ -26,7 +26,7 @@ public class Indexer extends SubsystemBase {
    */
   public Indexer() {
     indexerBelt = new TalonSRX(Constants.Indexer.indexBeltTalonID);
-    shooterFeeder = new TalonSRX(Constants.Indexer.shooterFeederTalonID);
+    connector = new TalonSRX(Constants.Indexer.connectorTalonID);
     funnel1 = new TalonSRX(Constants.Indexer.funnelLeftTalonID);
     funnel2 = new TalonSRX(Constants.Indexer.funnelRightTalonID);
     indexSolenoid = new Solenoid(Constants.Indexer.indexSolenoidID);
@@ -37,22 +37,22 @@ public class Indexer extends SubsystemBase {
   }
 
   // runs the index motors using percent output
-  public void runIndexMotor(double speed) {
+  public void runIndexMotor(final double speed) {
     indexerBelt.set(ControlMode.PercentOutput, speed);
   }
 
   // runs the shooter feeder using percent output
-  public void runShooterFeederMotor(double speed) {
-    shooterFeeder.set(ControlMode.PercentOutput, speed);
+  public void runConnectorMotor(final double speed) {
+    connector.set(ControlMode.PercentOutput, speed);
   }
 
   // runs funnel motor using percent output
-  public void runFunnelMotor1(double speed) {
+  public void runFunnelMotor1(final double speed) {
     funnel1.set(ControlMode.PercentOutput, speed);
   }
 
   // runs funnel motor using percent output
-  public void runFunnelMotor2(double speed) {
+  public void runFunnelMotor2(final double speed) {
     funnel2.set(ControlMode.PercentOutput, speed);
   }
 
@@ -63,13 +63,13 @@ public class Indexer extends SubsystemBase {
 
   // toggles index solenoid and updates a variable
   public void toggleIndexSolenoid() {
-    boolean state = !indexSolenoid.get();
+    final boolean state = !indexSolenoid.get();
     indexSolenoid.set(state);
   }
 
   public void stop() {
     runIndexMotor(0);
-    runShooterFeederMotor(0);
+    runConnectorMotor(0);
     runFunnelMotor1(0);
     runFunnelMotor2(0);
   }
