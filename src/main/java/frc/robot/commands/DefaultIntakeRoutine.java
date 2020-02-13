@@ -37,19 +37,26 @@ public class DefaultIntakeRoutine extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    boolean sensorToggle = false;
 
     if(indexer.getSensorBallEnter() & !Variables.Indexer.finalBallLoaded){
       indexer.runIndexMotor(Constants.Indexer.indexIntakeSpeed);
       indexer.toggleIndexSolenoid();
-
-      Variables.Indexer.ballsLoaded ++;
+      
+      if(!sensorToggle){
+        Variables.Indexer.ballsLoaded ++;
+        sensorToggle = true;
+      }
+    }
+    else{
+      sensorToggle = false;
     }
 
     if(indexer.getSensorPositionOne() & !Variables.Indexer.finalBallLoaded){
       indexer.toggleIndexSolenoid();
     }
 
-    if(indexer.getSensorBallLeave()){
+    if(indexer.getSensorBallLeave() || Variables.Indexer.ballsLoaded <= 4){
       Variables.Indexer.finalBallLoaded = true;
     }
     else{
