@@ -47,6 +47,8 @@ public final class Constants {
 
         public final class ButtonBoard{
             public static final int intakeButtonID = 0; //TODO change to actual value
+            public static final int raiseClimbExtensionButtonID = 0; //TODO Change to actual value
+            public static final int lowerClimbExtensionButtonID = 0; //TODO Change to actual value
         }
     }
 
@@ -104,8 +106,11 @@ public final class Constants {
     }
 
     public final class Climber {
+        //Motor IDs
         public static final int liftMotorID = 0;
+        //Movement Values Values
+        public static final double manualLiftExtensionSpeed = 0;
     }
-    }
+}
 
 

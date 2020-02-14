@@ -27,8 +27,12 @@ public class Climber extends SubsystemBase {
     lift.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
   }
 
-  public void runLift(double position) {
-    lift.set(ControlMode.Position, position);
+  public void runLift(double speed) {
+    lift.set(ControlMode.PercentOutput, speed);
+  }
+
+  public void stop() {
+    lift.set(ControlMode.PercentOutput, 0);
   }
 
   @Override
