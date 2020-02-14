@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Settings.Constants;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -56,6 +57,10 @@ public class Drivetrain extends SubsystemBase {
   }
   public double getRawGyroAngle() {
     return gyro.getAngle();
+  }
+
+  public TalonFX[] getTalonFX(){
+    return new TalonFX[]{driveLeftMotor1,driveLeftMotor2,driveRightMotor1,driveRightMotor2};
   }
 
   //creating percent output for both right and left

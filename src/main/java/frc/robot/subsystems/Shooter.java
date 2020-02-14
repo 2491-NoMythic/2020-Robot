@@ -26,25 +26,12 @@ public class Shooter extends SubsystemBase {
   WPI_TalonFX shooterRightMotor;
 
   double fGain, pGain, iGain, dGain;
-
-  Orchestra orchestra;
-
-
   /**
    * Creates a new Shooter.
    */
   public Shooter() {
     shooterLeftMotor = new WPI_TalonFX(Constants.Shooter.shooterTalonLeftMotor);
     shooterRightMotor = new WPI_TalonFX(Constants.Shooter.shooterTalonRightMotor);
-
-    ArrayList<TalonFX> instruments = new ArrayList<TalonFX>();
-
-    instruments.add(shooterLeftMotor);
-    instruments.add(shooterRightMotor);
-
-    orchestra = new Orchestra(instruments);
-
-    orchestra.loadMusic("MegloNew.chrp");
 
     shooterRightMotor.follow(shooterLeftMotor);
     shooterRightMotor.setInverted(InvertType.OpposeMaster);
@@ -82,7 +69,6 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putNumber("kP", pGain);
     SmartDashboard.putNumber("kI", iGain);
     SmartDashboard.putNumber("kD", dGain);
-    SmartDashboard.putNumber("FUN", 0);
     SmartDashboard.putNumber("SpeedRightNow", getLeftEncoderRate());
   }
 
@@ -94,6 +80,14 @@ public class Shooter extends SubsystemBase {
   //Stop the shooter motors
   public void stop() {
     shooterLeftMotor.set(ControlMode.PercentOutput, 0);
+  }
+
+  /**
+   * DO NOT USE UNLESS FOR JUKEBOX
+   * @return Talons
+   */
+  public TalonFX[] getTalonFX(){
+    return new TalonFX[]{shooterLeftMotor, shooterRightMotor};
   }
 
   //Getting encoder distance and rate
@@ -137,13 +131,6 @@ public class Shooter extends SubsystemBase {
     final double i = SmartDashboard.getNumber("kI", 0);
     final double d = SmartDashboard.getNumber("kD", 0);
     final double f = SmartDashboard.getNumber("kF", 0);
-
-    // Music shitpost
-    if(SmartDashboard.getNumber("FUN", 0) == 1 && !orchestra.isPlaying()){
-      orchestra.play();
-    }else if(SmartDashboard.getNumber("FUN", 0) == 0 && orchestra.isPlaying()){
-      orchestra.stop();
-    }
 
     // if PID coefficients on SmartDashboard have changed, write new values to controller
     if((p != pGain)) { shooterLeftMotor.config_kP(Constants.Shooter.PIDLoopIdx, p, Constants.Shooter.TimeoutMs); pGain = p; }
