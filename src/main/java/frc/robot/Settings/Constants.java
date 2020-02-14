@@ -107,6 +107,12 @@ public final class Constants {
     public final class Climber {
         public static final int liftMotorID = 10;
     }
+
+    public final class DrivetrainRotation {
+        public final static double kP = 0;
+	    public final static double kI = 0;
+	    public final static double kD = 0;
     }
+}
 
 
