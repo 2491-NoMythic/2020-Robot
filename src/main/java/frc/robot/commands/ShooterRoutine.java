@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Indexer;
 import frc.robot.Settings.Constants;
-import frc.robot.Settings.Constants.General;
+import frc.robot.Settings.Variables;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -23,8 +23,9 @@ public class ShooterRoutine extends ParallelCommandGroup {
   public ShooterRoutine(Shooter shooter, Indexer indexer) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());super();
-    if(Constants.General.semiAutoShoot){
-      
+    if(Constants.Shooter.semiAutoShoot){
+      new RevShooter(shooter);
+      new FeedShooter(shooter, indexer);
     }
     else {
       new RevShooter(shooter);

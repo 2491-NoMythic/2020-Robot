@@ -40,6 +40,9 @@ public class FeedShooter extends CommandBase {
 
     if(shooter.getEncoderRate() >= Constants.Shooter.shootSpeedRps & Variables.Indexer.ballsLoaded >= 1){
       indexer.runShooterFeederMotor(Constants.Indexer.shooterFeederSpeed);
+      if(indexer.getSensorBallLeave()){
+        indexer.runIndexMotor(Constants.Indexer.indexIntakeSpeed);
+      }
       Variables.Indexer.ballsLoaded --;
     }
   }
