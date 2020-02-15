@@ -7,54 +7,29 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Settings.Constants;
-import frc.robot.Settings.Variables;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Indexer;
+import frc.robot.Settings.Constants;
+import frc.robot.Settings.Constants.General;
 
-public class ShooterRoutine extends CommandBase {
-
-  private Indexer indexer;
-  private Shooter shooter;
-
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+public class ShooterRoutine extends ParallelCommandGroup {
   /**
    * Creates a new ShooterRoutine.
    */
   public ShooterRoutine(Shooter shooter, Indexer indexer) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    this.indexer = indexer;
-    this.shooter = shooter;
-    addRequirements(indexer);
-    addRequirements(shooter);
-  }
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    shooter.runLeftShooterVelocity(Constants.Shooter.shootSpeedRpm);
-
-    if(shooter.getEncoderRate() >= Constants.Shooter.shootSpeedRps & Variables.Indexer.ballsLoaded >= 1){
-      indexer.runShooterFeederMotor(Constants.Indexer.shooterFeederSpeed);
-      Variables.Indexer.ballsLoaded --;
+    // Add your commands in the super() call, e.g.
+    // super(new FooCommand(), new BarCommand());super();
+    if(Constants.General.semiAutoShoot){
+      
     }
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    indexer.stop();
-    shooter.stop();
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
+    else {
+      new RevShooter(shooter);
+      new FeedShooter(shooter, indexer);
+    }
+    //TODO: Create if statement to decare wether shooter routine should be full or semi auto
   }
 }

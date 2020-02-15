@@ -16,6 +16,11 @@ package frc.robot.Settings;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+    public final class General {
+        //Shooter Routine
+        public final static boolean semiAutoShoot = true;
+    }
     
     public final class Drivetrain {
         //controllers
