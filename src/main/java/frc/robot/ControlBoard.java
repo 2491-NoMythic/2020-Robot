@@ -57,4 +57,9 @@ public class ControlBoard implements IControlBoard {
     public JoystickButton returnLowerClimbExtensionButton() {
         return mOperatorController.returnLowerClimbExtensionButton();
     }
+
+    @Override
+    public JoystickButton returnClimbInitializeButton() {
+        return mOperatorController.returnClimbInitializeButton();
+    }
 }

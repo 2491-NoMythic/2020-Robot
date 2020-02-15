@@ -19,7 +19,7 @@ public class ButtonBoard implements IOperatorController {
 
     private Joystick m_Joystick;
     private static ButtonBoard m_Instance = null;
-    private JoystickButton intakeButton;
+    private JoystickButton intakeButton, climbInitializeButton;
     private JoystickButton raiseClimbExtensionButton;
     private JoystickButton lowerClimbExtensionButton;
 
@@ -33,8 +33,7 @@ public class ButtonBoard implements IOperatorController {
     private ButtonBoard(){
         m_Joystick = new Joystick(Constants.Controller.opertatorControllerID);
         intakeButton = new JoystickButton(m_Joystick, Constants.Controller.ButtonBoard.intakeButtonID);
-        raiseClimbExtensionButton = new JoystickButton(m_Joystick, Constants.Controller.ButtonBoard.raiseClimbExtensionButtonID);
-        lowerClimbExtensionButton = new JoystickButton(m_Joystick, Constants.Controller.ButtonBoard.lowerClimbExtensionButtonID);
+        climbInitializeButton = new JoystickButton(m_Joystick, Constants.Controller.ButtonBoard.climbInitializeButtonID);
     }
 
     @Override
@@ -50,5 +49,10 @@ public class ButtonBoard implements IOperatorController {
     @Override
     public JoystickButton returnLowerClimbExtensionButton() {
         return lowerClimbExtensionButton;
+    }
+
+    @Override
+    public JoystickButton returnClimbInitializeButton() {
+        return climbInitializeButton;
     }
 }
