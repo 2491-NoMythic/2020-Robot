@@ -8,6 +8,7 @@
 package frc.robot.manipulators;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Controllers.IDriveController;
 import frc.robot.Controllers.IOperatorController;
 import frc.robot.Settings.Constants;
@@ -18,6 +19,7 @@ import frc.robot.Settings.Constants;
 public class TM implements IDriveController{
 
     private Joystick m_Joystick;
+    private JoystickButton m_JoystickButton;
     private static TM m_Instance = null;
 
     public static TM getInstance(){
@@ -29,6 +31,7 @@ public class TM implements IDriveController{
 
     private TM(){
         m_Joystick = new Joystick(Constants.Controller.driveControllerID);
+        m_JoystickButton = new JoystickButton(m_Joystick, Constants.Shooter.shootButtonID);
     }
 
     @Override

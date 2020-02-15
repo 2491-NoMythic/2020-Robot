@@ -20,6 +20,8 @@ public class ButtonBoard implements IOperatorController {
     private Joystick m_Joystick;
     private static ButtonBoard m_Instance = null;
     private JoystickButton intakeButton;
+    private JoystickButton raiseClimbExtensionButton;
+    private JoystickButton lowerClimbExtensionButton;
 
     public static ButtonBoard getInstance(){
         if (m_Instance == null){
@@ -31,13 +33,22 @@ public class ButtonBoard implements IOperatorController {
     private ButtonBoard(){
         m_Joystick = new Joystick(Constants.Controller.opertatorControllerID);
         intakeButton = new JoystickButton(m_Joystick, Constants.Controller.ButtonBoard.intakeButtonID);
+        raiseClimbExtensionButton = new JoystickButton(m_Joystick, Constants.Controller.ButtonBoard.raiseClimbExtensionButtonID);
+        lowerClimbExtensionButton = new JoystickButton(m_Joystick, Constants.Controller.ButtonBoard.lowerClimbExtensionButtonID);
     }
 
     @Override
     public JoystickButton returnIntakeButton() {
-        // TODO Auto-generated method stub
         return intakeButton;
     }
 
-    //TODO create buttons for raising and lowering climb extension.
+    @Override
+    public JoystickButton returnRaiseClimbExtensionButton() {
+        return raiseClimbExtensionButton;
+    }
+
+    @Override
+    public JoystickButton returnLowerClimbExtensionButton() {
+        return lowerClimbExtensionButton;
+    }
 }

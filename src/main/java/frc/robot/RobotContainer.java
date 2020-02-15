@@ -12,11 +12,15 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.intake.AutoIntake;
 import frc.robot.Controllers.IOperatorController;
 import frc.robot.Settings.Constants;
 import frc.robot.Settings.Constants.Controller.ButtonBoard;
 import frc.robot.commands.DefaultIntakeRoutine;
+import frc.robot.commands.climber.LowerClimbExtension;
+import frc.robot.commands.climber.RaiseClimbExtension;
 import frc.robot.commands.shooter.RunShooterAtSpeedPID;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Indexer;
@@ -37,6 +41,7 @@ public class RobotContainer {
   private final Shooter m_Shooter = new Shooter();
   private final Indexer m_Indexer = new Indexer();
   private final Intake m_Intake = new Intake();
+  private final Climber m_Climber = new Climber();
 
   private final ControlBoard m_ControlBoard = ControlBoard.getInstance();
 
@@ -70,6 +75,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     SmartDashboard.putData(shooterAtSpeedPID);
+    m_ControlBoard.returnIntakeButton().whenPressed(new AutoIntake(m_Intake));
+    m_ControlBoard.returnRaiseClimbExtensionButton().whenPressed(new RaiseClimbExtension(m_Climber));
+    m_ControlBoard.returnLowerClimbExtensionButton().whenPressed(new LowerClimbExtension(m_Climber));
   }
 
 

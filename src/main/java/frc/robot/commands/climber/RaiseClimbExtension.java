@@ -10,15 +10,16 @@ package frc.robot.commands.climber;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Settings.Constants;
 import frc.robot.subsystems.Climber;
+import frc.robot.manipulators.ButtonBoard;
 
-public class ClimbExtension extends CommandBase {
+public class RaiseClimbExtension extends CommandBase {
 
   private Climber climber;
 
   /**
    * Creates a new Climb.
    */
-  public ClimbExtension(Climber climber) {
+  public RaiseClimbExtension(Climber climber) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climber = climber;
     addRequirements(climber);
@@ -32,7 +33,6 @@ public class ClimbExtension extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //TODO: Put if statements that run lift in opposing directions based on input from up button or down button.
     climber.runLift(Constants.Climber.manualLiftExtensionSpeed);
   }
 

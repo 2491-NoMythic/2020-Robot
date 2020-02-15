@@ -103,6 +103,8 @@ public final class Constants {
         
         //Values
         public final static double testSpeed = 0;
+        //Buttons
+        public final static int shootButtonID = 0;
     }
 
     public final class Climber {

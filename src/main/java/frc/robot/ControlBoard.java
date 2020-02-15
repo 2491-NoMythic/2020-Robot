@@ -30,25 +30,31 @@ public class ControlBoard implements IControlBoard {
 
     @Override
     public double getRawDriveAxis() {
-        // TODO Auto-generated method stub
         return mDriveController.getRawDriveAxis();
     }
 
     @Override
     public double getDriveAxisDeadzone() {
-        // TODO Auto-generated method stub
         return mDriveController.getDriveAxisDeadzone();
     }
 
     @Override
     public double getRawTurnAxis() {
-        // TODO Auto-generated method stub
         return mDriveController.getRawTurnAxis();
     }
 
     @Override
     public JoystickButton returnIntakeButton() {
-        // TODO Auto-generated method stub
         return mOperatorController.returnIntakeButton();
+    }
+
+    @Override
+    public JoystickButton returnRaiseClimbExtensionButton() {
+        return mOperatorController.returnRaiseClimbExtensionButton();
+    }
+
+    @Override
+    public JoystickButton returnLowerClimbExtensionButton() {
+        return mOperatorController.returnLowerClimbExtensionButton();
     }
 }
