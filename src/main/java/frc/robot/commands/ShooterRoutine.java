@@ -23,14 +23,7 @@ public class ShooterRoutine extends ParallelCommandGroup {
   public ShooterRoutine(Shooter shooter, Indexer indexer) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());super();
-    if(Constants.Shooter.semiAutoShoot){
-      new RevShooter(shooter);
-      new FeedShooter(shooter, indexer);
-    }
-    else {
-      new RevShooter(shooter);
-      new FeedShooter(shooter, indexer);
-    }
-    //TODO: Create if statement to decare wether shooter routine should be full or semi auto
+    new RevShooter(shooter);
+    new FeedShooter(shooter, indexer);
   }
 }

@@ -40,8 +40,11 @@ public class DefaultIntakeRoutine extends CommandBase {
 
     if(indexer.getSensorBallEnter() & !Variables.Indexer.finalBallLoaded){
       indexer.runIndexMotor(Constants.Indexer.indexIntakeSpeed);
-      indexer.toggleIndexSolenoid();
       
+      if(!indexer.getSensorPositionOne()){
+        indexer.setIndexSolenoid(false);
+      }
+
       if(!Variables.Indexer.enterSensorToggle){
         Variables.Indexer.ballsLoaded ++;
         Variables.Indexer.enterSensorToggle = true;
@@ -52,7 +55,7 @@ public class DefaultIntakeRoutine extends CommandBase {
     }
 
     if(indexer.getSensorPositionOne() & !Variables.Indexer.finalBallLoaded){
-      indexer.toggleIndexSolenoid();
+      indexer.setIndexSolenoid(true);
     }
 
     if(indexer.getSensorBallLeave() || Variables.Indexer.ballsLoaded <= 4){

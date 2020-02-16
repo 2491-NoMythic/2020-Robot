@@ -67,6 +67,13 @@ public class Indexer extends SubsystemBase {
     indexSolenoid.set(state);
   }
 
+  //Opens or closes index solenoid
+  public void setIndexSolenoid(boolean state) {
+    if(indexSolenoid.get() != state){
+      indexSolenoid.set(state);
+    }
+  }
+
   public void stop() {
     runIndexMotor(0);
     runShooterFeederMotor(0);
