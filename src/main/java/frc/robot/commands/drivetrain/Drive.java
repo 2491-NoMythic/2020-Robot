@@ -16,6 +16,9 @@ public class Drive extends CommandBase {
 
   private Drivetrain drivetrain;
   private ControlBoard m_ControlBoard;
+  double turnSpeed, lastLeftSpeed, lastRightSpeed;
+  double currentLeftSpeed = 0;
+  double currentRightSpeed = 0;
 
   /**
    * Creates a new Drive.
@@ -36,17 +39,16 @@ public class Drive extends CommandBase {
   @Override
   public void execute() {
 
-    double turnSpeed, lastLeftSpeed, lastRightSpeed;
-    double currentLeftSpeed = 0;
-    double currentRightSpeed = 0;
-
     turnSpeed = 0.5 * m_ControlBoard.getRawTurnAxis();
 		
 		lastLeftSpeed = currentLeftSpeed;
 		lastRightSpeed = currentRightSpeed;
 		
-		currentLeftSpeed = -m_ControlBoard.getDriveAxisDeadzone() + turnSpeed;
-		currentRightSpeed = -m_ControlBoard.getDriveAxisDeadzone() - turnSpeed;
+		currentLeftSpeed = m_ControlBoard.getDriveAxisDeadzone() - turnSpeed;
+    currentRightSpeed = m_ControlBoard.getDriveAxisDeadzone() + turnSpeed;
+    
+    System.out.println("CurrentLeft = " + currentLeftSpeed + ", CurrentLast = " + lastLeftSpeed);
+
 		
 		if (Constants.Drivetrain.useLinerAcceleration) {
 			double leftAcceleration = (currentLeftSpeed - lastLeftSpeed);
@@ -71,7 +73,7 @@ public class Drive extends CommandBase {
 		}
 		
 		
-		drivetrain.drivePercentOutput(currentLeftSpeed + turnSpeed, currentRightSpeed - turnSpeed);
+		drivetrain.drivePercentOutput(currentLeftSpeed, currentRightSpeed);
   }
 
   // Called once the command ends or is interrupted.

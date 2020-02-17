@@ -26,6 +26,8 @@ public class Shooter extends SubsystemBase {
   WPI_TalonFX shooterRightMotor;
 
   double fGain, pGain, iGain, dGain;
+  int iZone;
+
   /**
    * Creates a new Shooter.
    */
@@ -36,18 +38,19 @@ public class Shooter extends SubsystemBase {
     shooterRightMotor.follow(shooterLeftMotor);
     shooterRightMotor.setInverted(InvertType.OpposeMaster);
 
-    //PID
+    // PID
 
-    //Fac default to prevent unexpected behavour
+    // Fac default to prevent unexpected behavour
     shooterLeftMotor.configFactoryDefault();
 
-    //Config sensor used for velocity pid
-    shooterLeftMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, Constants.Shooter.PIDLoopIdx, Constants.Shooter.TimeoutMs);
+    // Config sensor used for velocity pid
+    shooterLeftMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, Constants.Shooter.PIDLoopIdx,
+        Constants.Shooter.TimeoutMs);
 
-    //Phase sensor
+    // Phase sensor
     shooterLeftMotor.setSensorPhase(true);
 
-    //Config peak and nominal outputs
+    // Config peak and nominal outputs
     shooterLeftMotor.configNominalOutputForward(0, Constants.Shooter.TimeoutMs);
     shooterLeftMotor.configNominalOutputReverse(0, Constants.Shooter.TimeoutMs);
     shooterLeftMotor.configPeakOutputForward(1, Constants.Shooter.TimeoutMs);
@@ -57,40 +60,48 @@ public class Shooter extends SubsystemBase {
     pGain = Constants.Shooter.kP;
     iGain = Constants.Shooter.kI;
     dGain = Constants.Shooter.kD;
+    iZone = Constants.Shooter.kIzone;
 
-    //Config velocity closed loop gains in slot0
+    // Config velocity closed loop gains in slot0
     shooterLeftMotor.config_kF(Constants.Shooter.PIDLoopIdx, fGain, Constants.Shooter.TimeoutMs);
     shooterLeftMotor.config_kP(Constants.Shooter.PIDLoopIdx, pGain, Constants.Shooter.TimeoutMs);
     shooterLeftMotor.config_kI(Constants.Shooter.PIDLoopIdx, iGain, Constants.Shooter.TimeoutMs);
     shooterLeftMotor.config_kD(Constants.Shooter.PIDLoopIdx, dGain, Constants.Shooter.TimeoutMs);
+    shooterLeftMotor.config_IntegralZone(Constants.Shooter.PIDLoopIdx, iZone);
 
-    //Put PID values on SmartDashboard
+    // Put PID values on SmartDashboard
     SmartDashboard.putNumber("kF", fGain);
     SmartDashboard.putNumber("kP", pGain);
     SmartDashboard.putNumber("kI", iGain);
     SmartDashboard.putNumber("kD", dGain);
+    SmartDashboard.putNumber("IZone", iZone);
     SmartDashboard.putNumber("SpeedRightNow", getLeftEncoderRate());
   }
 
-  //Creating Drive Velocity for Motors
+  // Creating Drive Velocity for Motors
   public void runLeftShooterVelocity(final double speed) {
     shooterLeftMotor.set(ControlMode.Velocity, speed);
   }
 
-  //Stop the shooter motors
+  public void runLeftShooterPercent(double speed){
+    shooterLeftMotor.set(ControlMode.PercentOutput, speed);
+  }
+
+  // Stop the shooter motors
   public void stop() {
     shooterLeftMotor.set(ControlMode.PercentOutput, 0);
   }
 
   /**
    * DO NOT USE UNLESS FOR JUKEBOX
+   * 
    * @return Talons
    */
-  public TalonFX[] getTalonFX(){
-    return new TalonFX[]{shooterLeftMotor, shooterRightMotor};
+  public TalonFX[] getTalonFX() {
+    return new TalonFX[] { shooterLeftMotor, shooterRightMotor };
   }
 
-  //Getting encoder distance and rate
+  // Getting encoder distance and rate
   // Getting encoder distance and rate
   public double getRightEncoderDistance() {
     return shooterRightMotor.getSelectedSensorPosition(0) * Constants.Shooter.shooterEncoderToInches;
@@ -131,11 +142,29 @@ public class Shooter extends SubsystemBase {
     final double i = SmartDashboard.getNumber("kI", 0);
     final double d = SmartDashboard.getNumber("kD", 0);
     final double f = SmartDashboard.getNumber("kF", 0);
+    final double z = SmartDashboard.getNumber("IZone", 0);
 
-    // if PID coefficients on SmartDashboard have changed, write new values to controller
-    if((p != pGain)) { shooterLeftMotor.config_kP(Constants.Shooter.PIDLoopIdx, p, Constants.Shooter.TimeoutMs); pGain = p; }
-    if((i != iGain)) { shooterLeftMotor.config_kI(Constants.Shooter.PIDLoopIdx, i, Constants.Shooter.TimeoutMs); iGain = i; }
-    if((d != dGain)) { shooterLeftMotor.config_kD(Constants.Shooter.PIDLoopIdx, d, Constants.Shooter.TimeoutMs); dGain = d; }
-    if((f != fGain)) { shooterLeftMotor.config_kF(Constants.Shooter.PIDLoopIdx, f, Constants.Shooter.TimeoutMs); fGain = f; }
+    // if PID coefficients on SmartDashboard have changed, write new values to
+    // controller
+    if ((p != pGain)) {
+      shooterLeftMotor.config_kP(Constants.Shooter.PIDLoopIdx, p, Constants.Shooter.TimeoutMs);
+      pGain = p;
+    }
+    if ((i != iGain)) {
+      shooterLeftMotor.config_kI(Constants.Shooter.PIDLoopIdx, i, Constants.Shooter.TimeoutMs);
+      iGain = i;
+    }
+    if ((d != dGain)) {
+      shooterLeftMotor.config_kD(Constants.Shooter.PIDLoopIdx, d, Constants.Shooter.TimeoutMs);
+      dGain = d;
+    }
+    if ((f != fGain)) {
+      shooterLeftMotor.config_kF(Constants.Shooter.PIDLoopIdx, f, Constants.Shooter.TimeoutMs);
+      fGain = f;
+    }
+    if ((z != iZone)) {
+      shooterLeftMotor.config_IntegralZone(Constants.Shooter.PIDLoopIdx, (int)Math.round(z));
+      iZone = (int)Math.round(z);
+    }
   }
 }

@@ -24,9 +24,9 @@ public final class Constants {
 
         //drive
         public final static boolean useLinerAcceleration = true;
-        public final static double accelerationSpeed = 0;
-        public final static int driveTurnAxis = 0;
-        public final static int driveMainAxis = 0;
+        public final static double accelerationSpeed = .05;
+        public final static int driveTurnAxis = 2;
+        public final static int driveMainAxis = 1;
         public final static int driveTalonLeftMotor1 = 2;
         public final static int driveTalonLeftMotor2 = 3;
         public final static int driveTalonRightMotor1 = 0;
@@ -65,7 +65,7 @@ public final class Constants {
         public static final int indexSolenoidID = 0;
         //Motor Speeds
         public static final double indexIntakeSpeed = 0;
-        public static final double connectorTalonSpeed = 0;
+        public static final double connectorTalonSpeed = 1;
         //Sensors
         public static final int sensorOnePin = 1;
         public static final int sensorTwoPin = 2;
@@ -87,17 +87,17 @@ public final class Constants {
         public final static double shooterEncoderToInches = shooterWheelDiameter * Math.PI / shooterEncoderTicks; //Makes number inches
         public final static double shooterEncoderVelocityToRPS = 1.0 / shooterEncoderTicks * 10;
         //Speeds
-        public static final double shootSpeedRpm = 0; //Rpm
-        public static final double shootSpeedRps = shootSpeedRpm / 60;
+        public static final double shootSpeedRpm = 20000; //Rpm
+        public static final double shootSpeedRps = 19500;//TODO change for reality.
         //PID
         public final static int SlotIdx = 0;
         public final static int PIDLoopIdx = 0;
         public final static int TimeoutMs = 0;
-        public final static double kP = 0;
-	    public final static double kI = 0;
+        public final static double kP = 0.275;
+	    public final static double kI = 0.0006;
 	    public final static double kD = 0;
-	    public final static double kF = 0;
-	    public final static int kIzone = 0;
+	    public final static double kF = 0.0455;
+	    public final static int kIzone = 100    ;
         public final static double PeakOutput = 0;
         
         //Values

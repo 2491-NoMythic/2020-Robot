@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Settings.Constants;
 import frc.robot.Settings.Variables;
@@ -17,6 +18,7 @@ public class ShooterRoutine extends CommandBase {
 
   private Indexer indexer;
   private Shooter shooter;
+  Timer timer;
 
   /**
    * Creates a new ShooterRoutine.
@@ -32,6 +34,8 @@ public class ShooterRoutine extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    timer.reset();
+    timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -39,9 +43,9 @@ public class ShooterRoutine extends CommandBase {
   public void execute() {
     shooter.runLeftShooterVelocity(Constants.Shooter.shootSpeedRpm);
 
-    if(shooter.getEncoderRate() >= Constants.Shooter.shootSpeedRps & Variables.Indexer.ballsLoaded >= 1){
+    if(shooter.getEncoderRate() >= Constants.Shooter.shootSpeedRps && 21000 >= shooter.getEncoderRate()){
       indexer.runConnectorMotor(Constants.Indexer.connectorTalonSpeed);
-      Variables.Indexer.ballsLoaded --;
+      indexer.runIndexMotor(.8);
     }
   }
 
@@ -55,6 +59,6 @@ public class ShooterRoutine extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return timer.get() >= 5;
   }
 }

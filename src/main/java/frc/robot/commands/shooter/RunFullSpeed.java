@@ -5,63 +5,43 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.music.Orchestra;
+package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
 
-public class Jukebox extends CommandBase {
+public class RunFullSpeed extends CommandBase {
   /**
-   * Creates a new Jukebox.
+   * Creates a new RunFullSpeed.
    */
-  Drivetrain m_drivetrain;
   Shooter m_shooter;
-  ArrayList<TalonFX> instruments;
-  Orchestra orchestra;
-  int loadup;
 
-  public Jukebox(Drivetrain drivetrain, Shooter shooter) {
+  public RunFullSpeed(Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_drivetrain = drivetrain;
     m_shooter = shooter;
+    addRequirements(m_shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    instruments.addAll(Arrays.asList(m_shooter.getTalonFX()));
-    instruments.addAll(Arrays.asList(m_drivetrain.getTalonFX()));
-    orchestra= new Orchestra(instruments);
-    orchestra.loadMusic("Mii.chrp");
-    loadup = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(!orchestra.isPlaying() && loadup < 11){
-      orchestra.play();
-      loadup = 0;
-    }
+    m_shooter.runLeftShooterPercent(1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_shooter.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    loadup++;
     return false;
   }
 }

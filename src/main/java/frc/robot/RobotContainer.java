@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.DefaultIntakeRoutine;
 import frc.robot.commands.shooter.RunConnector;
+import frc.robot.commands.shooter.RunFullSpeed;
 import frc.robot.commands.shooter.RunShooterAtSpeedPID;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
@@ -37,6 +38,7 @@ public class RobotContainer {
 
   private final RunShooterAtSpeedPID shooterAtSpeedPID = new RunShooterAtSpeedPID(m_Shooter);
   private final RunConnector runConnector = new RunConnector(m_Indexer);
+  private final RunFullSpeed runFullSpeed = new RunFullSpeed(m_Shooter);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -67,6 +69,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     SmartDashboard.putData(shooterAtSpeedPID);
     SmartDashboard.putData(runConnector);
+    SmartDashboard.putData(runFullSpeed);
   }
 
 
