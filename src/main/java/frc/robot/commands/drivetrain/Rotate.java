@@ -26,7 +26,7 @@ public class Rotate extends CommandBase {
     this.drivetrain = drivetrain;
     addRequirements(drivetrain);
     this.degrees = degrees;
-    pid = new PIDController(Constants.DrivetrainRotation.kP, Constants.DrivetrainRotation.kI, Constants.DrivetrainRotation.kD);
+    pid = new PIDController(Constants.Drivetrain.RotationCommand.kP, Constants.Drivetrain.RotationCommand.kI, Constants.Drivetrain.RotationCommand.kD);
     pid.setTolerance(2,10);
   }
 
