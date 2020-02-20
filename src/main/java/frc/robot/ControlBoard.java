@@ -51,4 +51,9 @@ public class ControlBoard implements IControlBoard {
         // TODO Auto-generated method stub
         return mOperatorController.returnIntakeButton();
     }
+
+    @Override
+    public JoystickButton returnRevShooterButton() {
+        return mOperatorController.returnRevShooterButton();
+    }
 }

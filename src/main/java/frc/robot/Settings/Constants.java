@@ -47,6 +47,8 @@ public final class Constants {
 
         public final class ButtonBoard{
             public static final int intakeButtonID = 0; //TODO change to actual value
+            public static final int revShooterButtonID = 0; //TODO change to actual value
+            public static final int feedShooterButtonID = 0; //TODO change to actual value
         }
     }
 
@@ -55,6 +57,7 @@ public final class Constants {
         public static final int intakeSolenoidPort = 0;
         public static final int autoIntakeSpeed = 0;
     }
+    
     public final class Indexer {
         //Motors
         public static final int index1TalonID = 0;

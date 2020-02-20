@@ -32,18 +32,16 @@ public class FeedShooter extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Variables.Indexer.semiAutoShotComplete = false;
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(shooter.getEncoderRate() >= Constants.Shooter.shootSpeedRps & Variables.Indexer.ballsLoaded >= 1 & !Variables.Indexer.semiAutoShotComplete){
+    if(shooter.getEncoderRate() >= Constants.Shooter.shootSpeedRps & Variables.Indexer.ballsLoaded >= 1){
       indexer.runShooterFeederMotor(Constants.Indexer.shooterFeederSpeed);
+      
       Variables.Indexer.ballsLoaded --;
-      if(Constants.Shooter.semiAutoShoot) {
-        Variables.Indexer.semiAutoShotComplete = true;
-      }
     }
   }
 
@@ -51,12 +49,16 @@ public class FeedShooter extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     indexer.stop();
-    shooter.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if(indexer.getSensorBallLeave()){
+      return true;  
+    }
+    else{
+      return false;
+    }
   }
 }

@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Controllers.IOperatorController;
 import frc.robot.Settings.Constants;
+import frc.robot.commands.RevShooter;
+import frc.robot.commands.FeedShooter;;
 
 /**
  * Add your docs here.
@@ -20,6 +22,7 @@ public class ButtonBoard implements IOperatorController {
     private Joystick m_Joystick;
     private static ButtonBoard m_Instance = null;
     private JoystickButton intakeButton;
+    private JoystickButton revShooterButton;
 
     public static ButtonBoard getInstance(){
         if (m_Instance == null){
@@ -31,11 +34,17 @@ public class ButtonBoard implements IOperatorController {
     private ButtonBoard(){
         m_Joystick = new Joystick(Constants.Controller.opertatorControllerID);
         intakeButton = new JoystickButton(m_Joystick, Constants.Controller.ButtonBoard.intakeButtonID);
+        revShooterButton = new JoystickButton(m_Joystick, Constants.Controller.ButtonBoard.revShooterButtonID);
     }
 
     @Override
     public JoystickButton returnIntakeButton() {
         // TODO Auto-generated method stub
         return intakeButton;
+    }
+
+    @Override
+    public JoystickButton returnRevShooterButton() {
+        return revShooterButton;
     }
 }

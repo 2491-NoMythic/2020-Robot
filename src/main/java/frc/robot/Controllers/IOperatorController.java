@@ -16,6 +16,7 @@ import frc.robot.Settings.Constants;
 public interface IOperatorController {
 
      public JoystickButton returnIntakeButton();
+     public JoystickButton returnRevShooterButton();
 
 }
 

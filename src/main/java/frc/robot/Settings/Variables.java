@@ -17,6 +17,5 @@ public class Variables {
         public static boolean finalBallLoaded = false;
         public static boolean enterSensorToggle = false;
         public static boolean exitSensorToggle = false;
-        public static boolean semiAutoShotComplete = false;
     }
 }

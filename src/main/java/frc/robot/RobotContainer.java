@@ -11,13 +11,18 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.intake.AutoIntake;
 import frc.robot.commands.DefaultIntakeRoutine;
+import frc.robot.commands.FeedShooter;
+import frc.robot.commands.RevShooter;
+import frc.robot.commands.ShooterRoutine;
 import frc.robot.commands.shooter.RunShooterAtSpeedPID;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -35,6 +40,8 @@ public class RobotContainer {
   private final ControlBoard m_ControlBoard = ControlBoard.getInstance();
 
   private final RunShooterAtSpeedPID shooterAtSpeedPID = new RunShooterAtSpeedPID(m_Shooter);
+  private final ShooterRoutine shooterRoutine = new ShooterRoutine();
+  private final AutoIntake autoIntake = new AutoIntake(m_Intake);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -62,10 +69,12 @@ public class RobotContainer {
    * Use this method to define your button->command mappings.  Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
-   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   * {@link edu.wpi.first.wpilibj2.command.buttson.JoystickButton}.
    */
   private void configureButtonBindings() {
     SmartDashboard.putData(shooterAtSpeedPID);
+    m_ControlBoard.returnIntakeButton().whenPressed(autoIntake);
+    m_ControlBoard.returnRevShooterButton().whenPressed(shooterRoutine, false);
   }
 
 

@@ -8,22 +8,24 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Indexer;
-import frc.robot.Settings.Constants;
-import frc.robot.Settings.Variables;
+import frc.robot.subsystems.Shooter;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class ShooterRoutine extends ParallelCommandGroup {
+
+  Shooter m_Shooter = new Shooter();
+  Indexer m_Indexer = new Indexer();
   /**
    * Creates a new ShooterRoutine.
    */
-  public ShooterRoutine(Shooter shooter, Indexer indexer) {
+  public ShooterRoutine() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());super();
-    new RevShooter(shooter);
-    new FeedShooter(shooter, indexer);
+    addCommands(
+      new RevShooter(m_Shooter),
+      new FeedShooter(m_Shooter, m_Indexer));
   }
 }
