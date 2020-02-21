@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Controllers.IDriveController;
 import frc.robot.Controllers.IOperatorController;
 import frc.robot.manipulators.ButtonBoard;
+import frc.robot.manipulators.PS4;
 import frc.robot.manipulators.TM;
 
 public class ControlBoard implements IControlBoard {
@@ -24,8 +25,12 @@ public class ControlBoard implements IControlBoard {
 
     private ControlBoard() {
         mDriveController = TM.getInstance();
+        
+        //Buttonboard is currently disabled
+        //mOperatorController = ButtonBoard.getInstance();
 
-        mOperatorController = ButtonBoard.getInstance();
+        //PS4 controller is currently enabled
+        mOperatorController = PS4.getInstance();
     }
 
     @Override

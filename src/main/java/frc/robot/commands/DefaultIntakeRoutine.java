@@ -18,6 +18,8 @@ public class DefaultIntakeRoutine extends CommandBase {
   private Indexer indexer;
   private Intake intake;
 
+  boolean firstSensorTrigger = false;
+
   /**
    * Creates a new IntakeRoutine.
    */
@@ -40,33 +42,27 @@ public class DefaultIntakeRoutine extends CommandBase {
 
     if(indexer.getSensorBallEnter() & !Variables.Indexer.finalBallLoaded){
       indexer.runIndexMotor(Constants.Indexer.indexIntakeSpeed);
-      
-      if(!indexer.getSensorPositionOne()){
-        indexer.setIndexSolenoid(false);
-      }
-
-      if(!Variables.Indexer.enterSensorToggle){
-        Variables.Indexer.ballsLoaded ++;
-        Variables.Indexer.enterSensorToggle = true;
-      }
+      indexer.setIndexSolenoid(false);
     }
     else{
-      Variables.Indexer.enterSensorToggle = false;
+      indexer.setIndexSolenoid(true);
     }
 
-    if(indexer.getSensorPositionOne() & !Variables.Indexer.finalBallLoaded){
-      indexer.setIndexSolenoid(true);
+    if(indexer.getSensorPositionOne() & !firstSensorTrigger){
+      indexer.runIndexMotor(0);
+      firstSensorTrigger = true;
+      Variables.Indexer.ballsLoaded ++;
+    }
+    else{
+      firstSensorTrigger = false;
     }
 
     if(indexer.getSensorBallLeave() || Variables.Indexer.ballsLoaded <= 4){
       Variables.Indexer.finalBallLoaded = true;
-      if(!Variables.Indexer.exitSensorToggle){
-        Variables.Indexer.exitSensorToggle = true;
-      }
+      indexer.setIndexSolenoid(false);
     }
     else{
       Variables.Indexer.finalBallLoaded = false;
-      Variables.Indexer.exitSensorToggle = false;
     }
   }
 

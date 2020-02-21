@@ -15,7 +15,5 @@ public class Variables {
     public static class Indexer {
         public static int ballsLoaded = 0;
         public static boolean finalBallLoaded = false;
-        public static boolean enterSensorToggle = false;
-        public static boolean exitSensorToggle = false;
     }
 }
