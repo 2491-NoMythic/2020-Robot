@@ -18,8 +18,6 @@ public class DefaultIntakeRoutine extends CommandBase {
   private Indexer indexer;
   private Intake intake;
 
-  boolean firstSensorTrigger = false;
-
   /**
    * Creates a new IntakeRoutine.
    */
@@ -40,7 +38,7 @@ public class DefaultIntakeRoutine extends CommandBase {
   @Override
   public void execute() {
 
-    if(indexer.getSensorBallEnter() & !Variables.Indexer.finalBallLoaded){
+    if(indexer.getSensorBallEnter() & !indexer.getFinalBallLoaded()){
       indexer.runIndexMotor(Constants.Indexer.indexIntakeSpeed);
       indexer.setIndexSolenoid(false);
     }
@@ -48,21 +46,12 @@ public class DefaultIntakeRoutine extends CommandBase {
       indexer.setIndexSolenoid(true);
     }
 
-    if(indexer.getSensorPositionOne() & !firstSensorTrigger){
+    if(indexer.getSensorPositionOne()){
       indexer.runIndexMotor(0);
-      firstSensorTrigger = true;
-      Variables.Indexer.ballsLoaded ++;
-    }
-    else{
-      firstSensorTrigger = false;
     }
 
-    if(indexer.getSensorBallLeave() || Variables.Indexer.ballsLoaded <= 4){
-      Variables.Indexer.finalBallLoaded = true;
+    if(indexer.getSensorBallLeave() || indexer.getBallsLoaded() <= 4){
       indexer.setIndexSolenoid(false);
-    }
-    else{
-      Variables.Indexer.finalBallLoaded = false;
     }
   }
 

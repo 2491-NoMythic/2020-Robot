@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import frc.robot.Settings.Constants;
+import frc.robot.Settings.Variables;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,6 +21,11 @@ public class Indexer extends SubsystemBase {
   TalonSRX indexerBelt, shooterFeeder, funnel1, funnel2;
   Solenoid indexSolenoid;
   DigitalInput sensorBallEnter, sensorBallLeave, sensorPositionOne, sensorPositionTwo, sensorPositionThree, sensorPositionFour, sensorPositionFive, sensorPositionSix;
+  
+  boolean firstSensorTrigger = false;
+  boolean lastSensorTrigger = false;
+  boolean finalBallLoaded = false;
+  int ballsLoaded = 0;
 
   /**
    * Creates a new Indexer.
@@ -115,8 +121,43 @@ public class Indexer extends SubsystemBase {
   public boolean getSensorPositionSix(){
     return sensorPositionSix.get();
   }
+
+  public int getBallsLoaded() {
+    return ballsLoaded;
+  }
+
+  public boolean getFinalBallLoaded() {
+    return finalBallLoaded;
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    if(getSensorPositionOne()){
+      if(!firstSensorTrigger){
+        firstSensorTrigger = true;
+        ballsLoaded ++;
+      }
+    }
+    else{
+      firstSensorTrigger = false;
+    }
+
+    if(!getSensorBallLeave()){
+      if(!lastSensorTrigger){
+        lastSensorTrigger = true;
+        ballsLoaded--;
+      }
+    }
+    else{
+      lastSensorTrigger = false;
+    }
+
+    if(getSensorBallLeave() || ballsLoaded <= 4){
+      finalBallLoaded = true;
+    }
+    else{
+      finalBallLoaded = false;
+    }
   }
 }

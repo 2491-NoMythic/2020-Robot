@@ -32,16 +32,18 @@ public class FeedShooter extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(shooter.getEncoderRate() >= Constants.Shooter.shootSpeedRps & Variables.Indexer.ballsLoaded >= 1){
+
+    if(!indexer.getSensorBallLeave()){
+      indexer.runIndexMotor(Constants.Indexer.indexIntakeSpeed);
+    }
+
+    if(shooter.getEncoderRate() >= Constants.Shooter.shootSpeedRps & indexer.getBallsLoaded() >= 1){
       indexer.runShooterFeederMotor(Constants.Indexer.shooterFeederSpeed);
-      
-      Variables.Indexer.ballsLoaded --;
     }
   }
 
