@@ -40,6 +40,13 @@ public final class Constants {
         public final static double driveEncoderVelocityToRPS = 1.0 / driveEncoderTicks * 10;
         public final static double driveMaxSpeedRPS = 8.0;
 
+        //Distance
+        public final class DistanceDrive {
+            public final static double kP = 0;
+            public final static double kI = 0;
+            public final static double kD = 0;
+        }
+
 
         public final class RotationCommand {
             public final static double kP = 0;
