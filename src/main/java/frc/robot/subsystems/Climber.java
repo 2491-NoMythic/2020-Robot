@@ -10,12 +10,15 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Settings.Constants;
 
 public class Climber extends SubsystemBase {
   TalonSRX lift;
+  DoubleSolenoid shifter;
+
 
   /**
    * Creates a new Climber.
@@ -25,6 +28,10 @@ public class Climber extends SubsystemBase {
     lift.configFactoryDefault();
 
     lift.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+
+    shifter = new DoubleSolenoid(Constants.Climber.shifterForwardChannel, Constants.Climber.shifterReverseChannel);
+    shifter.set(Value.kOff);
+
   }
 
   public void runLift(double speed) {
@@ -34,6 +41,19 @@ public class Climber extends SubsystemBase {
   public void stop() {
     lift.set(ControlMode.PercentOutput, 0);
   }
+
+  public void setShifterOn(){
+    shifter.set(Value.kForward);
+  }
+
+  public void setShifterOff(){
+    shifter.set(Value.kOff);
+  }
+
+  public boolean shifterCheck(){
+    return shifter.get() == Value.kForward;
+  }
+  
 
   @Override
   public void periodic() {

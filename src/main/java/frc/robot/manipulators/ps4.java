@@ -7,48 +7,50 @@
 
 package frc.robot.manipulators;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Controllers.IOperatorController;
+import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Settings.Constants;
 
 /**
  * Add your docs here.
  */
-public class ButtonBoard implements IOperatorController {
+public class ps4 implements IOperatorController {
 
-    private Joystick m_Joystick;
-    private static ButtonBoard m_Instance = null;
+    private Joystick m_joystick;
+    private static ps4 m_Instance = null;
     private JoystickButton intakeButton, climbInitializeButton;
     private JoystickButton raiseClimbExtensionButton;
     private JoystickButton lowerClimbExtensionButton;
 
-    public static ButtonBoard getInstance(){
+    public static ps4 getInstance(){
         if (m_Instance == null){
-            m_Instance = new ButtonBoard();
+            m_Instance = new ps4();
         }
         return m_Instance;
     }
 
-    private ButtonBoard(){
-        m_Joystick = new Joystick(Constants.Controller.opertatorControllerID);
-        intakeButton = new JoystickButton(m_Joystick, Constants.Controller.ButtonBoard.intakeButtonID);
-    }
+    private ps4(){
+
+    m_joystick = new Joystick(Constants.Controller.opertatorControllerID);
+    intakeButton = new JoystickButton(m_joystick, Constants.Controller.ButtonBoard.intakeButtonID);
+}
 
     @Override
     public JoystickButton returnIntakeButton() {
-        return intakeButton;
+        return returnIntakeButton();
     }
 
     @Override
     public JoystickButton returnRaiseClimbExtensionButton() {
-        return raiseClimbExtensionButton;
+        return returnRaiseClimbExtensionButton();
     }
 
     @Override
     public JoystickButton returnLowerClimbExtensionButton() {
-        return lowerClimbExtensionButton;
+        return returnLowerClimbExtensionButton();
     }
+
 
     @Override
     public double getRightClimbAxis() {
@@ -57,6 +59,6 @@ public class ButtonBoard implements IOperatorController {
 
     @Override
     public double getLeftClimbAxis() {
-       return getLeftClimbAxis();
+            return getLeftClimbAxis();
     }
 }

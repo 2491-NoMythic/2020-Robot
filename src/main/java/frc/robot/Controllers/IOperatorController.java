@@ -18,7 +18,8 @@ public interface IOperatorController {
      public JoystickButton returnRaiseClimbExtensionButton();
      public JoystickButton returnLowerClimbExtensionButton();
 
-     public JoystickButton returnClimbInitializeButton();
+     public double getRightClimbAxis();
+     public double getLeftClimbAxis();
 
      
 

@@ -49,7 +49,12 @@ public final class Constants {
             public static final int intakeButtonID = 0; //TODO change to actual value
             public static final int raiseClimbExtensionButtonID = 0; //TODO Change to actual value
             public static final int lowerClimbExtensionButtonID = 0; //TODO Change to actual value
-            public static final int climbInitializeButtonID = 0; //TODO change to actual value
+        }
+
+        public final class ps4{
+            public static final int intakeButtonID = 0; //TODO change to actual value
+            public static final int raiseClimbExtensionButtonID = 0; //TODO Change to actual value
+            public static final int lowerClimbExtensionButtonID = 0; //TODO Change to actual value
         }
     }
 
@@ -111,9 +116,13 @@ public final class Constants {
     public final class Climber {
         //Motor IDs
         public static final int liftMotorID = 10;
-        //Movement Values Values
+        // Solenoid channels
+        public static final int shifterForwardChannel = 0;
+        public static final int shifterReverseChannel = 0;
+        //Movement Values 
         public static final double manualLiftExtensionSpeed = 0;
         public static final int climberUpSpeed = 0;
+
     
     }
 }

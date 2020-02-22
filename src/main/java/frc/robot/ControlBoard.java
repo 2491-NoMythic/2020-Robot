@@ -59,7 +59,12 @@ public class ControlBoard implements IControlBoard {
     }
 
     @Override
-    public JoystickButton returnClimbInitializeButton() {
-        return mOperatorController.returnClimbInitializeButton();
+    public double getRightClimbAxis() {
+        return mOperatorController.getRightClimbAxis();
+    }
+
+    @Override
+    public double getLeftClimbAxis() {
+        return mOperatorController.getLeftClimbAxis();
     }
 }
