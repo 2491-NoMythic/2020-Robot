@@ -38,27 +38,27 @@ public class ps4 implements IOperatorController {
 
     @Override
     public JoystickButton returnIntakeButton() {
-        return returnIntakeButton();
+        return intakeButton;
     }
 
     @Override
     public JoystickButton returnRaiseClimbExtensionButton() {
-        return returnRaiseClimbExtensionButton();
+        return raiseClimbExtensionButton;
     }
 
     @Override
     public JoystickButton returnLowerClimbExtensionButton() {
-        return returnLowerClimbExtensionButton();
+        return lowerClimbExtensionButton;
     }
 
 
     @Override
     public double getRightClimbAxis() {
-        return getRightClimbAxis();
+        return m_joystick.getZ();
     }
 
     @Override
     public double getLeftClimbAxis() {
-            return getLeftClimbAxis();
+            return m_joystick.getY();
     }
 }

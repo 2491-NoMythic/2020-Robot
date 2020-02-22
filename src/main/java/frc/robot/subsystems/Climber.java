@@ -30,7 +30,7 @@ public class Climber extends SubsystemBase {
     lift.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
     shifter = new DoubleSolenoid(Constants.Climber.shifterForwardChannel, Constants.Climber.shifterReverseChannel);
-    shifter.set(Value.kOff);
+    shifter.set(Value.kForward);
 
   }
 
@@ -43,15 +43,15 @@ public class Climber extends SubsystemBase {
   }
 
   public void setShifterOn(){
-    shifter.set(Value.kForward);
+    shifter.set(Value.kReverse);
   }
 
   public void setShifterOff(){
-    shifter.set(Value.kOff);
+    shifter.set(Value.kForward);
   }
 
   public boolean shifterCheck(){
-    return shifter.get() == Value.kForward;
+    return shifter.get() == Value.kReverse;
   }
   
 

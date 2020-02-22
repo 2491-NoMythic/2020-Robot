@@ -55,6 +55,8 @@ public final class Constants {
             public static final int intakeButtonID = 0; //TODO change to actual value
             public static final int raiseClimbExtensionButtonID = 0; //TODO Change to actual value
             public static final int lowerClimbExtensionButtonID = 0; //TODO Change to actual value
+            public static final int rightClimbAxis = 5;
+            public static final int leftClimbAxis = 1;
         }
     }
 

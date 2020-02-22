@@ -31,7 +31,7 @@ public class RobotUp extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (climber.shifterCheck() == false) {
+    if (!climber.shifterCheck()) {
       climber.setShifterOn();
     }
   }

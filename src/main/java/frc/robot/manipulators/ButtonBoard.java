@@ -19,7 +19,7 @@ public class ButtonBoard implements IOperatorController {
 
     private Joystick m_Joystick;
     private static ButtonBoard m_Instance = null;
-    private JoystickButton intakeButton, climbInitializeButton;
+    private JoystickButton intakeButton;
     private JoystickButton raiseClimbExtensionButton;
     private JoystickButton lowerClimbExtensionButton;
 
