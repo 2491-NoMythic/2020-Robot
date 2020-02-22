@@ -7,61 +7,46 @@
 
 package frc.robot.commands.drivetrain;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.ControlBoard;
 import frc.robot.Settings.Constants;
 import frc.robot.subsystems.Drivetrain;
 
-public class Drive extends CommandBase {
-
-  private Drivetrain drivetrain;
-  private ControlBoard m_ControlBoard;
-  double turnSpeed, lastLeftSpeed, lastRightSpeed;
-  double currentLeftSpeed = 0;
-  double currentRightSpeed = 0;
-  String recording;
-  Boolean wasRecording;
-
+public class DriveReplay extends CommandBase {
   /**
-   * Creates a new Drive.
+   * Creates a new DriveReplay.
    */
-  public Drive(ControlBoard controlBoard, Drivetrain drivetrain) {
+  Drivetrain m_drivetrain;
+  int count;
+  double currentLeftSpeed, currentRightSpeed;
+  double lastLeftSpeed, lastRightSpeed;
+  double[][] m_recording;
+
+  public DriveReplay(Drivetrain drivetrain, double[][] recording) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.drivetrain = drivetrain;
-    m_ControlBoard = controlBoard;
+    m_drivetrain = drivetrain;
     addRequirements(drivetrain);
+    m_recording = recording;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    SmartDashboard.putBoolean("Record?", false);
-    recording = "{ ";
-    wasRecording = false;
+    count = 0;
+    currentRightSpeed = 0;
+    currentLeftSpeed = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    
+    lastLeftSpeed = currentLeftSpeed;
+    lastRightSpeed = currentRightSpeed;
 
-    turnSpeed = 0.5 * m_ControlBoard.getRawTurnAxis();
-		
-		lastLeftSpeed = currentLeftSpeed;
-		lastRightSpeed = currentRightSpeed;
-		
-		currentLeftSpeed = m_ControlBoard.getDriveAxisDeadzone() - turnSpeed;
-    currentRightSpeed = m_ControlBoard.getDriveAxisDeadzone() + turnSpeed;
-    if(SmartDashboard.getBoolean("Record?", false)){
-      recording = recording + "{ " + currentLeftSpeed + ", " + currentRightSpeed + " },";
-    }
-    else if (wasRecording){
-      recording = recording + "}";
-      System.out.print(recording);
-    }
-    wasRecording = SmartDashboard.getBoolean("Record?", false);
-		
-		if (Constants.Drivetrain.useLinerAcceleration) {
+    currentLeftSpeed = m_recording[count][0];
+    currentRightSpeed = m_recording[count][1];
+
+    if (Constants.Drivetrain.useLinerAcceleration) {
 			double leftAcceleration = (currentLeftSpeed - lastLeftSpeed);
 			double signOfLeftAcceleration = leftAcceleration / Math.abs(leftAcceleration);
 			if (Math.abs(leftAcceleration) > Constants.Drivetrain.accelerationSpeed) { // otherwise the power is below accel and is fine
@@ -82,20 +67,19 @@ public class Drive extends CommandBase {
 				// if the difference between the numbers is positive it is going up
 			}
 		}
-		
-		
-		drivetrain.drivePercentOutput(currentLeftSpeed, currentRightSpeed);
+    m_drivetrain.drivePercentOutput(currentLeftSpeed, currentRightSpeed);
+    count++;
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drivetrain.stop();
+    m_drivetrain.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return count>=(m_recording.length-1);
   }
 }
