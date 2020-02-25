@@ -20,8 +20,6 @@ public class Drive extends CommandBase {
   double turnSpeed, lastLeftSpeed, lastRightSpeed;
   double currentLeftSpeed = 0;
   double currentRightSpeed = 0;
-  String recording;
-  Boolean wasRecording;
 
   /**
    * Creates a new Drive.
@@ -36,9 +34,6 @@ public class Drive extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    SmartDashboard.putBoolean("Record?", false);
-    recording = "{ ";
-    wasRecording = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -53,13 +48,8 @@ public class Drive extends CommandBase {
 		currentLeftSpeed = m_ControlBoard.getDriveAxisDeadzone() - turnSpeed;
     currentRightSpeed = m_ControlBoard.getDriveAxisDeadzone() + turnSpeed;
     if(SmartDashboard.getBoolean("Record?", false)){
-      recording = recording + "{ " + currentLeftSpeed + ", " + currentRightSpeed + " },";
+      System.out.print("{ " + currentLeftSpeed + ", " + currentRightSpeed + " },");
     }
-    else if (wasRecording){
-      recording = recording + "}";
-      System.out.print(recording);
-    }
-    wasRecording = SmartDashboard.getBoolean("Record?", false);
 		
 		if (Constants.Drivetrain.useLinerAcceleration) {
 			double leftAcceleration = (currentLeftSpeed - lastLeftSpeed);

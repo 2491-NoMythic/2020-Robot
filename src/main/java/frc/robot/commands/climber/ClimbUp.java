@@ -5,42 +5,39 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.intake;
+package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Intake;
+import frc.robot.ControlBoard;
+import frc.robot.subsystems.Climber;
 
-public class ManualIntake extends CommandBase {
+public class ClimbUp extends CommandBase {
   /**
-   * Creates a new IntakeCommand.
+   * Creates a new ClimbUp.
    */
-  Intake intakeInstance;
-  double intakeInitSpeed;
-  public ManualIntake(Intake intakeTransfer, double intakeSpeed) {
-    intakeInstance = intakeTransfer;
-    addRequirements(intakeInstance);
-    intakeInitSpeed = intakeSpeed;
+  Climber m_Climber;
+  ControlBoard m_ControlBoard;
 
-
+  public ClimbUp(Climber climber, ControlBoard controlBoard) {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_Climber = climber;
+    m_ControlBoard = controlBoard;
+    addRequirements(m_Climber);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intakeInstance.StartIntakeMotor(intakeInitSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(final boolean interrupted) {
-    intakeInstance.StopIntakeMotor();
+  public void end(boolean interrupted) {
   }
 
   // Returns true when the command should end.

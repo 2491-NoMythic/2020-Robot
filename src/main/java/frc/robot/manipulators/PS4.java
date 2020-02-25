@@ -7,8 +7,29 @@
 
 package frc.robot.manipulators;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Controllers.IOperatorController;
+
 /**
  * Add your docs here.
  */
-public class PS4 {
+public class PS4 implements IOperatorController {
+
+    private Joystick m_Joystick;
+    private static PS4 m_Instance = null;
+    private JoystickButton intakeButton;
+
+    public static PS4 getInstance(){
+        if (m_Instance == null){
+            m_Instance = new PS4();
+        }
+        return m_Instance;
+    }
+
+    @Override
+    public JoystickButton returnIntakeButton() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

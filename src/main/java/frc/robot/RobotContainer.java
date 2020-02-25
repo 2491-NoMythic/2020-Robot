@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.intake.AutoIntake;
 import frc.robot.commands.DefaultIntakeRoutine;
 import frc.robot.commands.shooter.RunConnector;
 import frc.robot.commands.shooter.RunFullSpeed;
@@ -39,6 +40,7 @@ public class RobotContainer {
   private final RunShooterAtSpeedPID shooterAtSpeedPID = new RunShooterAtSpeedPID(m_Shooter);
   private final RunConnector runConnector = new RunConnector(m_Indexer);
   private final RunFullSpeed runFullSpeed = new RunFullSpeed(m_Shooter);
+  private final AutoIntake rAutoIntake = new AutoIntake(m_Intake);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -70,6 +72,8 @@ public class RobotContainer {
     SmartDashboard.putData(shooterAtSpeedPID);
     SmartDashboard.putData(runConnector);
     SmartDashboard.putData(runFullSpeed);
+
+    m_ControlBoard.returnIntakeButton().whileHeld(rAutoIntake);
   }
 
 
