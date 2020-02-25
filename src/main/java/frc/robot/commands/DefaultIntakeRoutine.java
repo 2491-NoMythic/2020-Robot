@@ -46,7 +46,7 @@ public class DefaultIntakeRoutine extends CommandBase {
       indexer.setIndexSolenoid(true);
     }
 
-    if(indexer.getSensorPositionOne()){
+    if(indexer.getSensorPositionOne() & !indexer.getSensorBallEnter()){
       indexer.runIndexMotor(0);
     }
 
