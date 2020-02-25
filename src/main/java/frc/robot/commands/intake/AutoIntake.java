@@ -7,7 +7,6 @@
 
 package frc.robot.commands.intake;
 
-import frc.robot.commands.intake.ManualIntake;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Settings.Constants;
@@ -27,7 +26,7 @@ public class AutoIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (m_Intake.checkIntakeSolenoid() == false) {
+    if (!m_Intake.checkIntakeSolenoid()) {
       m_Intake.toggleIntakeSolenoid();
     }
   }

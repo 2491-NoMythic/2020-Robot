@@ -120,6 +120,9 @@ public final class Constants {
 
     public final class Climber {
         public static final int liftMotorID = 10;
+        public static final int shifterSolenoidForwardID = 0; //TODO real value
+        public static final int shifterSolenoidBackID = 0; //TODO real value
+        public static final int breakSolenoidID = 0; 
     }
 }
 
