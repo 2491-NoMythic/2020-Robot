@@ -10,8 +10,6 @@ package frc.robot.commands.shooter;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.ShooterRoutine;
 
-import frc.robot.Settings.Constants;
-import frc.robot.Settings.Variables;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Shooter;
@@ -21,18 +19,10 @@ import frc.robot.commands.drivetrain.timeDrive;
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class ShootThreeBalls extends SequentialCommandGroup {
-  private Shooter shooter;
-  private Indexer indexer;
-  private Drivetrain drivetrain;
-  private ShooterRoutine shooterRoutine;
-  private timeDrive timeDrive;
   /**
    * Shoots three balls as an auto 
    */
   public ShootThreeBalls(Drivetrain drivetrain, Shooter shooter, Indexer indexer, Drivetrain driveTransfer, double speedDriveTransfer, double timeTransfer) {
-    this.drivetrain = drivetrain;
-    this.indexer = indexer;
-    this.shooter = shooter;
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     addCommands(
