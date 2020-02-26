@@ -34,8 +34,38 @@ public class ButtonBoard implements IOperatorController {
     }
 
     @Override
-    public JoystickButton returnIntakeButton() {
+    public double getRightClimbAxis() {
         // TODO Auto-generated method stub
-        return intakeButton;
+        return 0;
+    }
+
+    @Override
+    public double getLeftClimbAxis() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public JoystickButton getRaiseClimbExtensionButton() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public JoystickButton getLowerClimbExtensionButton() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public JoystickButton getActivateIntakeButton() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public double getIntakeAxis() {
+        // TODO Auto-generated method stub
+        return 0;
     }
 }

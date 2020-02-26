@@ -62,6 +62,10 @@ public final class Constants {
         public final class ButtonBoard{
             public static final int intakeButtonID = 0; //TODO change to actual value
         }
+
+		public final class PS4{
+            public static final int activateIntakeButtonID = 5; //TODO change to value
+        }
     }
 
     public final class Intake {
@@ -120,6 +124,10 @@ public final class Constants {
 
     public final class Climber {
         public static final int liftMotorID = 10;
+		public static final int shifterForwardChannel = 0;
+		public static final int shifterReverseChannel = 0;
+		public static final double manualLiftExtensionSpeed = 0;
+		public static final int brakeChannel = 0;
     }
 }
 

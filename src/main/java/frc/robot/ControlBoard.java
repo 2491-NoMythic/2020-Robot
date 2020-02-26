@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Controllers.IDriveController;
 import frc.robot.Controllers.IOperatorController;
 import frc.robot.manipulators.ButtonBoard;
+import frc.robot.manipulators.PS4;
 import frc.robot.manipulators.TM;
 
 public class ControlBoard implements IControlBoard {
@@ -26,29 +27,56 @@ public class ControlBoard implements IControlBoard {
         mDriveController = TM.getInstance();
 
         mOperatorController = ButtonBoard.getInstance();
+
+        mOperatorController = PS4.getInstance();
     }
 
     @Override
     public double getRawDriveAxis() {
-        // TODO Auto-generated method stub
         return mDriveController.getRawDriveAxis();
     }
 
     @Override
     public double getDriveAxisDeadzone() {
-        // TODO Auto-generated method stub
+
         return mDriveController.getDriveAxisDeadzone();
     }
 
     @Override
     public double getRawTurnAxis() {
-        // TODO Auto-generated method stub
         return mDriveController.getRawTurnAxis();
     }
 
     @Override
-    public JoystickButton returnIntakeButton() {
-        // TODO Auto-generated method stub
-        return mOperatorController.returnIntakeButton();
+    public JoystickButton getActivateIntakeButton() {
+        return mOperatorController.getActivateIntakeButton();
     }
+
+    @Override
+    public double getRightClimbAxis() {
+        return mOperatorController.getRightClimbAxis();
+    }
+
+    @Override
+    public double getLeftClimbAxis() {
+        return mOperatorController.getLeftClimbAxis();
+    }
+
+    @Override
+    public JoystickButton getRaiseClimbExtensionButton() {
+        return mOperatorController.getRaiseClimbExtensionButton();
+    }
+
+    @Override
+    public JoystickButton getLowerClimbExtensionButton() {
+        return mOperatorController.getLowerClimbExtensionButton();
+    }
+
+	public double getIntakeAxis() {
+		return mOperatorController.getIntakeAxis();
+	}
+
+	public double getIntakeaxis() {
+		return 0;
+	}
 }

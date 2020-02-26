@@ -5,52 +5,51 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.intake;
-
-import frc.robot.commands.intake.ManualIntake;
-import frc.robot.subsystems.Intake;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+package frc.robot.commands.climber;
 import frc.robot.ControlBoard;
-import frc.robot.Settings.Constants;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Climber;
 
-public class AutoIntake extends CommandBase {
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
+public class RobotUp extends CommandBase {
+
+  private Drivetrain m_Drivetrain;
+  private Climber m_Climber;
+  private ControlBoard m_ControlBoard;
   /**
-   * Creates a new AutoIntake.
+   * Creates a new RobotUp.
    */
-  Intake m_Intake;
-  ControlBoard m_ControlBoard;
-
-  public AutoIntake(Intake intake) {
+  public RobotUp(Drivetrain drivetrain, Climber climber) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_Intake = intake;
-    addRequirements(intake);
+    addRequirements(drivetrain);
+    addRequirements(climber);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (m_Intake.checkIntakeSolenoid() == false) {
-      m_Intake.toggleIntakeSolenoid();
+    if (!m_Climber.shifterCheck()) {
+      m_Climber.setShifterOn();
     }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double intakeSpeed;
+      double climbLeftSpeed, climbRightSpeed;
 
-    intakeSpeed = m_ControlBoard.getIntakeaxis();
+     climbLeftSpeed = m_ControlBoard.getLeftClimbAxis();
+     climbRightSpeed = m_ControlBoard.getRightClimbAxis();
 
-    m_Intake.StartIntakeMotor(intakeSpeed);
-
+    m_Drivetrain.driveLeftPercentOutput(climbLeftSpeed); 
+    m_Drivetrain.driveRightPercentOutput(climbRightSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_Intake.toggleIntakeSolenoid();
-    m_Intake.StopIntakeMotor();
-
+    m_Drivetrain.stop();
   }
 
   // Returns true when the command should end.

@@ -5,52 +5,41 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.intake;
+package frc.robot.commands.climber;
 
-import frc.robot.commands.intake.ManualIntake;
-import frc.robot.subsystems.Intake;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.ControlBoard;
 import frc.robot.Settings.Constants;
+import frc.robot.subsystems.Climber;
 
-public class AutoIntake extends CommandBase {
+public class RaiseClimbExtension extends CommandBase {
+
+  private Climber climber;
+
   /**
-   * Creates a new AutoIntake.
+   * Creates a new Climb.
    */
-  Intake m_Intake;
-  ControlBoard m_ControlBoard;
-
-  public AutoIntake(Intake intake) {
+  public RaiseClimbExtension(Climber climber) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_Intake = intake;
-    addRequirements(intake);
+    this.climber = climber;
+    addRequirements(climber);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (m_Intake.checkIntakeSolenoid() == false) {
-      m_Intake.toggleIntakeSolenoid();
-    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double intakeSpeed;
-
-    intakeSpeed = m_ControlBoard.getIntakeaxis();
-
-    m_Intake.StartIntakeMotor(intakeSpeed);
-
+    climber.runLift(Constants.Climber.manualLiftExtensionSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_Intake.toggleIntakeSolenoid();
-    m_Intake.StopIntakeMotor();
-
+    climber.stop();
   }
 
   // Returns true when the command should end.
