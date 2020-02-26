@@ -43,14 +43,19 @@ public class PS4 implements IOperatorController {
         return activateIntakeButton;
     }
 
-    @Override
-    public double getClimbAxis() {
-        return m_joystick.getRawAxis(Constants.Controller.PS4.rightClimbAxisID);
-    }
-
 
 	@Override
 	public double getIntakeAxis() {
 		return m_joystick.getRawAxis(Constants.Intake.intakeAxisID);
+    }
+
+    @Override
+    public double getRightClimbAxis() {
+        return m_joystick.getRawAxis(Constants.Climber.leftAxisID);
+    }
+
+    @Override
+    public double getLeftClimbAxis() {
+        return m_joystick.getRawAxis(Constants.Climber.rightAxisID);
     }
 }

@@ -38,14 +38,16 @@ public class RobotUp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      double climbSpeed;
+      double rightClimbSpeed, leftClimbSpeed;
       
-      climbSpeed = m_ControlBoard.getClimbAxis();
+      rightClimbSpeed = m_ControlBoard.getRightClimbAxis();
+      leftClimbSpeed = m_ControlBoard.getLeftClimbAxis();
 
-      m_Drivetrain.drivePercentOutput(climbSpeed, climbSpeed);
+
+      m_Drivetrain.drivePercentOutput(leftClimbSpeed, rightClimbSpeed);
 
 
-    if (m_Drivetrain.getRightDriveSpeed() == 0){
+    if (m_Drivetrain.getRightDriveSpeed() == 0) && m_Drivetrain.getLeftDriveSpeed() == 0){
       m_Climber.setBrakeOn();
     }
     

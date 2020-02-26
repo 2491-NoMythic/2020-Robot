@@ -51,14 +51,16 @@ public class ControlBoard implements IControlBoard {
         return mOperatorController.getActivateIntakeButton();
     }
 
-    @Override
-    public double getClimbAxis() {
-        return mOperatorController.getClimbAxis();
-    }
-
-
 	public double getIntakeAxis() {
 		return mOperatorController.getIntakeAxis();
+	}
+
+	public double getRightClimbAxis() {
+		return mOperatorController.getRightClimbAxis();
+	}
+
+	public double getLeftClimbAxis() {
+		return mOperatorController.getLeftClimbAxis();
 	}
 
 }

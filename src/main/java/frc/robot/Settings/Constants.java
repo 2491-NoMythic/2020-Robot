@@ -131,6 +131,8 @@ public final class Constants {
 		public static final int shifterReverseChannel = 0;
 		public static final double manualLiftExtensionSpeed = 0;
 		public static final int brakeChannel = 0;
+		public static final int rightAxisID = 0;
+		public static final int leftAxisID = 0;
     }
 }
 

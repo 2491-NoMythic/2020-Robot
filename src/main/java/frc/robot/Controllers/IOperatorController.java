@@ -17,8 +17,11 @@ public interface IOperatorController {
 
      public JoystickButton getActivateIntakeButton();
 
-     public double getClimbAxis();
 
 	public double getIntakeAxis();
+
+	public double getRightClimbAxis();
+
+	public double getLeftClimbAxis();
 
 }
