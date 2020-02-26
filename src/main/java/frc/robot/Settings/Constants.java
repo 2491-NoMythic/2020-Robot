@@ -65,6 +65,8 @@ public final class Constants {
 
 		public final class PS4{
             public static final int activateIntakeButtonID = 5; //TODO change to value
+            public static final int rightClimbAxisID = 5;
+            public static final int leftClimbAxisID = 1;
         }
     }
 

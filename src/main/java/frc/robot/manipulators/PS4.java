@@ -9,6 +9,9 @@ package frc.robot.manipulators;
 
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Controllers.IOperatorController;
+
+import javax.print.attribute.standard.JobPrioritySupported;
+
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Settings.Constants;
 
@@ -34,6 +37,9 @@ public class PS4 implements IOperatorController {
 
     m_joystick = new Joystick(Constants.Controller.opertatorControllerID);
     activateIntakeButton = new JoystickButton(m_joystick, Constants.Controller.PS4.activateIntakeButtonID);
+    rightClimbAxis = new JoystickButton(m_joystick, Constants.Controller.PS4.rightClimbAxisID);
+    leftClimbAxis = new JoystickButton(m_joystick, Constants.Controller.PS4.leftClimbAxisID);
+    intakeAxis = new JoystickButton(m_joystick, Constants.Controller.PS4.
 }
 
     @Override
@@ -43,17 +49,17 @@ public class PS4 implements IOperatorController {
 
     @Override
     public double getRightClimbAxis() {
-        return m_joystick.getZ();
+        return m_joystick.getRawAxis(Constants.Controller.PS4.rightClimbAxisID);
     }
 
     @Override
     public double getLeftClimbAxis() {
-            return m_joystick.getY();
+        return m_joystick.getRawAxis(Constants.Controller.PS4.leftClimbAxisID);
     }
 
 	@Override
 	public JoystickButton getLowerClimbExtensionButton() {
-	return lowerClimbExtensionButton;
+	    return lowerClimbExtensionButton;
 	}
 
 	@Override
@@ -64,5 +70,5 @@ public class PS4 implements IOperatorController {
 	@Override
 	public double getIntakeAxis() {
 		return intakeAxis;
-	}
+    }
 }
