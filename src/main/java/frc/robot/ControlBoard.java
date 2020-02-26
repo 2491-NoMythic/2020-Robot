@@ -38,7 +38,6 @@ public class ControlBoard implements IControlBoard {
 
     @Override
     public double getDriveAxisDeadzone() {
-
         return mDriveController.getDriveAxisDeadzone();
     }
 
@@ -53,30 +52,13 @@ public class ControlBoard implements IControlBoard {
     }
 
     @Override
-    public double getRightClimbAxis() {
-        return mOperatorController.getRightClimbAxis();
+    public double getClimbAxis() {
+        return mOperatorController.getClimbAxis();
     }
 
-    @Override
-    public double getLeftClimbAxis() {
-        return mOperatorController.getLeftClimbAxis();
-    }
-
-    @Override
-    public JoystickButton getRaiseClimbExtensionButton() {
-        return mOperatorController.getRaiseClimbExtensionButton();
-    }
-
-    @Override
-    public JoystickButton getLowerClimbExtensionButton() {
-        return mOperatorController.getLowerClimbExtensionButton();
-    }
 
 	public double getIntakeAxis() {
 		return mOperatorController.getIntakeAxis();
 	}
 
-	public double getIntakeaxis() {
-		return 0;
-	}
 }

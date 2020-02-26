@@ -75,6 +75,7 @@ public final class Constants {
         public static final int intakeSolenoidPort = 1;
         //Speed
         public static final int autoIntakeSpeed = 0;
+		public static final int intakeAxisID = 5;
     }
     public final class Indexer {
         //Motors

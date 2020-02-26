@@ -22,8 +22,7 @@ public class PS4 implements IOperatorController {
 
     private Joystick m_joystick;
     private static PS4 m_Instance = null;
-    private JoystickButton activateIntakeButton, raiseClimbExtensionButton, lowerClimbExtensionButton;
-    private double intakeAxis;
+    private JoystickButton activateIntakeButton;
 
 
     public static PS4 getInstance(){
@@ -37,10 +36,7 @@ public class PS4 implements IOperatorController {
 
     m_joystick = new Joystick(Constants.Controller.opertatorControllerID);
     activateIntakeButton = new JoystickButton(m_joystick, Constants.Controller.PS4.activateIntakeButtonID);
-    rightClimbAxis = new JoystickButton(m_joystick, Constants.Controller.PS4.rightClimbAxisID);
-    leftClimbAxis = new JoystickButton(m_joystick, Constants.Controller.PS4.leftClimbAxisID);
-    intakeAxis = new JoystickButton(m_joystick, Constants.Controller.PS4.
-}
+    }
 
     @Override
     public JoystickButton getActivateIntakeButton() {
@@ -48,27 +44,13 @@ public class PS4 implements IOperatorController {
     }
 
     @Override
-    public double getRightClimbAxis() {
+    public double getClimbAxis() {
         return m_joystick.getRawAxis(Constants.Controller.PS4.rightClimbAxisID);
     }
 
-    @Override
-    public double getLeftClimbAxis() {
-        return m_joystick.getRawAxis(Constants.Controller.PS4.leftClimbAxisID);
-    }
-
-	@Override
-	public JoystickButton getLowerClimbExtensionButton() {
-	    return lowerClimbExtensionButton;
-	}
-
-	@Override
-	public JoystickButton getRaiseClimbExtensionButton() {
-		return raiseClimbExtensionButton;
-	}
 
 	@Override
 	public double getIntakeAxis() {
-		return intakeAxis;
+		return m_joystick.getRawAxis(Constants.Intake.intakeAxisID);
     }
 }

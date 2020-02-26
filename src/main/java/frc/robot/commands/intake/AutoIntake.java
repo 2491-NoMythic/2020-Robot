@@ -39,7 +39,7 @@ public class AutoIntake extends CommandBase {
   public void execute() {
     double intakeSpeed;
 
-    intakeSpeed = m_ControlBoard.getIntakeaxis();
+    intakeSpeed = m_ControlBoard.getIntakeAxis();
 
     m_Intake.StartIntakeMotor(intakeSpeed);
 

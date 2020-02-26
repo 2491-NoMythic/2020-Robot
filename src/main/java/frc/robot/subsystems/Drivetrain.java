@@ -108,6 +108,14 @@ public class Drivetrain extends SubsystemBase {
     driveRightMotor1.set(ControlMode.Velocity, speed);
   }
 
+  public double getRightDriveSpeed() {
+    return driveRightMotor1.get();
+  }
+
+  public double getLeftDriveSpeed(){
+    return driveLeftMotor1.get();
+  }
+
   //robot can stop
   public void stop(){
     drivePercentOutput(0, 0);
