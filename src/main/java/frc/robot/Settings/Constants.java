@@ -57,10 +57,10 @@ public final class Constants {
 
     public final class Controller{
         public static final int driveControllerID = 0; //TODO change to actual value (If its not zero I will literally die)
-        public static final int opertatorControllerID = 0; //TODO change to actual value
+        public static final int opertatorControllerID = 1; //TODO change to actual value
 
         public final class ButtonBoard{
-            public static final int intakeButtonID = 0; //TODO change to actual value
+            public static final int intakeButtonID = 1; //TODO change to actual value
         }
     }
 
@@ -80,6 +80,8 @@ public final class Constants {
         //Motor Speeds
         public static final double indexIntakeSpeed = 0;
         public static final double connectorTalonSpeed = 1;
+        public static final double rightFunnelSpeed = 0;
+        public static final double leftFunnelSpeed = 0;
         //Sensors
         public static final int sensorOnePin = 1;
         public static final int sensorTwoPin = 2;

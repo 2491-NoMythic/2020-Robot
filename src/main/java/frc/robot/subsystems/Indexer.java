@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import frc.robot.Settings.Constants;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -31,7 +32,10 @@ public class Indexer extends SubsystemBase {
     funnel2 = new TalonSRX(Constants.Indexer.funnelRightTalonID);
     indexSolenoid = new Solenoid(Constants.Indexer.indexSolenoidID);
 
-    sensors();
+    SmartDashboard.putNumber("RightFunnlerSpeed", 0);
+    SmartDashboard.putNumber("LeftFunnlerSpeed", 0);
+
+    configSensors();
 
     indexSolenoid.set(true);
   }
@@ -74,7 +78,7 @@ public class Indexer extends SubsystemBase {
     runFunnelMotor2(0);
   }
 
-  public void sensors(){
+  public void configSensors(){
     sensorBallEnter = new DigitalInput(Constants.Indexer.sensorOnePin);
     sensorBallLeave = new DigitalInput(Constants.Indexer.sensorTwoPin);
     sensorPositionOne = new DigitalInput(Constants.Indexer.sensorThreePin);
@@ -110,6 +114,11 @@ public class Indexer extends SubsystemBase {
   }
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    // This method will be called once per scheduler
+    double z = SmartDashboard.getNumber("LeftFunnlerSpeed", 0);
+    double y = SmartDashboard.getNumber("RightFunnlerSpeed", 0);
+    
+    funnel1.set(ControlMode.PercentOutput, z);
+    funnel2.set(ControlMode.PercentOutput, y);
   }
-}
+};

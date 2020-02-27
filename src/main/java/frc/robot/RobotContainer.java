@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.intake.AutoIntake;
 import frc.robot.commands.DefaultIntakeRoutine;
+import frc.robot.commands.LimitSwitchIntake;
 import frc.robot.commands.shooter.RunConnector;
 import frc.robot.commands.shooter.RunFullSpeed;
 import frc.robot.commands.shooter.RunShooterAtSpeedPID;
@@ -41,6 +42,7 @@ public class RobotContainer {
   private final RunConnector runConnector = new RunConnector(m_Indexer);
   private final RunFullSpeed runFullSpeed = new RunFullSpeed(m_Shooter);
   private final AutoIntake rAutoIntake = new AutoIntake(m_Intake);
+  private final LimitSwitchIntake lSwitchIntake = new LimitSwitchIntake(m_Indexer);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -56,9 +58,10 @@ public class RobotContainer {
         m_drivetrain)
     );
     m_Indexer.setDefaultCommand(
-      new DefaultIntakeRoutine(
+      /*new DefaultIntakeRoutine(
         m_Indexer,
-        m_Intake)
+        m_Intake)*/
+      lSwitchIntake
     );
   }
 
