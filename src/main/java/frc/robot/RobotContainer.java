@@ -12,9 +12,12 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.DefaultIntakeRoutine;
+import frc.robot.commands.climber.ClimbExtendControl;
+import frc.robot.commands.climber.RobotUp;
 import frc.robot.commands.shooter.RunConnector;
 import frc.robot.commands.shooter.RunFullSpeed;
 import frc.robot.commands.shooter.RunShooterAtSpeedPID;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Indexer;
@@ -33,12 +36,14 @@ public class RobotContainer {
   private final Shooter m_Shooter = new Shooter();
   private final Indexer m_Indexer = new Indexer();
   private final Intake m_Intake = new Intake();
+  private final Climber m_Climber = new Climber();
 
   private final ControlBoard m_ControlBoard = ControlBoard.getInstance();
 
   private final RunShooterAtSpeedPID shooterAtSpeedPID = new RunShooterAtSpeedPID(m_Shooter);
   private final RunConnector runConnector = new RunConnector(m_Indexer);
-  private final RunFullSpeed runFullSpeed = new RunFullSpeed(m_Shooter);
+  private final ClimbExtendControl climbExtendControl = new ClimbExtendControl(m_Climber, m_ControlBoard);
+  private final RobotUp robotUp = new RobotUp(m_drivetrain, m_Climber, m_ControlBoard);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -67,9 +72,11 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    SmartDashboard.putData(shooterAtSpeedPID);
-    SmartDashboard.putData(runConnector);
-    SmartDashboard.putData(runFullSpeed);
+    SmartDashboard.putData(new RunShooterAtSpeedPID(m_Shooter));
+    SmartDashboard.putData(new RunConnector(m_Indexer));
+    m_ControlBoard.getActivateLiftButton().toggleWhenPressed(climbExtendControl);
+    m_ControlBoard.getActivateRobotUp().whenPressed(robotUp);
+    m_ControlBoard.getDisableRobotUp().cancelWhenPressed(robotUp);
   }
 
 

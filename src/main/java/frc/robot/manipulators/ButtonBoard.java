@@ -45,14 +45,26 @@ public class ButtonBoard implements IOperatorController {
     }
 
     @Override
-    public double getRightClimbAxis() {
+    public double getLeftClimbAxis() {
         // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
-    public double getLeftClimbAxis() {
+    public JoystickButton getActivateLiftButton() {
         // TODO Auto-generated method stub
-        return 0;
+        return null;
+    }
+
+    @Override
+    public JoystickButton getActivateRobotUp() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public JoystickButton getDiableRobotUp() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

@@ -17,40 +17,61 @@ public class RobotUp extends CommandBase {
   private Drivetrain m_Drivetrain;
   private Climber m_Climber;
   private ControlBoard m_ControlBoard;
+  private RobotUpState currentState;
+  private ControlBoard mControlBoard;
+  private double rightSpeed, leftSpeed;
   /**
    * Creates a new RobotUp.
    */
-  public RobotUp(Drivetrain drivetrain, Climber climber) {
+  private enum RobotUpState{
+    Stopped, Moving;
+  }
+
+  public RobotUp(Drivetrain drivetrain, Climber climber, ControlBoard controlBoard) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
     addRequirements(climber);
+    m_Drivetrain = drivetrain;
+    m_Climber = climber;
+    mControlBoard = controlBoard;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (!m_Climber.shifterCheck()) {
-      m_Climber.setShifterOn();
-    }
-    
+    m_Climber.setShifterOn();
+    currentState = RobotUpState.Stopped;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      double rightClimbSpeed, leftClimbSpeed;
-      
-      rightClimbSpeed = m_ControlBoard.getRightClimbAxis();
-      leftClimbSpeed = m_ControlBoard.getLeftClimbAxis();
-
-
-      m_Drivetrain.drivePercentOutput(leftClimbSpeed, rightClimbSpeed);
-
-
-    if (m_Drivetrain.getRightDriveSpeed() == 0) && m_Drivetrain.getLeftDriveSpeed() == 0){
-      m_Climber.setBrakeOn();
+    switch(currentState){
+      case Moving:
+        rightSpeed = (mControlBoard.getRawDriveAxis()/2) + (getRightStickScaled()/2);
+        leftSpeed = (mControlBoard.getRawDriveAxis()/2) + (getLeftStickScaled()/2);  
+        m_Drivetrain.drivePercentOutput(leftSpeed, rightSpeed);
+        if(rightSpeed == 0 && leftSpeed == 0){
+          currentState = RobotUpState.Stopped;
+        } else if(rightSpeed == 0){
+          m_Drivetrain.engageRightBreak();
+        } else if(leftSpeed == 0){
+          m_Drivetrain.engageLeftBreak();
+        } 
+        if(rightSpeed != 0){
+          m_Drivetrain.disengageRightBreak();
+        } else if (leftSpeed != 0){
+          m_Drivetrain.disengageLeftBreak();
+        }
+      case Stopped:
+        rightSpeed = (mControlBoard.getRawDriveAxis()/2) + (getRightStickScaled()/2);
+        leftSpeed = (mControlBoard.getRawDriveAxis()/2) + (getLeftStickScaled()/2);  
+        m_Drivetrain.engageLeftBreak();
+        m_Drivetrain.engageRightBreak();
+        if(rightSpeed != 0 || leftSpeed != 0){
+          currentState = RobotUpState.Moving;
+        }
     }
-    
   }
 
   // Called once the command ends or is interrupted.
@@ -63,5 +84,23 @@ public class RobotUp extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
+  }
+
+  public double getLeftStickScaled()
+  {
+    if(mControlBoard.getHorizontalClimbAxis() > 0){
+      return 0;
+    }else{
+      return mControlBoard.getHorizontalClimbAxis() * -1;
+    }
+  }
+
+  public double getRightStickScaled()
+  {
+    if(mControlBoard.getHorizontalClimbAxis() < 0){
+      return 0;
+    }else{
+      return mControlBoard.getHorizontalClimbAxis();
+    }
   }
 }

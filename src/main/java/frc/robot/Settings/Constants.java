@@ -27,6 +27,7 @@ public final class Constants {
         public final static double accelerationSpeed = .05;
         public final static int driveTurnAxis = 2;
         public final static int driveMainAxis = 1;
+        public final static int driveHorizontalAxis = 3;
         public final static int driveTalonLeftMotor1 = 2;
         public final static int driveTalonLeftMotor2 = 3;
         public final static int driveTalonRightMotor1 = 0;
@@ -40,6 +41,9 @@ public final class Constants {
         public final static double driveEncoderVelocityToRPS = 1.0 / driveEncoderTicks * 10;
         public final static double driveMaxSpeedRPS = 8.0;
 
+        //breaks
+        public final static int rightBreakChannelID = 0;
+        public final static int leftBreakChannelID = 0;
         //Distance
         public final class DistanceDrive {
             public final static double kP = 0;
@@ -67,6 +71,9 @@ public final class Constants {
             public static final int activateIntakeButtonID = 5; //TODO change to value
             public static final int rightClimbAxisID = 5;
             public static final int leftClimbAxisID = 1;
+            public static final int activateClimberButtonID = 7;
+            public static final int activateRobotUpButtonID = 8;
+            public static final int deactivateRobotUpButtonID = 8;
         }
     }
 

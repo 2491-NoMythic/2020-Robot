@@ -39,8 +39,8 @@ public class Climber extends SubsystemBase {
     brake.set(false);
   }
 
-  public void runLift(double position) {
-    lift.set(ControlMode.Position, position);
+  public void runLift(double speed) {
+    lift.set(ControlMode.PercentOutput, speed);
   }
 
   public void stop(){

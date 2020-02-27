@@ -7,39 +7,56 @@
 
 package frc.robot.commands.climber;
 
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.ControlBoard;
 import frc.robot.Settings.Constants;
 import frc.robot.subsystems.Climber;
 
-public class RaiseClimbExtension extends CommandBase {
-
-  private Climber climber;
-
+public class ClimbExtendControl extends CommandBase {
   /**
-   * Creates a new Climb.
+   * Creates a new ClimbExtendControl.
    */
-  public RaiseClimbExtension(Climber climber) {
+  Climber m_Climber;
+  ControlBoard mBoard;
+  private UpClimberState currentState;
+
+  private enum UpClimberState{
+    Moving, Stopped;
+  }
+
+  public ClimbExtendControl(Climber climber, ControlBoard board) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.climber = climber;
+    m_Climber = climber;
+    mBoard = board;
     addRequirements(climber);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    currentState = UpClimberState.Stopped;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.runLift(Constants.Climber.manualLiftExtensionSpeed);
+    switch(currentState){
+      case Moving:
+        m_Climber.runLift(mBoard.getLeftClimbAxis());
+        if(mBoard.getLeftClimbAxis() == 0){
+          currentState = UpClimberState.Stopped;
+        }
+      case Stopped:
+        m_Climber.setBrakeOn();
+        if(Math.abs(mBoard.getLeftClimbAxis()) > 0){
+          currentState = UpClimberState.Moving;
+        }
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.stop();
   }
 
   // Returns true when the command should end.

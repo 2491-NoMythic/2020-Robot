@@ -9,9 +9,6 @@ package frc.robot.manipulators;
 
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Controllers.IOperatorController;
-
-import javax.print.attribute.standard.JobPrioritySupported;
-
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Settings.Constants;
 
@@ -22,7 +19,7 @@ public class PS4 implements IOperatorController {
 
     private Joystick m_joystick;
     private static PS4 m_Instance = null;
-    private JoystickButton activateIntakeButton;
+    private JoystickButton activateIntakeButton, activateClimbButton, activateRobotUpButton, deactivateRobotUpButton;
 
 
     public static PS4 getInstance(){
@@ -36,6 +33,9 @@ public class PS4 implements IOperatorController {
 
     m_joystick = new Joystick(Constants.Controller.opertatorControllerID);
     activateIntakeButton = new JoystickButton(m_joystick, Constants.Controller.PS4.activateIntakeButtonID);
+    activateClimbButton = new JoystickButton(m_joystick, Constants.Controller.PS4.activateClimberButtonID);
+    activateRobotUpButton = new JoystickButton(m_joystick, Constants.Controller.PS4.activateRobotUpButtonID);
+    deactivateRobotUpButton = new JoystickButton(m_joystick, Constants.Controller.PS4.deactivateRobotUpButtonID);
     }
 
     @Override
@@ -50,12 +50,24 @@ public class PS4 implements IOperatorController {
     }
 
     @Override
-    public double getRightClimbAxis() {
-        return m_joystick.getRawAxis(Constants.Climber.leftAxisID);
+    public double getLeftClimbAxis() {
+        return m_joystick.getRawAxis(Constants.Climber.rightAxisID);
     }
 
     @Override
-    public double getLeftClimbAxis() {
-        return m_joystick.getRawAxis(Constants.Climber.rightAxisID);
+    public JoystickButton getActivateLiftButton() {
+        return activateClimbButton;
+    }
+
+    @Override
+    public JoystickButton getActivateRobotUp() {
+        // TODO Auto-generated method stub
+        return activateRobotUpButton;
+    }
+
+    @Override
+    public JoystickButton getDiableRobotUp() {
+        // TODO Auto-generated method stub
+        return deactivateRobotUpButton;
     }
 }

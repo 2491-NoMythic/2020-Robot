@@ -45,6 +45,11 @@ public class TM implements IDriveController{
     public double getRawTurnAxis() {
         return m_Joystick.getRawAxis(Constants.Drivetrain.driveTurnAxis);
     }
+
+    @Override
+    public double getHorizontalClimbAxis() {
+        return m_Joystick.getRawAxis(Constants.Drivetrain.driveHorizontalAxis);
+    }
     
     private double getAxisDeadzoned(double value) {
         value = value * Math.abs(value);

@@ -6,8 +6,6 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands.intake;
-
-import frc.robot.commands.intake.ManualIntake;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.ControlBoard;

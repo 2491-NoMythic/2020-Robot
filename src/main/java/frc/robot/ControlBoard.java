@@ -55,12 +55,30 @@ public class ControlBoard implements IControlBoard {
 		return mOperatorController.getIntakeAxis();
 	}
 
-	public double getRightClimbAxis() {
-		return mOperatorController.getRightClimbAxis();
-	}
-
 	public double getLeftClimbAxis() {
 		return mOperatorController.getLeftClimbAxis();
 	}
+
+    @Override
+    public JoystickButton getActivateLiftButton() {
+        return mOperatorController.getActivateLiftButton();
+    }
+
+    @Override
+    public double getHorizontalClimbAxis() {
+        return mDriveController.getHorizontalClimbAxis();
+    }
+
+    @Override
+    public JoystickButton getActivateRobotUp() {
+        // TODO Auto-generated method stub
+        return mOperatorController.getActivateRobotUp();
+    }
+
+    @Override
+    public JoystickButton getDisableRobotUp() {
+        // TODO Auto-generated method stub
+        return mOperatorController.getDisableRobotUp();
+    }
 
 }
