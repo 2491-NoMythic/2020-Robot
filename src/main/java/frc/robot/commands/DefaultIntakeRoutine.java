@@ -40,18 +40,11 @@ public class DefaultIntakeRoutine extends CommandBase {
 
     if(indexer.getSensorBallEnter() & !indexer.getFinalBallLoaded()){
       indexer.runIndexMotor(Constants.Indexer.indexIntakeSpeed);
-      indexer.setIndexSolenoid(false);
-    }
-    else{
-      indexer.setIndexSolenoid(true);
+
     }
 
-    if(indexer.getSensorPositionOne() & !indexer.getSensorBallEnter()){
+    if(indexer.getSensorPositionOne() & !indexer.getSensorBallEnter() & !indexer.getFinalBallLoaded()){
       indexer.runIndexMotor(0);
-    }
-
-    if(indexer.getSensorBallLeave() || indexer.getBallsLoaded() <= 4){
-      indexer.setIndexSolenoid(false);
     }
   }
 
