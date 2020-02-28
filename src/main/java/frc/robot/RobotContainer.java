@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.DefaultIntakeRoutine;
+import frc.robot.commands.FunnlerTest;
 import frc.robot.commands.climber.ClimbExtendControl;
 import frc.robot.commands.climber.RobotUp;
 import frc.robot.commands.shooter.RunConnector;
@@ -44,6 +45,7 @@ public class RobotContainer {
   private final RunConnector runConnector = new RunConnector(m_Indexer);
   private final ClimbExtendControl climbExtendControl = new ClimbExtendControl(m_Climber, m_ControlBoard);
   private final RobotUp robotUp = new RobotUp(m_drivetrain, m_Climber, m_ControlBoard);
+  private final FunnlerTest funnelTest = new FunnlerTest(m_Indexer);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -58,11 +60,11 @@ public class RobotContainer {
         m_ControlBoard,
         m_drivetrain)
     );
-    m_Indexer.setDefaultCommand(
+    /*m_Indexer.setDefaultCommand(
       new DefaultIntakeRoutine(
         m_Indexer,
         m_Intake)
-    );
+    );*/
   }
 
   /**
@@ -74,6 +76,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     SmartDashboard.putData(new RunShooterAtSpeedPID(m_Shooter));
     SmartDashboard.putData(new RunConnector(m_Indexer));
+    SmartDashboard.putData(new FunnlerTest(m_Indexer));
     m_ControlBoard.getActivateLiftButton().toggleWhenPressed(climbExtendControl);
     m_ControlBoard.getActivateRobotUp().whenPressed(robotUp);
     m_ControlBoard.getDisableRobotUp().cancelWhenPressed(robotUp);

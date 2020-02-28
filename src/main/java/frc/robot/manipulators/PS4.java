@@ -66,7 +66,7 @@ public class PS4 implements IOperatorController {
     }
 
     @Override
-    public JoystickButton getDiableRobotUp() {
+    public JoystickButton getDisableRobotUp() {
         // TODO Auto-generated method stub
         return deactivateRobotUpButton;
     }

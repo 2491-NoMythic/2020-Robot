@@ -111,5 +111,7 @@ public class Indexer extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    runFunnelMotor1(1);
+    runFunnelMotor2(1);
   }
 }

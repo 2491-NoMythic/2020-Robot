@@ -42,8 +42,8 @@ public final class Constants {
         public final static double driveMaxSpeedRPS = 8.0;
 
         //breaks
-        public final static int rightBreakChannelID = 0;
-        public final static int leftBreakChannelID = 0;
+        public final static int rightBreakChannelID = 2;
+        public final static int leftBreakChannelID = 3;
         //Distance
         public final class DistanceDrive {
             public final static double kP = 0;
@@ -137,7 +137,7 @@ public final class Constants {
 		public static final int shifterForwardChannel = 0;
 		public static final int shifterReverseChannel = 0;
 		public static final double manualLiftExtensionSpeed = 0;
-		public static final int brakeChannel = 0;
+		public static final int brakeChannel = 1;
 		public static final int rightAxisID = 0;
 		public static final int leftAxisID = 0;
     }

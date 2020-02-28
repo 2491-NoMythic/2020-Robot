@@ -63,7 +63,7 @@ public class ButtonBoard implements IOperatorController {
     }
 
     @Override
-    public JoystickButton getDiableRobotUp() {
+    public JoystickButton getDisableRobotUp() {
         // TODO Auto-generated method stub
         return null;
     }
