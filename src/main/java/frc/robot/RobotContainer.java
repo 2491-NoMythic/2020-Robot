@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.intake.AutoIntake;
 import frc.robot.commands.DefaultIntakeRoutine;
 import frc.robot.commands.FunnlerTest;
+import frc.robot.commands.ShiftLol;
 import frc.robot.commands.climber.ClimbExtendControl;
 import frc.robot.commands.climber.RobotUp;
 import frc.robot.commands.shooter.RunConnector;
@@ -77,8 +79,12 @@ public class RobotContainer {
     SmartDashboard.putData(new RunShooterAtSpeedPID(m_Shooter));
     SmartDashboard.putData(new RunConnector(m_Indexer));
     SmartDashboard.putData(new FunnlerTest(m_Indexer));
-    m_ControlBoard.getActivateLiftButton().toggleWhenPressed(climbExtendControl);
-    m_ControlBoard.getActivateRobotUp().whenPressed(robotUp);
+    SmartDashboard.putData(new ShiftLol(m_Climber, m_drivetrain));
+    SmartDashboard.putNumber("Axis", m_ControlBoard.getLeftClimbAxis());
+    m_ControlBoard.getActivateLiftButton().and(m_ControlBoard.getClimbCheck1()).and(m_ControlBoard.getClimbCheck2()).whenActive(climbExtendControl);
+    m_ControlBoard.getDeactivateLiftButton().cancelWhenPressed(climbExtendControl);
+    m_ControlBoard.getActivateIntakeButton().whileHeld(new AutoIntake(m_Intake, m_ControlBoard));
+    m_ControlBoard.getActivateRobotUp().and(m_ControlBoard.getClimbCheck1()).and(m_ControlBoard.getClimbCheck2()).whenActive(robotUp);
     m_ControlBoard.getDisableRobotUp().cancelWhenPressed(robotUp);
   }
 

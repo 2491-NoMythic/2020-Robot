@@ -24,7 +24,7 @@ public class RobotUp extends CommandBase {
    * Creates a new RobotUp.
    */
   private enum RobotUpState{
-    Stopped, Moving;
+    Stopped, Moving, LeftDrive, RightDrive;
   }
 
   public RobotUp(Drivetrain drivetrain, Climber climber, ControlBoard controlBoard) {
@@ -46,38 +46,52 @@ public class RobotUp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    rightSpeed = (mControlBoard.getRawDriveAxis()/2) + (getRightStickScaled()/2);
+    leftSpeed = (mControlBoard.getRawDriveAxis()/2) + (getLeftStickScaled()/2);
     switch(currentState){
       case Moving:
-        rightSpeed = (mControlBoard.getRawDriveAxis()/2) + (getRightStickScaled()/2);
-        leftSpeed = (mControlBoard.getRawDriveAxis()/2) + (getLeftStickScaled()/2);  
+        m_Climber.disengageLeftBreak();
+        m_Climber.disengageRightBreak();
         m_Drivetrain.drivePercentOutput(leftSpeed, rightSpeed);
-        if(rightSpeed == 0 && leftSpeed == 0){
-          currentState = RobotUpState.Stopped;
-        } else if(rightSpeed == 0){
-          m_Drivetrain.engageRightBreak();
-        } else if(leftSpeed == 0){
-          m_Drivetrain.engageLeftBreak();
-        } 
-        if(rightSpeed != 0){
-          m_Drivetrain.disengageRightBreak();
-        } else if (leftSpeed != 0){
-          m_Drivetrain.disengageLeftBreak();
-        }
+        changeState(rightSpeed, leftSpeed); 
+        break;
+      case RightDrive:
+        m_Climber.engageLeftBreak();
+        m_Drivetrain.drivePercentOutput(0, rightSpeed);
+        changeState(rightSpeed, leftSpeed);
+        break;
+      case LeftDrive:
+        m_Climber.engageRightBreak();
+        m_Drivetrain.drivePercentOutput(leftSpeed, 0);
+        changeState(rightSpeed, leftSpeed);
+        break;
       case Stopped:
-        rightSpeed = (mControlBoard.getRawDriveAxis()/2) + (getRightStickScaled()/2);
-        leftSpeed = (mControlBoard.getRawDriveAxis()/2) + (getLeftStickScaled()/2);  
-        m_Drivetrain.engageLeftBreak();
-        m_Drivetrain.engageRightBreak();
-        if(rightSpeed != 0 || leftSpeed != 0){
-          currentState = RobotUpState.Moving;
-        }
+        System.out.println("Hello");  
+        m_Climber.engageLeftBreak();
+        m_Climber.engageRightBreak();
+        changeState(rightSpeed, leftSpeed);
+        break;
     }
+  }
+
+  private void changeState(double leftSpeedLocal, double rightSpeedLocal){
+    if(Math.abs(leftSpeedLocal) >= 0.05 && Math.abs(rightSpeedLocal) >= 0.05){
+      currentState = RobotUpState.Moving;
+    } else if (Math.abs(leftSpeedLocal) <= 0.05 && Math.abs(rightSpeedLocal) >= 0.05){
+      currentState = RobotUpState.RightDrive;
+    } else if (Math.abs(leftSpeedLocal) >= 0.05 && Math.abs(rightSpeedLocal) <= 0.05){
+      currentState = RobotUpState.LeftDrive;
+    } else {
+      currentState = RobotUpState.Stopped;
+    }
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_Drivetrain.stop();
+    m_Climber.setShifterOff();
   }
 
   // Returns true when the command should end.

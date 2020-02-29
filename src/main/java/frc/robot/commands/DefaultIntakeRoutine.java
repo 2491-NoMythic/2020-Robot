@@ -15,52 +15,60 @@ import frc.robot.subsystems.Intake;
 
 public class DefaultIntakeRoutine extends CommandBase {
 
-  private Indexer indexer;
-  private Intake intake;
+  Indexer m_Indexer;
+  indexState currentState;
 
-  /**
-   * Creates a new IntakeRoutine.
-   */
-  public DefaultIntakeRoutine(Indexer indexer, Intake intake) {
+  private enum indexState
+  {
+    newBall, inTransit, fullState;
+  }
+
+  public DefaultIntakeRoutine(Indexer index) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.indexer = indexer;
-    this.intake = intake;
-    addRequirements(indexer);
-    addRequirements(intake);
+    m_Indexer = index;
+    addRequirements(index);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    currentState = indexState.newBall;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    if(indexer.getSensorBallEnter() & !Variables.Indexer.finalBallLoaded){
-      indexer.runIndexMotor(Constants.Indexer.indexIntakeSpeed);
-      indexer.toggleIndexSolenoid();
-
-      Variables.Indexer.ballsLoaded ++;
-    }
-
-    if(indexer.getSensorPositionOne() & !Variables.Indexer.finalBallLoaded){
-      indexer.toggleIndexSolenoid();
-    }
-
-    if(indexer.getSensorBallLeave()){
-      Variables.Indexer.finalBallLoaded = true;
-    }
-    else{
-      Variables.Indexer.finalBallLoaded = false;
+    switch(currentState){
+      case newBall:
+        m_Indexer.runIndexMotor(0);
+        m_Indexer.runFunnelMotorLeft(Constants.Indexer.leftFunnelSpeed);
+        m_Indexer.runFunnelMotorRight(Constants.Indexer.rightFunnelSpeed);
+        if(m_Indexer.getSensorBallEnter()){
+          currentState = indexState.inTransit;
+        }
+        break;
+      case inTransit:
+        m_Indexer.runFunnelMotorLeft(0);
+        m_Indexer.runFunnelMotorRight(0);
+        m_Indexer.runIndexMotor(1);
+        if(m_Indexer.getSensorBallLeave()){
+          currentState = indexState.fullState;
+        } else if (m_Indexer.getSensorPositionOne()){
+          currentState = indexState.newBall;
+        }
+      case fullState:
+        m_Indexer.runFunnelMotorLeft(0);
+        m_Indexer.runFunnelMotorRight(0);
+        m_Indexer.runIndexMotor(0);
+        if(!m_Indexer.getSensorBallLeave()){
+          currentState = indexState.newBall;
+        }
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    indexer.stop();
   }
 
   // Returns true when the command should end.
@@ -69,3 +77,4 @@ public class DefaultIntakeRoutine extends CommandBase {
     return false;
   }
 }
+

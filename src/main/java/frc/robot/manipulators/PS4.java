@@ -17,9 +17,10 @@ import frc.robot.Settings.Constants;
  */
 public class PS4 implements IOperatorController {
 
-    private Joystick m_joystick;
+    private final Joystick m_joystick;
     private static PS4 m_Instance = null;
-    private JoystickButton activateIntakeButton, activateClimbButton, activateRobotUpButton, deactivateRobotUpButton;
+    private JoystickButton activateIntakeButton, activateClimbButton, deactivateClimbButton, activateRobotUpButton,
+            deactivateRobotUpButton, climbSaftey1, climbSaftey2;
 
 
     public static PS4 getInstance(){
@@ -30,12 +31,14 @@ public class PS4 implements IOperatorController {
     }
 
     private PS4(){
-
-    m_joystick = new Joystick(Constants.Controller.opertatorControllerID);
-    activateIntakeButton = new JoystickButton(m_joystick, Constants.Controller.PS4.activateIntakeButtonID);
-    activateClimbButton = new JoystickButton(m_joystick, Constants.Controller.PS4.activateClimberButtonID);
-    activateRobotUpButton = new JoystickButton(m_joystick, Constants.Controller.PS4.activateRobotUpButtonID);
-    deactivateRobotUpButton = new JoystickButton(m_joystick, Constants.Controller.PS4.deactivateRobotUpButtonID);
+        m_joystick = new Joystick(Constants.Controller.opertatorControllerID);
+        activateIntakeButton = new JoystickButton(m_joystick, Constants.Controller.PS4.activateIntakeButtonID);
+        activateClimbButton = new JoystickButton(m_joystick, Constants.Controller.PS4.activateClimberButtonID);
+        deactivateClimbButton = new JoystickButton(m_joystick, Constants.Controller.PS4.deactivateClimbButtonID);
+        activateRobotUpButton = new JoystickButton(m_joystick, Constants.Controller.PS4.activateRobotUpButtonID);
+        deactivateRobotUpButton = new JoystickButton(m_joystick, Constants.Controller.PS4.deactivateRobotUpButtonID);
+        climbSaftey1 = new JoystickButton(m_joystick, Constants.Controller.PS4.climbSaftey1ID);
+        climbSaftey2 = new JoystickButton(m_joystick, Constants.Controller.PS4.climbSaftey2ID);
     }
 
     @Override
@@ -70,4 +73,29 @@ public class PS4 implements IOperatorController {
         // TODO Auto-generated method stub
         return deactivateRobotUpButton;
     }
+
+    @Override
+    public boolean climbSaftey() {
+        // TODO Auto-generated method stub
+        return climbSaftey1.get() && climbSaftey2.get();
+    }
+
+    @Override
+    public JoystickButton getDeactivateLiftButton() {
+        // TODO Auto-generated method stub
+        return deactivateClimbButton;
+    }
+
+    @Override
+    public JoystickButton getClimbCheck1() {
+        // TODO Auto-generated method stub
+        return climbSaftey1;
+    }
+
+    @Override
+    public JoystickButton getClimbCheck2() {
+        // TODO Auto-generated method stub
+        return climbSaftey2;
+    }
+    
 }

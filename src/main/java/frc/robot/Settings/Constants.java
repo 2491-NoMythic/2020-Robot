@@ -27,7 +27,7 @@ public final class Constants {
         public final static double accelerationSpeed = .05;
         public final static int driveTurnAxis = 2;
         public final static int driveMainAxis = 1;
-        public final static int driveHorizontalAxis = 3;
+        public final static int driveHorizontalAxis = 0;
         public final static int driveTalonLeftMotor1 = 2;
         public final static int driveTalonLeftMotor2 = 3;
         public final static int driveTalonRightMotor1 = 0;
@@ -42,8 +42,8 @@ public final class Constants {
         public final static double driveMaxSpeedRPS = 8.0;
 
         //breaks
-        public final static int rightBreakChannelID = 2;
-        public final static int leftBreakChannelID = 3;
+        public final static int rightBreakChannelID = 4;
+        public final static int leftBreakChannelID = 5;
         //Distance
         public final class DistanceDrive {
             public final static double kP = 0;
@@ -61,25 +61,29 @@ public final class Constants {
 
     public final class Controller{
         public static final int driveControllerID = 0; //TODO change to actual value (If its not zero I will literally die)
-        public static final int opertatorControllerID = 0; //TODO change to actual value
+        public static final int opertatorControllerID = 1; //TODO change to actual value
 
         public final class ButtonBoard{
             public static final int intakeButtonID = 0; //TODO change to actual value
         }
 
 		public final class PS4{
-            public static final int activateIntakeButtonID = 5; //TODO change to value
+            public static final int activateIntakeButtonID = 6; //TODO change to value
             public static final int rightClimbAxisID = 5;
             public static final int leftClimbAxisID = 1;
-            public static final int activateClimberButtonID = 7;
-            public static final int activateRobotUpButtonID = 8;
-            public static final int deactivateRobotUpButtonID = 8;
+            public static final int activateClimberButtonID = 2;
+            public static final int deactivateClimbButtonID = 3;
+            public static final int activateRobotUpButtonID = 1;
+            public static final int deactivateRobotUpButtonID = 4;
+            public static final int climbSaftey1ID = 7;
+            public static final int climbSaftey2ID = 8;
         }
     }
 
     public final class Intake {
         public static final int intakeMotorPort = 6;
-        public static final int intakeSolenoidPort = 1;
+        public static final int intakeSolenoidPortForward = 1;
+        public static final int intakeSolenoidPortBackward = 0;
         //Speed
         public static final int autoIntakeSpeed = 0;
 		public static final int intakeAxisID = 5;
@@ -94,6 +98,8 @@ public final class Constants {
         //Motor Speeds
         public static final double indexIntakeSpeed = 0;
         public static final double connectorTalonSpeed = 1;
+        public static final double leftFunnelSpeed = 0;
+        public static final double rightFunnelSpeed = 0;
         //Sensors
         public static final int sensorOnePin = 1;
         public static final int sensorTwoPin = 2;
@@ -134,11 +140,12 @@ public final class Constants {
 
     public final class Climber {
         public static final int liftMotorID = 10;
-		public static final int shifterForwardChannel = 0;
-		public static final int shifterReverseChannel = 0;
+		public static final int shifterForwardChannel = 3;
+		public static final int shifterReverseChannel = 2;
 		public static final double manualLiftExtensionSpeed = 0;
-		public static final int brakeChannel = 1;
-		public static final int rightAxisID = 0;
+		public static final int brakeChannel = 6;
+        public static final int rightAxisID = 1
+        ;
 		public static final int leftAxisID = 0;
     }
 }

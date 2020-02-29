@@ -7,6 +7,7 @@
 
 package frc.robot.commands.climber;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.ControlBoard;
 import frc.robot.Settings.Constants;
@@ -19,6 +20,7 @@ public class ClimbExtendControl extends CommandBase {
   Climber m_Climber;
   ControlBoard mBoard;
   private UpClimberState currentState;
+  double count = 0;
 
   private enum UpClimberState{
     Moving, Stopped;
@@ -34,29 +36,44 @@ public class ClimbExtendControl extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    SmartDashboard.putBoolean("Nicew", mBoard.climbSaftey());
     currentState = UpClimberState.Stopped;
+    m_Climber.disengageRightBreak();
+    m_Climber.disengageLeftBreak();
+    count = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println(currentState.toString());
     switch(currentState){
       case Moving:
-        m_Climber.runLift(mBoard.getLeftClimbAxis());
-        if(mBoard.getLeftClimbAxis() == 0){
+        m_Climber.setBrakeOff();
+        if(count > 5){
+          m_Climber.runLift(mBoard.getLeftClimbAxis()/2);
+        }
+        if(Math.abs(mBoard.getLeftClimbAxis()) <= 0.05){
           currentState = UpClimberState.Stopped;
         }
+        count++;
+        break;
       case Stopped:
+        count = 0;
+        m_Climber.runLift(0);
         m_Climber.setBrakeOn();
-        if(Math.abs(mBoard.getLeftClimbAxis()) > 0){
+        if(Math.abs(mBoard.getLeftClimbAxis()) > 0.05){
           currentState = UpClimberState.Moving;
         }
+        break;
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_Climber.engageRightBreak();
+    m_Climber.engageLeftBreak();
   }
 
   // Returns true when the command should end.

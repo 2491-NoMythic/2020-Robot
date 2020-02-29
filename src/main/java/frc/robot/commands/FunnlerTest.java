@@ -28,20 +28,26 @@ public class FunnlerTest extends CommandBase {
   public void initialize() {
     SmartDashboard.putNumber("LeftFunnel", 0);
     SmartDashboard.putNumber("RightFunnel", 0);
+    SmartDashboard.putNumber("BeltSpeed", 0);
+    SmartDashboard.putNumber("ConnectorSpeed", 0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    mIndexer.runFunnelMotor1(SmartDashboard.getNumber("LeftFunnel", 0));
-    mIndexer.runFunnelMotor2(SmartDashboard.getNumber("RightFunnel", 0));
+    mIndexer.runFunnelMotorLeft(SmartDashboard.getNumber("LeftFunnel", 0));
+    mIndexer.runFunnelMotorRight(SmartDashboard.getNumber("RightFunnel", 0));
+    mIndexer.runConnectorMotor(SmartDashboard.getNumber("ConnectorSpeed", 0));
+    mIndexer.runIndexMotor(SmartDashboard.getNumber("BeltSpeed", 0));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    mIndexer.runFunnelMotor1(0);
-    mIndexer.runFunnelMotor2(0);
+    mIndexer.runFunnelMotorLeft(0);
+    mIndexer.runFunnelMotorRight(0);
+    mIndexer.runConnectorMotor(0);
+    mIndexer.runIndexMotor(0);
   }
 
   // Returns true when the command should end.

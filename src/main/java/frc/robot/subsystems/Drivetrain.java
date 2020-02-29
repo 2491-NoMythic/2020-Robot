@@ -22,7 +22,6 @@ import com.kauailabs.navx.frc.AHRS;
 public class Drivetrain extends SubsystemBase {
   private WPI_TalonFX driveLeftMotor1,driveLeftMotor2,driveRightMotor1,driveRightMotor2;
   private AHRS gyro;
-  private Solenoid rightBreak, leftBreak;
 
   public Drivetrain() {
 
@@ -44,9 +43,6 @@ public class Drivetrain extends SubsystemBase {
     driveRightMotor2.setInverted(true);
     driveLeftMotor1.setInverted(false);
     driveLeftMotor2.setInverted(false);
-
-    rightBreak = new Solenoid(Constants.Drivetrain.rightBreakChannelID);
-    leftBreak = new Solenoid(Constants.Drivetrain.leftBreakChannelID);
 
     gyro = new AHRS(Port.kUSB);
 
@@ -179,22 +175,6 @@ public class Drivetrain extends SubsystemBase {
 
   public double getEncoderRate() {
     return ((getRightEncoderRate() + getLeftEncoderRate()) / 2);
-  }
-
-  public void engageRightBreak() {
-    rightBreak.set(true);
-  }
-
-  public void engageLeftBreak() {
-    leftBreak.set(true);
-  }
-
-  public void disengageRightBreak() {
-    rightBreak.set(false);
-  }
-
-  public void disengageLeftBreak(){
-    leftBreak.set(false);
   }
   
   @Override

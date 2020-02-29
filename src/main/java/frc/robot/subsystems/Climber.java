@@ -22,6 +22,7 @@ public class Climber extends SubsystemBase {
   TalonSRX lift;
   DoubleSolenoid shifter;
   Solenoid brake;
+  Solenoid rightBreak, leftBreak;
 
   /**
    * Creates a new Climber.
@@ -34,6 +35,9 @@ public class Climber extends SubsystemBase {
 
     shifter = new DoubleSolenoid(Constants.Climber.shifterForwardChannel, Constants.Climber.shifterReverseChannel);
     shifter.set(Value.kForward);
+
+    rightBreak = new Solenoid(Constants.Drivetrain.rightBreakChannelID);
+    leftBreak = new Solenoid(Constants.Drivetrain.leftBreakChannelID);
 
     brake = new Solenoid(Constants.Climber.brakeChannel);
     brake.set(false);
@@ -60,15 +64,39 @@ public class Climber extends SubsystemBase {
   }
 
   public void setBrakeOn() {
-    brake.set(true);
+    brake.set(false);
   }
 
   public void setBrakeOff() {
-    brake.set(false);
+    brake.set(true);
   }
 
   public boolean brakeCheck() {
     return brake.get();
+  }
+
+  public double getLiftEncoder() {
+    return lift.getSelectedSensorPosition();
+  }
+
+  public void zeroLiftEncoder(){
+    lift.setSelectedSensorPosition(0);
+  }
+
+  public void engageRightBreak() {
+    rightBreak.set(false);
+  }
+
+  public void engageLeftBreak() {
+    leftBreak.set(false);
+  }
+
+  public void disengageRightBreak() {
+    rightBreak.set(true);
+  }
+
+  public void disengageLeftBreak(){
+    leftBreak.set(true);
   }
 
   @Override

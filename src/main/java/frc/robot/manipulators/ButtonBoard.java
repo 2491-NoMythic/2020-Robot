@@ -17,9 +17,9 @@ import frc.robot.Settings.Constants;
  */
 public class ButtonBoard implements IOperatorController {
 
-    private Joystick m_Joystick;
+    private final Joystick m_Joystick;
     private static ButtonBoard m_Instance = null;
-    private JoystickButton intakeButton;
+    private final JoystickButton intakeButton;
 
     public static ButtonBoard getInstance(){
         if (m_Instance == null){
@@ -64,6 +64,30 @@ public class ButtonBoard implements IOperatorController {
 
     @Override
     public JoystickButton getDisableRobotUp() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public boolean climbSaftey() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public JoystickButton getDeactivateLiftButton() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public JoystickButton getClimbCheck1() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public JoystickButton getClimbCheck2() {
         // TODO Auto-generated method stub
         return null;
     }

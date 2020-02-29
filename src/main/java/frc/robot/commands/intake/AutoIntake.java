@@ -7,6 +7,8 @@
 
 package frc.robot.commands.intake;
 import frc.robot.subsystems.Intake;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.ControlBoard;
 import frc.robot.Settings.Constants;
@@ -18,18 +20,21 @@ public class AutoIntake extends CommandBase {
   Intake m_Intake;
   ControlBoard m_ControlBoard;
 
-  public AutoIntake(Intake intake) {
+  public AutoIntake(Intake intake, ControlBoard controlBoard) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_Intake = intake;
+    m_ControlBoard = controlBoard;
     addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (m_Intake.checkIntakeSolenoid() == false) {
+    if (m_Intake.checkIntakeSolenoid() == Value.kReverse) {
       m_Intake.toggleIntakeSolenoid();
     }
+    SmartDashboard.putBoolean("Working", true);
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -46,9 +51,9 @@ public class AutoIntake extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_Intake.toggleIntakeSolenoid();
+    m_Intake.pullIntakeIn();
     m_Intake.StopIntakeMotor();
-
+    SmartDashboard.putBoolean("Working", false);
   }
 
   // Returns true when the command should end.
