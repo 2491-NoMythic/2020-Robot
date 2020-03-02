@@ -10,17 +10,19 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Settings.Constants;
 
 public class Climber extends SubsystemBase {
   TalonSRX lift;
   DoubleSolenoid shifter;
-  Solenoid climbBreak;
+  Solenoid brake;
+  Solenoid rightBreak, leftBreak;
 
   /**
    * Creates a new Climber.
@@ -29,57 +31,72 @@ public class Climber extends SubsystemBase {
     lift = new TalonSRX(Constants.Climber.liftMotorID);
     lift.configFactoryDefault();
     lift.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-    shifter = new DoubleSolenoid(Constants.Climber.shifterSolenoidForwardID,Constants.Climber.shifterSolenoidBackID);
-    climbBreak = new Solenoid(Constants.Climber.breakSolenoidID);
+
+    shifter = new DoubleSolenoid(Constants.Climber.shifterForwardChannel, Constants.Climber.shifterReverseChannel);
+    shifter.set(Value.kForward);
+
+    rightBreak = new Solenoid(Constants.Drivetrain.rightBreakChannelID);
+    leftBreak = new Solenoid(Constants.Drivetrain.leftBreakChannelID);
+
+    brake = new Solenoid(Constants.Climber.brakeChannel);
+    brake.set(false);
   }
 
-  public void runLift(double position) {
-    lift.set(ControlMode.PercentOutput, position);
+  public void runLift(double speed) {
+    lift.set(ControlMode.PercentOutput, speed);
   }
 
-  public boolean getClimbBreakPosition(){
-    return climbBreak.get();
+  public void stop(){
+    lift.set(ControlMode.PercentOutput, 0);
   }
 
-  public void climbBreakOn(){
-    climbBreak.set(true);
+  public void setShifterOn() {
+    shifter.set(Value.kReverse);
   }
 
-  public void climbBreakOff(){
-    climbBreak.set(false);
-    
-  }
-
-  public void toggleClimbBreak(){
-    if(climbBreak.get()){
-      climbBreak.set(false);
-    }else{
-      climbBreak.set(true);
-    }
-  }
-
-  public Value getShifterPosition(){
-    return shifter.get();
-  }
-
-  public void shifterEngaged(){
-    shifter.set(Value.kOff);
-  }
-
-  public void shifterDisengaged(){
+  public void setShifterOff() {
     shifter.set(Value.kForward);
   }
 
-  public void toggleShifter(){
-    if(shifter.get() == Value.kOff){
-      shifter.set(Value.kForward);
-    }
-    else{
-      shifter.set(Value.kOff);
-    }
+  public boolean shifterCheck() {
+    return shifter.get() == Value.kReverse;
   }
 
-  
+  public void setBrakeOn() {
+    brake.set(false);
+  }
+
+  public void setBrakeOff() {
+    brake.set(true);
+  }
+
+  public boolean brakeCheck() {
+    return brake.get();
+  }
+
+  public double getLiftEncoder() {
+    return lift.getSelectedSensorPosition();
+  }
+
+  public void zeroLiftEncoder(){
+    lift.setSelectedSensorPosition(0);
+  }
+
+  public void engageRightBreak() {
+    rightBreak.set(false);
+  }
+
+  public void engageLeftBreak() {
+    leftBreak.set(false);
+  }
+
+  public void disengageRightBreak() {
+    rightBreak.set(true);
+  }
+
+  public void disengageLeftBreak(){
+    leftBreak.set(true);
+  }
 
   @Override
   public void periodic() {

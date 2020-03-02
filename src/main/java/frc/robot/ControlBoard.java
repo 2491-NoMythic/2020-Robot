@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Controllers.IDriveController;
 import frc.robot.Controllers.IOperatorController;
 import frc.robot.manipulators.ButtonBoard;
+import frc.robot.manipulators.PS4;
 import frc.robot.manipulators.TM;
 
 public class ControlBoard implements IControlBoard {
@@ -19,36 +20,87 @@ public class ControlBoard implements IControlBoard {
     }
 
     // Creates controller interfaces
-    private IDriveController mDriveController;
-    private IOperatorController mOperatorController;
+    private final IDriveController mDriveController;
+    private final IOperatorController mOperatorController;
 
     private ControlBoard() {
         mDriveController = TM.getInstance();
 
-        mOperatorController = ButtonBoard.getInstance();
+        mOperatorController = PS4.getInstance();
     }
 
     @Override
     public double getRawDriveAxis() {
-        // TODO Auto-generated method stub
         return mDriveController.getRawDriveAxis();
     }
 
     @Override
     public double getDriveAxisDeadzone() {
-        // TODO Auto-generated method stub
         return mDriveController.getDriveAxisDeadzone();
     }
 
     @Override
     public double getRawTurnAxis() {
-        // TODO Auto-generated method stub
         return mDriveController.getRawTurnAxis();
     }
 
     @Override
-    public JoystickButton returnIntakeButton() {
-        // TODO Auto-generated method stub
-        return mOperatorController.returnIntakeButton();
+    public JoystickButton getActivateIntakeButton() {
+        return mOperatorController.getActivateIntakeButton();
     }
+
+	public double getIntakeAxis() {
+		return mOperatorController.getIntakeAxis();
+	}
+
+	public double getLeftClimbAxis() {
+		return mOperatorController.getLeftClimbAxis();
+	}
+
+    @Override
+    public JoystickButton getActivateLiftButton() {
+        return mOperatorController.getActivateLiftButton();
+    }
+
+    @Override
+    public double getHorizontalClimbAxis() {
+        return mDriveController.getHorizontalClimbAxis();
+    }
+
+    @Override
+    public JoystickButton getActivateRobotUp() {
+        // TODO Auto-generated method stub
+        return mOperatorController.getActivateRobotUp();
+    }
+
+    @Override
+    public JoystickButton getDisableRobotUp() {
+        // TODO Auto-generated method stub
+        return mOperatorController.getDisableRobotUp();
+    }
+
+    @Override
+    public boolean climbSaftey() {
+        // TODO Auto-generated method stub
+        return mOperatorController.climbSaftey();
+    }
+
+    @Override
+    public JoystickButton getDeactivateLiftButton() {
+        // TODO Auto-generated method stub
+        return mOperatorController.getDeactivateLiftButton();
+    }
+
+    @Override
+    public JoystickButton getClimbCheck1() {
+        // TODO Auto-generated method stub
+        return mOperatorController.getClimbCheck1();
+    }
+
+    @Override
+    public JoystickButton getClimbCheck2() {
+        // TODO Auto-generated method stub
+        return mOperatorController.getClimbCheck2();
+    }
+
 }

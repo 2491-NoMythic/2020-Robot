@@ -5,41 +5,49 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.shooter;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Indexer;
 
-public class RunConnector extends CommandBase {
+public class FunnlerTest extends CommandBase {
   /**
-   * Creates a new RunConnector.
+   * Creates a new FunnlerTest.
    */
-  Indexer index;
-  public RunConnector(Indexer index) {
+  Indexer mIndexer;
+
+  public FunnlerTest(Indexer index) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.index = index;
-    addRequirements(this.index);
+    mIndexer = index;
+    addRequirements(index);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    SmartDashboard.putNumber("LeftFunnel", 0);
+    SmartDashboard.putNumber("RightFunnel", 0);
     SmartDashboard.putNumber("BeltSpeed", 0);
+    SmartDashboard.putNumber("ConnectorSpeed", 0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    index.runConnectorMotor(1);
-    index.runIndexMotor(SmartDashboard.getNumber("BeltSpeed", 0));
+    mIndexer.runFunnelMotorLeft(SmartDashboard.getNumber("LeftFunnel", 0));
+    mIndexer.runFunnelMotorRight(SmartDashboard.getNumber("RightFunnel", 0));
+    mIndexer.runConnectorMotor(SmartDashboard.getNumber("ConnectorSpeed", 0));
+    mIndexer.runIndexMotor(SmartDashboard.getNumber("BeltSpeed", 0));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    index.runConnectorMotor(0);
-    index.runIndexMotor(0);
+    mIndexer.runFunnelMotorLeft(0);
+    mIndexer.runFunnelMotorRight(0);
+    mIndexer.runConnectorMotor(0);
+    mIndexer.runIndexMotor(0);
   }
 
   // Returns true when the command should end.

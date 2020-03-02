@@ -7,18 +7,21 @@
 
 package frc.robot.manipulators;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Controllers.IOperatorController;
+import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.Settings.Constants;
 
 /**
  * Add your docs here.
  */
 public class PS4 implements IOperatorController {
 
-    private Joystick m_Joystick;
+    private final Joystick m_joystick;
     private static PS4 m_Instance = null;
-    private JoystickButton intakeButton;
+    private JoystickButton activateIntakeButton, activateClimbButton, deactivateClimbButton, activateRobotUpButton,
+            deactivateRobotUpButton, climbSaftey1, climbSaftey2;
+
 
     public static PS4 getInstance(){
         if (m_Instance == null){
@@ -27,9 +30,72 @@ public class PS4 implements IOperatorController {
         return m_Instance;
     }
 
-    @Override
-    public JoystickButton returnIntakeButton() {
-        // TODO Auto-generated method stub
-        return null;
+    private PS4(){
+        m_joystick = new Joystick(Constants.Controller.opertatorControllerID);
+        activateIntakeButton = new JoystickButton(m_joystick, Constants.Controller.PS4.activateIntakeButtonID);
+        activateClimbButton = new JoystickButton(m_joystick, Constants.Controller.PS4.activateClimberButtonID);
+        deactivateClimbButton = new JoystickButton(m_joystick, Constants.Controller.PS4.deactivateClimbButtonID);
+        activateRobotUpButton = new JoystickButton(m_joystick, Constants.Controller.PS4.activateRobotUpButtonID);
+        deactivateRobotUpButton = new JoystickButton(m_joystick, Constants.Controller.PS4.deactivateRobotUpButtonID);
+        climbSaftey1 = new JoystickButton(m_joystick, Constants.Controller.PS4.climbSaftey1ID);
+        climbSaftey2 = new JoystickButton(m_joystick, Constants.Controller.PS4.climbSaftey2ID);
     }
+
+    @Override
+    public JoystickButton getActivateIntakeButton() {
+        return activateIntakeButton;
+    }
+
+
+	@Override
+	public double getIntakeAxis() {
+		return m_joystick.getRawAxis(Constants.Intake.intakeAxisID);
+    }
+
+    @Override
+    public double getLeftClimbAxis() {
+        return m_joystick.getRawAxis(Constants.Climber.rightAxisID);
+    }
+
+    @Override
+    public JoystickButton getActivateLiftButton() {
+        return activateClimbButton;
+    }
+
+    @Override
+    public JoystickButton getActivateRobotUp() {
+        // TODO Auto-generated method stub
+        return activateRobotUpButton;
+    }
+
+    @Override
+    public JoystickButton getDisableRobotUp() {
+        // TODO Auto-generated method stub
+        return deactivateRobotUpButton;
+    }
+
+    @Override
+    public boolean climbSaftey() {
+        // TODO Auto-generated method stub
+        return climbSaftey1.get() && climbSaftey2.get();
+    }
+
+    @Override
+    public JoystickButton getDeactivateLiftButton() {
+        // TODO Auto-generated method stub
+        return deactivateClimbButton;
+    }
+
+    @Override
+    public JoystickButton getClimbCheck1() {
+        // TODO Auto-generated method stub
+        return climbSaftey1;
+    }
+
+    @Override
+    public JoystickButton getClimbCheck2() {
+        // TODO Auto-generated method stub
+        return climbSaftey2;
+    }
+    
 }

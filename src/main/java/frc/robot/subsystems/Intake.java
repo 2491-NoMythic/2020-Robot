@@ -10,20 +10,21 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Settings.Constants;
 
 public class Intake extends SubsystemBase {
   TalonSRX CoreIntakeMotor;
-  Solenoid IntakeSolenoid;
+  DoubleSolenoid IntakeSolenoid;
   /**
    * Creates a new Intake.
    */
   public Intake() {
     CoreIntakeMotor = new TalonSRX(Constants.Intake.intakeMotorPort);
-    IntakeSolenoid = new Solenoid(Constants.Intake.intakeSolenoidPort);
-    IntakeSolenoid.set(false);
+    IntakeSolenoid = new DoubleSolenoid(Constants.Intake.intakeSolenoidPortForward,Constants.Intake.intakeSolenoidPortBackward);
+    pullIntakeIn();
   }
   
   public void StartIntakeMotor(double motorPercent) {
@@ -35,11 +36,19 @@ public class Intake extends SubsystemBase {
   }
 
   public void toggleIntakeSolenoid() {
-    boolean a = !IntakeSolenoid.get();
-    IntakeSolenoid.set(a);
+    Value a = IntakeSolenoid.get();
+    if(a == Value.kReverse){
+      IntakeSolenoid.set(Value.kForward);
+    } else {
+      IntakeSolenoid.set(Value.kReverse);
+    }  
   }
 
-  public boolean checkIntakeSolenoid() {
+  public void pullIntakeIn(){
+    IntakeSolenoid.set(Value.kReverse);
+  }
+
+  public Value checkIntakeSolenoid() {
     return IntakeSolenoid.get();
   }
   @Override

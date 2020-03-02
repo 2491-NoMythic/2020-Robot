@@ -15,7 +15,24 @@ import frc.robot.Settings.Constants;
  */
 public interface IOperatorController {
 
-     public JoystickButton returnIntakeButton();
+    public JoystickButton getActivateIntakeButton();
+
+	public JoystickButton getActivateLiftButton();
+
+	public JoystickButton getDeactivateLiftButton();
+
+	public JoystickButton getActivateRobotUp();
+
+	public JoystickButton getClimbCheck1();
+
+	public JoystickButton getClimbCheck2();
+
+	public JoystickButton getDisableRobotUp();
+
+	public double getIntakeAxis();
+
+	public double getLeftClimbAxis();
+
+	public boolean climbSaftey();
 
 }
-

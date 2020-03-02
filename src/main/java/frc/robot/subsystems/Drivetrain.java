@@ -8,11 +8,13 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Settings.Constants;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.kauailabs.navx.frc.AHRS;
@@ -52,9 +54,11 @@ public class Drivetrain extends SubsystemBase {
   public void resetGyro(){
     gyro.reset();
   }
+
   public double getGyroAngle(){
     return(getRawGyroAngle() % 360 + 360) % 360;
   }
+
   public double getRawGyroAngle() {
     return gyro.getAngle();
   }
@@ -67,13 +71,16 @@ public class Drivetrain extends SubsystemBase {
   public void drivePercentOutput(double speed){
     drivePercentOutput(speed, speed);
   }
+
   public void drivePercentOutput(double leftSpeed, double rightSpeed){
     driveLeftPercentOutput(leftSpeed);
     driveRightPercentOutput(rightSpeed);
   }
+
   public void driveLeftPercentOutput(double speed){
     driveLeftMotor1.set(ControlMode.PercentOutput, speed);
   }
+
   public void driveRightPercentOutput(double speed){
     driveRightMotor1.set(ControlMode.PercentOutput, speed);
   }
@@ -82,13 +89,16 @@ public class Drivetrain extends SubsystemBase {
   public void driveVoltage(double outputVolts){
     driveVoltage(outputVolts, outputVolts);
   }
+
   public void driveVoltage(double leftOutputVolts, double rightOutputVolts){
     driveRightVoltage(rightOutputVolts);
     driveLeftVoltage(leftOutputVolts);
   }
+
   public void driveRightVoltage(double outputVolts){
     driveRightMotor1.setVoltage(outputVolts);
   }
+
   public void driveLeftVoltage(double outputVolts){
     driveLeftMotor1.setVoltage(outputVolts);
   }
@@ -97,15 +107,26 @@ public class Drivetrain extends SubsystemBase {
   public void driveVelocity(double speed){
     driveVelocity(speed, speed);
   }
+
   public void driveVelocity(double leftSpeed, double rightSpeed){
     driveLeftVelocity(leftSpeed);
     driveRightVelocity(rightSpeed);
   }
+
   public void driveLeftVelocity(double speed){
     driveLeftMotor1.set(ControlMode.Velocity, speed);
   }
+
   public void driveRightVelocity(double speed){
     driveRightMotor1.set(ControlMode.Velocity, speed);
+  }
+
+  public double getRightDriveSpeed() {
+    return driveRightMotor1.get();
+  }
+
+  public double getLeftDriveSpeed(){
+    return driveLeftMotor1.get();
   }
 
   //robot can stop
@@ -113,28 +134,45 @@ public class Drivetrain extends SubsystemBase {
     drivePercentOutput(0, 0);
   }
 
+  public void breakModeOn(Boolean b){
+    if(b){
+      driveLeftMotor1.setNeutralMode(NeutralMode.Brake);
+      driveRightMotor1.setNeutralMode(NeutralMode.Brake);
+    } else {
+      driveLeftMotor1.setNeutralMode(NeutralMode.Coast);
+      driveRightMotor1.setNeutralMode(NeutralMode.Coast);
+    }
+  }
+
   //getting encoder distance and rate
   public double getRightEncoderDistance() {
     return driveRightMotor1.getSelectedSensorPosition(0) * Constants.Drivetrain.driveEncoderToInches;
   }
+
   public double getLeftEncoderDistance() {
     return driveLeftMotor1.getSelectedSensorPosition(0) * Constants.Drivetrain.driveEncoderToInches;
   }
+
   public double getLeftEncoderDistanceRaw() {
     return driveLeftMotor1.getSelectedSensorPosition(0);
   }
+
   public double getRightEncoderDistanceRaw() {
     return driveRightMotor1.getSelectedSensorPosition(0);
   }
+
   public double getEncoderDistance() {
     return ((getLeftEncoderDistance() + getRightEncoderDistance()) / 2);
   }
+
   public double getLeftEncoderRate() {
     return driveLeftMotor1.getSelectedSensorVelocity(0) * Constants.Drivetrain.driveEncoderVelocityToRPS;
   }
+
   public double getRightEncoderRate() {
     return driveRightMotor1.getSelectedSensorVelocity(0) * Constants.Drivetrain.driveEncoderVelocityToRPS;
   }
+
   public double getEncoderRate() {
     return ((getRightEncoderRate() + getLeftEncoderRate()) / 2);
   }

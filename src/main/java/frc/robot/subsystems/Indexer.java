@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import frc.robot.Settings.Constants;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -17,8 +18,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class Indexer extends SubsystemBase {
-  TalonSRX indexerBelt, connector, funnel1, funnel2;
-  Solenoid indexSolenoid;
+  TalonSRX indexerBelt, connector, funnelLeft, funnelRight;
   DigitalInput sensorBallEnter, sensorBallLeave, sensorPositionOne, sensorPositionTwo, sensorPositionThree, sensorPositionFour, sensorPositionFive, sensorPositionSix;
 
   /**
@@ -27,13 +27,10 @@ public class Indexer extends SubsystemBase {
   public Indexer() {
     indexerBelt = new TalonSRX(Constants.Indexer.indexBeltTalonID);
     connector = new TalonSRX(Constants.Indexer.connectorTalonID);
-    funnel1 = new TalonSRX(Constants.Indexer.funnelLeftTalonID);
-    funnel2 = new TalonSRX(Constants.Indexer.funnelRightTalonID);
-    indexSolenoid = new Solenoid(Constants.Indexer.indexSolenoidID);
-
+    funnelLeft = new TalonSRX(Constants.Indexer.funnelLeftTalonID);
+    funnelRight = new TalonSRX(Constants.Indexer.funnelRightTalonID);
+    funnelRight.setInverted(true);
     sensors();
-
-    indexSolenoid.set(true);
   }
 
   // runs the index motors using percent output
@@ -47,31 +44,20 @@ public class Indexer extends SubsystemBase {
   }
 
   // runs funnel motor using percent output
-  public void runFunnelMotor1(final double speed) {
-    funnel1.set(ControlMode.PercentOutput, speed);
+  public void runFunnelMotorLeft(final double speed) {
+    funnelLeft.set(ControlMode.PercentOutput, speed);
   }
 
   // runs funnel motor using percent output
-  public void runFunnelMotor2(final double speed) {
-    funnel2.set(ControlMode.PercentOutput, speed);
-  }
-
-  // checks the index solenoid
-  public boolean checkIndexSolenoid() {
-    return indexSolenoid.get();
-  }
-
-  // toggles index solenoid and updates a variable
-  public void toggleIndexSolenoid() {
-    final boolean state = !indexSolenoid.get();
-    indexSolenoid.set(state);
+  public void runFunnelMotorRight(final double speed) {
+    funnelRight.set(ControlMode.PercentOutput, speed);
   }
 
   public void stop() {
     runIndexMotor(0);
     runConnectorMotor(0);
-    runFunnelMotor1(0);
-    runFunnelMotor2(0);
+    runFunnelMotorLeft(0);
+    runFunnelMotorRight(0);
   }
 
   public void sensors(){
@@ -111,5 +97,8 @@ public class Indexer extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putBoolean("Enter Sensor", getSensorBallEnter());
+    SmartDashboard.putBoolean("End Sensor", getSensorBallLeave());
+    SmartDashboard.putBoolean("First Pos", getSensorPositionOne());
   }
 }
