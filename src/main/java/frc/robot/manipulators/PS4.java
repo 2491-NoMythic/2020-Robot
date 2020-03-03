@@ -20,7 +20,7 @@ public class PS4 implements IOperatorController {
     private final Joystick m_joystick;
     private static PS4 m_Instance = null;
     private JoystickButton activateIntakeButton, activateClimbButton, deactivateClimbButton, activateRobotUpButton,
-            deactivateRobotUpButton, climbSaftey1, climbSaftey2;
+            deactivateRobotUpButton, climbSaftey1, climbSaftey2, funnelerAndIndexer, shooterButton, runIndexer;
 
 
     public static PS4 getInstance(){
@@ -39,6 +39,9 @@ public class PS4 implements IOperatorController {
         deactivateRobotUpButton = new JoystickButton(m_joystick, Constants.Controller.PS4.deactivateRobotUpButtonID);
         climbSaftey1 = new JoystickButton(m_joystick, Constants.Controller.PS4.climbSaftey1ID);
         climbSaftey2 = new JoystickButton(m_joystick, Constants.Controller.PS4.climbSaftey2ID);
+        funnelerAndIndexer = new JoystickButton(m_joystick, Constants.Controller.PS4.funnelerAndIndexerID);
+        shooterButton = new JoystickButton(m_joystick, Constants.Controller.PS4.shooterButtonID);
+        runIndexer = new JoystickButton(m_joystick, Constants.Controller.PS4.runIndexerButtonID);
     }
 
     @Override
@@ -97,5 +100,26 @@ public class PS4 implements IOperatorController {
         // TODO Auto-generated method stub
         return climbSaftey2;
     }
+
+    @Override
+    public JoystickButton getShooterButton() {
+        // TODO Auto-generated method stub
+        return shooterButton;
+    }
+
+    @Override
+    public JoystickButton getFunnelerAndIndexer() {
+        // TODO Auto-generated method stub
+        return funnelerAndIndexer;
+    }
+
+    @Override
+    public JoystickButton runIndexer() {
+        // TODO Auto-generated method stub
+        return runIndexer;
+    }
+
+
+    
     
 }

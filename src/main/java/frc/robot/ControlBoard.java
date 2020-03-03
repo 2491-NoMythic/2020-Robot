@@ -103,4 +103,29 @@ public class ControlBoard implements IControlBoard {
         return mOperatorController.getClimbCheck2();
     }
 
+    @Override
+    public JoystickButton getShooterButton() {
+        // TODO Auto-generated method stub
+        return mOperatorController.getShooterButton();
+    }
+
+    @Override
+    public JoystickButton getFunnelerAndIndexer() {
+        // TODO Auto-generated method stub
+        return mOperatorController.getFunnelerAndIndexer();
+    }
+
+    @Override
+    public JoystickButton getConnectorAndIndexer() {
+        // TODO Auto-generated method stub
+        return mDriveController.getConnectorAndIndexer();
+    }
+
+    @Override
+    public JoystickButton runIndexer() {
+        // TODO Auto-generated method stub
+        return mOperatorController.runIndexer();
+    }
+
+
 }

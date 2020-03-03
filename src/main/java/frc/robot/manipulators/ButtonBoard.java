@@ -91,4 +91,22 @@ public class ButtonBoard implements IOperatorController {
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public JoystickButton getShooterButton() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public JoystickButton getFunnelerAndIndexer() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public JoystickButton runIndexer() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

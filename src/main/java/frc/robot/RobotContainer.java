@@ -12,8 +12,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.intake.AutoIntake;
+import frc.robot.commands.ConnectorAndIndex;
 import frc.robot.commands.DefaultIntakeRoutine;
 import frc.robot.commands.FunnlerTest;
+import frc.robot.commands.RunIndexer;
 import frc.robot.commands.ShiftLol;
 import frc.robot.commands.climber.ClimbExtendControl;
 import frc.robot.commands.climber.RobotUp;
@@ -48,7 +50,9 @@ public class RobotContainer {
   private final ClimbExtendControl climbExtendControl = new ClimbExtendControl(m_Climber, m_ControlBoard);
   private final RobotUp robotUp = new RobotUp(m_drivetrain, m_Climber, m_ControlBoard);
   private final FunnlerTest funnelTest = new FunnlerTest(m_Indexer);
-
+  private final RunIndexer runIndexer = new RunIndexer(m_Indexer);
+  private final ConnectorAndIndex connectorAndIndex = new ConnectorAndIndex(m_Indexer);
+  
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -83,9 +87,12 @@ public class RobotContainer {
     SmartDashboard.putNumber("Axis", m_ControlBoard.getLeftClimbAxis());
     m_ControlBoard.getActivateLiftButton().and(m_ControlBoard.getClimbCheck1()).and(m_ControlBoard.getClimbCheck2()).whenActive(climbExtendControl);
     m_ControlBoard.getDeactivateLiftButton().cancelWhenPressed(climbExtendControl);
-    m_ControlBoard.getActivateIntakeButton().whileHeld(new AutoIntake(m_Intake, m_ControlBoard));
+    m_ControlBoard.getActivateIntakeButton().whileHeld(new AutoIntake(m_Intake, m_ControlBoard, m_Indexer));
     m_ControlBoard.getActivateRobotUp().and(m_ControlBoard.getClimbCheck1()).and(m_ControlBoard.getClimbCheck2()).whenActive(robotUp);
     m_ControlBoard.getDisableRobotUp().cancelWhenPressed(robotUp);
+    m_ControlBoard.getShooterButton().whileHeld(shooterAtSpeedPID);
+    m_ControlBoard.getConnectorAndIndexer().whileHeld(connectorAndIndex);
+    m_ControlBoard.runIndexer().whileHeld(runIndexer);
   }
 
 
