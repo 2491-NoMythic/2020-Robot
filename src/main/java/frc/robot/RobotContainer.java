@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.drivetrain.LineupDrive;
 import frc.robot.commands.intake.AutoIntake;
 import frc.robot.commands.ConnectorAndIndex;
 import frc.robot.commands.DefaultIntakeRoutine;
@@ -93,6 +94,7 @@ public class RobotContainer {
     m_ControlBoard.getShooterButton().whileHeld(shooterAtSpeedPID);
     m_ControlBoard.getConnectorAndIndexer().whileHeld(connectorAndIndex);
     m_ControlBoard.runIndexer().whileHeld(runIndexer);
+    m_ControlBoard.getSlowModeButton().whileHeld(new LineupDrive(m_drivetrain,m_ControlBoard));
   }
 
 

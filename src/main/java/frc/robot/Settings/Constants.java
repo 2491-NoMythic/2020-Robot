@@ -79,7 +79,8 @@ public final class Constants {
             public static final int climbSaftey2ID = 8;
 			public static final int funnelerAndIndexerID = 14;
 			public static final int shooterButtonID = 5;
-			public static final int runIndexerButtonID = 0;
+            public static final int runIndexerButtonID = 0;
+            public static final int slowModeButtonID = 10;
         }
     }
 

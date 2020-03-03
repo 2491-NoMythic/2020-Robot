@@ -109,4 +109,10 @@ public class ButtonBoard implements IOperatorController {
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public JoystickButton getSlowModeButton() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

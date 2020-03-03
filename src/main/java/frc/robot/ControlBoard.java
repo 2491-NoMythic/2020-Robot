@@ -127,5 +127,11 @@ public class ControlBoard implements IControlBoard {
         return mOperatorController.runIndexer();
     }
 
+    @Override
+    public JoystickButton getSlowModeButton() {
+        // TODO Auto-generated method stub
+        return mOperatorController.getSlowModeButton();
+    }
+
 
 }
