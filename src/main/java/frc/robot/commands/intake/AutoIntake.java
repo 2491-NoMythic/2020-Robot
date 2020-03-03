@@ -12,8 +12,10 @@ import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import frc.robot.ControlBoard;
 import frc.robot.Settings.Constants;
+import frc.robot.commands.RunIndexer;
 
 public class AutoIntake extends CommandBase {
   /**
@@ -38,7 +40,7 @@ public class AutoIntake extends CommandBase {
       m_Intake.toggleIntakeSolenoid();
     }
     SmartDashboard.putBoolean("Working", true);
-
+    new RunIndexer(m_Indexer).schedule();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -49,9 +51,6 @@ public class AutoIntake extends CommandBase {
     intakeSpeed = m_ControlBoard.getIntakeAxis();
 
     m_Intake.StartIntakeMotor(intakeSpeed);
-    m_Indexer.runFunnelMotorLeft(0.5);
-    m_Indexer.runFunnelMotorRight(0.75);
-
   }
 
   // Called once the command ends or is interrupted.
