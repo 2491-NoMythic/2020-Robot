@@ -60,6 +60,11 @@ public class Indexer extends SubsystemBase {
     runFunnelMotorRight(0);
   }
 
+  public void stopFunnel(){
+    runFunnelMotorLeft(0);
+    runFunnelMotorRight(0);
+  }
+
   public void sensors(){
     sensorBallEnter = new DigitalInput(Constants.Indexer.sensorOnePin);
     sensorBallLeave = new DigitalInput(Constants.Indexer.sensorTwoPin);

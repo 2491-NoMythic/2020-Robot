@@ -7,10 +7,14 @@
 
 package frc.robot.Controllers;
 
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 /**
  * Add your docs here.
  */
 public interface IDriveController {
+
+    public JoystickButton getConnectorAndIndexer();
 
     public double getRawDriveAxis();
 

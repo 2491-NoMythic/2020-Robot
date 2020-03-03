@@ -29,6 +29,12 @@ public interface IOperatorController {
 
 	public JoystickButton getDisableRobotUp();
 
+	public JoystickButton getShooterButton();
+
+	public JoystickButton getFunnelerAndIndexer();
+
+	public JoystickButton runIndexer();
+
 	public double getIntakeAxis();
 
 	public double getLeftClimbAxis();
