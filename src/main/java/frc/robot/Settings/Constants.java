@@ -44,6 +44,10 @@ public final class Constants {
         //breaks
         public final static int rightBreakChannelID = 4;
         public final static int leftBreakChannelID = 5;
+
+        //Relay
+        public final static int spikeRelayChannel = 0;
+
         //Distance
         public final class DistanceDrive {
             public final static double kP = 0;

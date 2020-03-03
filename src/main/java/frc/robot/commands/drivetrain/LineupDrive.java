@@ -26,6 +26,7 @@ public class LineupDrive extends CommandBase {
     mDrive = drivetrain;
     m_ControlBoard = board;
     addRequirements(drivetrain);
+    mDrive.powerSpike();
   }
 
   // Called when the command is initially scheduled.
@@ -44,6 +45,7 @@ public class LineupDrive extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    mDrive.stopSpike();
   }
 
   // Returns true when the command should end.

@@ -8,7 +8,9 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Settings.Constants;
@@ -22,6 +24,7 @@ import com.kauailabs.navx.frc.AHRS;
 public class Drivetrain extends SubsystemBase {
   private WPI_TalonFX driveLeftMotor1,driveLeftMotor2,driveRightMotor1,driveRightMotor2;
   private AHRS gyro;
+  private Relay spike;
 
   public Drivetrain() {
 
@@ -45,6 +48,7 @@ public class Drivetrain extends SubsystemBase {
     driveLeftMotor2.setInverted(false);
 
     gyro = new AHRS(Port.kUSB);
+    spike = new Relay(Constants.Drivetrain.spikeRelayChannel);
 
     resetGyro();
   }
@@ -175,6 +179,15 @@ public class Drivetrain extends SubsystemBase {
 
   public double getEncoderRate() {
     return ((getRightEncoderRate() + getLeftEncoderRate()) / 2);
+  }
+
+  //Relay Toggles
+  public void powerSpike() {
+    spike.set(Value.kOn);
+  }
+
+  public void stopSpike() {
+    spike.set(Value.kOff);
   }
   
   @Override
