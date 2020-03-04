@@ -7,6 +7,8 @@
 
 package frc.robot.Settings;
 
+import frc.robot.Settings.Constants.ShooterSpeeds;
+
 /**
  * Add your docs here.
  */
@@ -15,5 +17,9 @@ public class Variables {
     public static class Indexer {
         public static int ballsLoaded = 0;
         public static boolean finalBallLoaded = false;
+    }
+
+    public static class Shooter{
+        public static ShooterSpeeds shooterSpeed = ShooterSpeeds.stop;
     }
 }

@@ -43,7 +43,7 @@ public interface IOperatorController {
 
 	public boolean climbSaftey();
 
-	public ShooterSpeeds setShooterSpeed();
+	public void setShooterSpeed();
 
 	public double getShooterSpeed();
 

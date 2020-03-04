@@ -123,10 +123,6 @@ public class ControlBoard implements IControlBoard {
         return mOperatorController.getSlowModeButton();
     }
 
-	public ShooterSpeeds SetShooterSpeed() {
-		return mOperatorController.setShooterSpeed();
-	}
-
     @Override
     public double getShooterSpeed() {
         // TODO Auto-generated method stub
@@ -134,9 +130,8 @@ public class ControlBoard implements IControlBoard {
     }
 
     @Override
-    public ShooterSpeeds setShooterSpeed() {
+    public void setShooterSpeed() {
         // TODO Auto-generated method stub
-        return mOperatorController.setShooterSpeed();
     }
 
 

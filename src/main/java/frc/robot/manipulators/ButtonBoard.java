@@ -118,9 +118,8 @@ public class ButtonBoard implements IOperatorController {
     }
 
     @Override
-    public ShooterSpeeds setShooterSpeed() {
+    public void setShooterSpeed() {
         // TODO Auto-generated method stub
-        return setShooterSpeed();
     }
 
     @Override

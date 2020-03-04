@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Settings.Constants.ShooterSpeeds;
 import frc.robot.Controllers.IOperatorController;
 import frc.robot.Settings.Constants;
+import frc.robot.Settings.Variables;
 
 /**
  * Add your docs here.
@@ -126,15 +127,15 @@ public class PS4 implements IOperatorController {
     }
 
     @Override
-    public ShooterSpeeds setShooterSpeed() {
+    public void setShooterSpeed() {
         if (m_joystick.getPOV() == 0){
-            return ShooterSpeeds.lowSpeed;
+            Variables.Shooter.shooterSpeed = ShooterSpeeds.lowSpeed;
     }   else if (m_joystick.getPOV() == 270){
-            return ShooterSpeeds.midSpeed;
+            Variables.Shooter.shooterSpeed = ShooterSpeeds.midSpeed;
     }   else if (m_joystick.getPOV() == 180){
-            return ShooterSpeeds.highSpeed;
+            Variables.Shooter.shooterSpeed = ShooterSpeeds.highSpeed;
     }   else {
-            return ShooterSpeeds.stop;
+            Variables.Shooter.shooterSpeed = ShooterSpeeds.stop;
     }
     }
 
