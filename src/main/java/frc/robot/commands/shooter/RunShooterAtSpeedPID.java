@@ -9,7 +9,9 @@ package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.ControlBoard;
 import frc.robot.Settings.Constants;
+import frc.robot.Settings.Constants.ShooterSpeeds;
 import frc.robot.subsystems.Shooter;
 
 public class RunShooterAtSpeedPID extends CommandBase {
@@ -17,7 +19,8 @@ public class RunShooterAtSpeedPID extends CommandBase {
    * Creates a new RunShooterAtSpeedPID.
    */
   Shooter mShooter;
-  Double currentSpeed;
+  double currentSpeed;
+  ControlBoard mBoard;
 
   public RunShooterAtSpeedPID(Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -34,7 +37,7 @@ public class RunShooterAtSpeedPID extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    currentSpeed = SmartDashboard.getNumber("Speed", 0);
+    currentSpeed = mBoard.getShooterSpeed();
     mShooter.runLeftShooterVelocity(currentSpeed);
   }
 
