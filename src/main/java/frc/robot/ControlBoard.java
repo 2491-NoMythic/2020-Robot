@@ -1,9 +1,10 @@
 package frc.robot;
 
+
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Controllers.IDriveController;
 import frc.robot.Controllers.IOperatorController;
-import frc.robot.manipulators.ButtonBoard;
+import frc.robot.Settings.Constants.ShooterSpeeds;
 import frc.robot.manipulators.PS4;
 import frc.robot.manipulators.TM;
 
@@ -49,13 +50,13 @@ public class ControlBoard implements IControlBoard {
         return mOperatorController.getActivateIntakeButton();
     }
 
-	public double getIntakeAxis() {
-		return mOperatorController.getIntakeAxis();
-	}
+    public double getIntakeAxis() {
+        return mOperatorController.getIntakeAxis();
+    }
 
-	public double getLeftClimbAxis() {
-		return mOperatorController.getLeftClimbAxis();
-	}
+    public double getLeftClimbAxis() {
+        return mOperatorController.getLeftClimbAxis();
+    }
 
     @Override
     public JoystickButton getActivateLiftButton() {
@@ -69,68 +70,68 @@ public class ControlBoard implements IControlBoard {
 
     @Override
     public JoystickButton getActivateRobotUp() {
-        // TODO Auto-generated method stub
         return mOperatorController.getActivateRobotUp();
     }
 
     @Override
     public JoystickButton getDisableRobotUp() {
-        // TODO Auto-generated method stub
         return mOperatorController.getDisableRobotUp();
     }
 
     @Override
     public boolean climbSaftey() {
-        // TODO Auto-generated method stub
         return mOperatorController.climbSaftey();
     }
 
     @Override
     public JoystickButton getDeactivateLiftButton() {
-        // TODO Auto-generated method stub
         return mOperatorController.getDeactivateLiftButton();
     }
 
     @Override
     public JoystickButton getClimbCheck1() {
-        // TODO Auto-generated method stub
         return mOperatorController.getClimbCheck1();
     }
 
     @Override
     public JoystickButton getClimbCheck2() {
-        // TODO Auto-generated method stub
         return mOperatorController.getClimbCheck2();
     }
 
     @Override
     public JoystickButton getShooterButton() {
-        // TODO Auto-generated method stub
         return mOperatorController.getShooterButton();
     }
 
     @Override
     public JoystickButton getFunnelerAndIndexer() {
-        // TODO Auto-generated method stub
         return mOperatorController.getFunnelerAndIndexer();
     }
 
     @Override
     public JoystickButton getConnectorAndIndexer() {
-        // TODO Auto-generated method stub
         return mDriveController.getConnectorAndIndexer();
     }
 
     @Override
     public JoystickButton runIndexer() {
-        // TODO Auto-generated method stub
         return mOperatorController.runIndexer();
     }
 
     @Override
     public JoystickButton getSlowModeButton() {
-        // TODO Auto-generated method stub
         return mOperatorController.getSlowModeButton();
+    }
+
+    @Override
+    public double getShooterSpeed() {
+        // TODO Auto-generated method stub
+        return mOperatorController.getShooterSpeed();
+    }
+
+    @Override
+    public void setShooterSpeed() {
+        // TODO Auto-generated method stub
     }
 
 

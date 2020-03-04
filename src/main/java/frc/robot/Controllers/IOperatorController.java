@@ -8,7 +8,7 @@
 package frc.robot.Controllers;
 
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Settings.Constants;
+import frc.robot.Settings.Constants.ShooterSpeeds;
 
 /**
  * Add your docs here.
@@ -42,5 +42,9 @@ public interface IOperatorController {
 	public double getLeftClimbAxis();
 
 	public boolean climbSaftey();
+
+	public void setShooterSpeed();
+
+	public double getShooterSpeed();
 
 }

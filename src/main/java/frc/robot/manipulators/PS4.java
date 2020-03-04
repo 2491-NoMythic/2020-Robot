@@ -8,9 +8,11 @@
 package frc.robot.manipulators;
 
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Controllers.IOperatorController;
 import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.Settings.Constants.ShooterSpeeds;
+import frc.robot.Controllers.IOperatorController;
 import frc.robot.Settings.Constants;
+import frc.robot.Settings.Variables;
 
 /**
  * Add your docs here.
@@ -22,15 +24,14 @@ public class PS4 implements IOperatorController {
     private JoystickButton activateIntakeButton, activateClimbButton, deactivateClimbButton, activateRobotUpButton,
             deactivateRobotUpButton, climbSaftey1, climbSaftey2, funnelerAndIndexer, shooterButton, runIndexer, slowModeButton;
 
-
-    public static PS4 getInstance(){
-        if (m_Instance == null){
+    public static PS4 getInstance() {
+        if (m_Instance == null) {
             m_Instance = new PS4();
         }
         return m_Instance;
     }
 
-    private PS4(){
+    private PS4() {
         m_joystick = new Joystick(Constants.Controller.opertatorControllerID);
         activateIntakeButton = new JoystickButton(m_joystick, Constants.Controller.PS4.activateIntakeButtonID);
         activateClimbButton = new JoystickButton(m_joystick, Constants.Controller.PS4.activateClimberButtonID);
@@ -50,10 +51,9 @@ public class PS4 implements IOperatorController {
         return activateIntakeButton;
     }
 
-
-	@Override
-	public double getIntakeAxis() {
-		return m_joystick.getRawAxis(Constants.Intake.intakeAxisID);
+    @Override
+    public double getIntakeAxis() {
+        return m_joystick.getRawAxis(Constants.Intake.intakeAxisID);
     }
 
     @Override
@@ -126,7 +126,23 @@ public class PS4 implements IOperatorController {
         return slowModeButton;
     }
 
+    @Override
+    public void setShooterSpeed() {
+        if (m_joystick.getPOV() == 0){
+            Variables.Shooter.shooterSpeed = ShooterSpeeds.lowSpeed;
+    }   else if (m_joystick.getPOV() == 270){
+            Variables.Shooter.shooterSpeed = ShooterSpeeds.midSpeed;
+    }   else if (m_joystick.getPOV() == 180){
+            Variables.Shooter.shooterSpeed = ShooterSpeeds.highSpeed;
+    }   else {
+            Variables.Shooter.shooterSpeed = ShooterSpeeds.stop;
+    }
+    }
 
-    
-    
+    @Override
+    public double getShooterSpeed() {
+        // TODO Auto-generated method stub
+        return getShooterSpeed();
+    }
+
 }
