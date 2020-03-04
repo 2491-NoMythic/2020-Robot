@@ -1,0 +1,378 @@
+From 3061171738ed9d654af9ced917c48f2348fad0ba Mon Sep 17 00:00:00 2001
+From: Julianna Dukart <jdukart@avalonschool.org>
+Date: Thu, 23 Jan 2020 19:05:31 -0600
+Subject: [PATCH] Drivetrain motors and other
+
+percent output, motors, velocity, drivetrain basic stuff and constants encoders stuff
+---
+ src/main/java/frc/robot/Constants.java        |  14 ++
+ .../java/frc/robot/subsystems/Drivetrain.java | 102 ++++++++++
+ vendordeps/Phoenix.json                       | 180 ++++++++++++++++++
+ vendordeps/navx_frc.json                      |  34 ++++
+ 4 files changed, 330 insertions(+)
+ create mode 100644 src/main/java/frc/robot/subsystems/Drivetrain.java
+ create mode 100644 vendordeps/Phoenix.json
+ create mode 100644 vendordeps/navx_frc.json
+
+diff --git a/src/main/java/frc/robot/Constants.java b/src/main/java/frc/robot/Constants.java
+index cf0c82e..c036327 100644
+--- a/src/main/java/frc/robot/Constants.java
++++ b/src/main/java/frc/robot/Constants.java
+@@ -16,4 +16,18 @@ package frc.robot;
+  * constants are needed, to reduce verbosity.
+  */
+ public final class Constants {
++    //drive
++    public final static int driveTalonLeftMotor1 = 0;
++    public final static int driveTalonLeftMotor2 = 0;
++    public final static int driveTalonRightMotor1 = 0;
++    public final static int driveTalonRightMotor2 = 0;  //0 should be replaced
++
++    //encoders
++    public final static double encoderTicks = 2048.0;   //encoder ticks per wheel rotation is 2048
++    public final static double wheelDiameter = 6.0;
++    public final static double driveEncoderToInches = 1 / wheelDiameter * Math.PI / encoderTicks;   //makes number inches
++    public final static double speedModeRPSToTalonOutput = encoderTicks / 10.0; 
++    public final static double driveEncoderVelocityToRPS = 1.0 / encoderTicks * 10;
++    public final static double driveMaxSpeedRPS = 8.0;
+ }
++
+diff --git a/src/main/java/frc/robot/subsystems/Drivetrain.java b/src/main/java/frc/robot/subsystems/Drivetrain.java
+new file mode 100644
+index 0000000..944f769
+--- /dev/null
++++ b/src/main/java/frc/robot/subsystems/Drivetrain.java
+@@ -0,0 +1,102 @@
++
++/*----------------------------------------------------------------------------*/
++/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
++/* Open Source Software - may be modified and shared by FRC teams. The code   */
++/* must be accompanied by the FIRST BSD license file in the root directory of */
++/* the project.                                                               */
++/*----------------------------------------------------------------------------*/
++
++package frc.robot.subsystems;
++
++import edu.wpi.first.wpilibj2.command.SubsystemBase;
++import frc.robot.Constants;
++import com.ctre.phoenix.motorcontrol.ControlMode;
++import com.ctre.phoenix.motorcontrol.can.TalonFX;
++
++public class Drivetrain extends SubsystemBase {
++  private TalonFX driveLeftMotor1,driveLeftMotor2,driveRightMotor1,driveRightMotor2;
++
++  public Drivetrain() {
++
++    //creating motors
++    driveLeftMotor1 = new TalonFX(Constants.driveTalonLeftMotor1);
++    driveLeftMotor2 = new TalonFX(Constants.driveTalonLeftMotor2);
++    driveRightMotor1 = new TalonFX(Constants.driveTalonRightMotor1);
++    driveRightMotor2 = new TalonFX(Constants.driveTalonRightMotor2);
++
++    //making right motors go right
++    driveRightMotor1.setInverted(true);
++    driveRightMotor2.setInverted(true);
++    driveLeftMotor1.setInverted(false);
++    driveLeftMotor2.setInverted(false);
++  }
++
++
++
++  //creating percent output for both right and left
++  public void drivePercentOutput(double speed){
++    drivePercentOutput(speed, speed);
++  }
++  public void drivePercentOutput(double leftSpeed, double rightSpeed){
++    driveLeftPercentOutput(leftSpeed);
++    driveRightPercentOutput(rightSpeed);
++  }
++  public void driveLeftPercentOutput(double speed){
++    driveLeftMotor1.set(ControlMode.PercentOutput, speed);
++  }
++  public void driveRightPercentOutput(double speed){
++    driveRightMotor1.set(ControlMode.PercentOutput, speed);
++  }
++
++  //creating drive velocity for both right and left
++  public void driveVelocity(double speed){
++    driveVelocity(speed, speed);
++  }
++  public void driveVelocity(double leftSpeed, double rightSpeed){
++    driveLeftVelocity(leftSpeed);
++    driveRightVelocity(rightSpeed);
++  }
++  public void driveLeftVelocity(double speed){
++    driveLeftMotor1.set(ControlMode.Velocity, speed);
++  }
++  public void driveRightVelocity(double speed){
++    driveRightMotor1.set(ControlMode.Velocity, speed);
++  
++  }
++
++  //robot can stop
++  public void stop(){
++    driveVelocity(0, 0);
++  }
++
++  //getting encoder distance and rate
++  public double getRightEncoderDistance() {
++    return driveRightMotor1.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
++  }
++  public double getLeftEncoderDistance() {
++    return driveLeftMotor1.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
++  }
++  public double getLeftEncoderDistanceRaw() {
++    return driveLeftMotor1.getSelectedSensorPosition(0);
++  }
++  public double getRightEncoderDistanceRaw() {
++    return driveRightMotor1.getSelectedSensorPosition(0);
++  }
++  public double getEncoderDistance() {
++    return ((getLeftEncoderDistance() + getRightEncoderDistance()) / 2);
++  }
++  public double getLeftEncoderRate() {
++    return driveLeftMotor1.getSelectedSensorVelocity(0) * Constants.driveEncoderVelocityToRPS;
++  }
++  public double getRightEncoderRate() {
++    return driveRightMotor1.getSelectedSensorVelocity(0) * Constants.driveEncoderVelocityToRPS;
++  }
++  public double getEncoderRate() {
++    return ((getRightEncoderRate() + getLeftEncoderRate()) / 2);
++  }
++  
++  @Override
++  public void periodic() {
++    // This method will be called once per scheduler run
++  }
++}
+diff --git a/vendordeps/Phoenix.json b/vendordeps/Phoenix.json
+new file mode 100644
+index 0000000..a633555
+--- /dev/null
++++ b/vendordeps/Phoenix.json
+@@ -0,0 +1,180 @@
++{
++    "fileName": "Phoenix.json",
++    "name": "CTRE-Phoenix",
++    "version": "5.17.4",
++    "uuid": "ab676553-b602-441f-a38d-f1296eff6537",
++    "mavenUrls": [
++        "http://devsite.ctr-electronics.com/maven/release/"
++    ],
++    "jsonUrl": "http://devsite.ctr-electronics.com/maven/release/com/ctre/phoenix/Phoenix-latest.json",
++    "javaDependencies": [
++        {
++            "groupId": "com.ctre.phoenix",
++            "artifactId": "api-java",
++            "version": "5.17.4"
++        },
++        {
++            "groupId": "com.ctre.phoenix",
++            "artifactId": "wpiapi-java",
++            "version": "5.17.4"
++        }
++    ],
++    "jniDependencies": [
++        {
++            "groupId": "com.ctre.phoenix",
++            "artifactId": "cci",
++            "version": "5.17.4",
++            "isJar": false,
++            "skipInvalidPlatforms": true,
++            "validPlatforms": [
++                "linuxathena",
++                "windowsx86-64",
++                "linuxx86-64"
++            ]
++        },
++        {
++            "groupId": "com.ctre.phoenix",
++            "artifactId": "diagnostics",
++            "version": "5.17.4",
++            "isJar": false,
++            "skipInvalidPlatforms": true,
++            "validPlatforms": [
++                "linuxathena",
++                "windowsx86-64",
++                "linuxx86-64"
++            ]
++        },
++        {
++            "groupId": "com.ctre.phoenix",
++            "artifactId": "canutils",
++            "version": "5.17.4",
++            "isJar": false,
++            "skipInvalidPlatforms": true,
++            "validPlatforms": [
++                "windowsx86-64",
++                "linuxx86-64"
++            ]
++        },
++        {
++            "groupId": "com.ctre.phoenix",
++            "artifactId": "platform-stub",
++            "version": "5.17.4",
++            "isJar": false,
++            "skipInvalidPlatforms": true,
++            "validPlatforms": [
++                "windowsx86-64",
++                "linuxx86-64"
++            ]
++        },
++        {
++            "groupId": "com.ctre.phoenix",
++            "artifactId": "core",
++            "version": "5.17.4",
++            "isJar": false,
++            "skipInvalidPlatforms": true,
++            "validPlatforms": [
++                "linuxathena",
++                "windowsx86-64",
++                "linuxx86-64"
++            ]
++        }
++    ],
++    "cppDependencies": [
++        {
++            "groupId": "com.ctre.phoenix",
++            "artifactId": "wpiapi-cpp",
++            "version": "5.17.4",
++            "libName": "CTRE_Phoenix_WPI",
++            "headerClassifier": "headers",
++            "sharedLibrary": false,
++            "skipInvalidPlatforms": true,
++            "binaryPlatforms": [
++                "linuxathena",
++                "windowsx86-64",
++                "linuxx86-64"
++            ]
++        },
++        {
++            "groupId": "com.ctre.phoenix",
++            "artifactId": "api-cpp",
++            "version": "5.17.4",
++            "libName": "CTRE_Phoenix",
++            "headerClassifier": "headers",
++            "sharedLibrary": false,
++            "skipInvalidPlatforms": true,
++            "binaryPlatforms": [
++                "linuxathena",
++                "windowsx86-64",
++                "linuxx86-64"
++            ]
++        },
++        {
++            "groupId": "com.ctre.phoenix",
++            "artifactId": "cci",
++            "version": "5.17.4",
++            "libName": "CTRE_PhoenixCCI",
++            "headerClassifier": "headers",
++            "sharedLibrary": false,
++            "skipInvalidPlatforms": true,
++            "binaryPlatforms": [
++                "linuxathena",
++                "windowsx86-64",
++                "linuxx86-64"
++            ]
++        },
++        {
++            "groupId": "com.ctre.phoenix",
++            "artifactId": "diagnostics",
++            "version": "5.17.4",
++            "libName": "CTRE_PhoenixDiagnostics",
++            "headerClassifier": "headers",
++            "sharedLibrary": false,
++            "skipInvalidPlatforms": true,
++            "binaryPlatforms": [
++                "linuxathena",
++                "windowsx86-64",
++                "linuxx86-64"
++            ]
++        },
++        {
++            "groupId": "com.ctre.phoenix",
++            "artifactId": "canutils",
++            "version": "5.17.4",
++            "libName": "CTRE_PhoenixCanutils",
++            "headerClassifier": "headers",
++            "sharedLibrary": false,
++            "skipInvalidPlatforms": true,
++            "binaryPlatforms": [
++                "windowsx86-64",
++                "linuxx86-64"
++            ]
++        },
++        {
++            "groupId": "com.ctre.phoenix",
++            "artifactId": "platform-stub",
++            "version": "5.17.4",
++            "libName": "CTRE_PhoenixPlatform",
++            "headerClassifier": "headers",
++            "sharedLibrary": false,
++            "skipInvalidPlatforms": true,
++            "binaryPlatforms": [
++                "windowsx86-64",
++                "linuxx86-64"
++            ]
++        },
++        {
++            "groupId": "com.ctre.phoenix",
++            "artifactId": "core",
++            "version": "5.17.4",
++            "libName": "CTRE_PhoenixCore",
++            "headerClassifier": "headers",
++            "sharedLibrary": false,
++            "skipInvalidPlatforms": true,
++            "binaryPlatforms": [
++                "linuxathena",
++                "windowsx86-64",
++                "linuxx86-64"
++            ]
++        }
++    ]
++}
+\ No newline at end of file
+diff --git a/vendordeps/navx_frc.json b/vendordeps/navx_frc.json
+new file mode 100644
+index 0000000..92f9c03
+--- /dev/null
++++ b/vendordeps/navx_frc.json
+@@ -0,0 +1,34 @@
++{
++    "fileName": "navx_frc.json",
++    "name": "KauaiLabs_navX_FRC",
++    "version": "3.1.391",
++    "uuid": "cb311d09-36e9-4143-a032-55bb2b94443b",
++    "mavenUrls": [
++        "https://repo1.maven.org/maven2/"
++    ],
++    "jsonUrl": "https://www.kauailabs.com/dist/frc/2020/navx_frc.json",
++    "javaDependencies": [
++        {
++            "groupId": "com.kauailabs.navx.frc",
++            "artifactId": "navx-java",
++            "version": "3.1.391"
++        }
++    ],
++    "jniDependencies": [],
++    "cppDependencies": [
++        {
++            "groupId": "com.kauailabs.navx.frc",
++            "artifactId": "navx-cpp",
++            "version": "3.1.391",
++            "headerClassifier": "headers",
++            "sourcesClassifier": "sources",
++            "sharedLibrary": false,
++            "libName": "navx_frc",
++            "skipInvalidPlatforms": true,
++            "binaryPlatforms": [
++                "linuxathena",
++                "linuxraspbian"
++            ]
++        }
++    ]
++}
+\ No newline at end of file
+-- 
+2.25.0.windows.1
+
