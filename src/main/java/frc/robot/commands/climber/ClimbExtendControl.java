@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.ControlBoard;
 import frc.robot.Settings.Constants;
 import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Indexer;
 
 public class ClimbExtendControl extends CommandBase {
   /**
@@ -26,11 +27,11 @@ public class ClimbExtendControl extends CommandBase {
     Moving, Stopped;
   }
 
-  public ClimbExtendControl(Climber climber, ControlBoard board) {
+  public ClimbExtendControl(Climber climber, Indexer index, ControlBoard board) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_Climber = climber;
     mBoard = board;
-    addRequirements(climber);
+    addRequirements(climber, index);
   }
 
   // Called when the command is initially scheduled.

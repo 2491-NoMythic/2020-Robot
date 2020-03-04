@@ -64,4 +64,10 @@ public class TM implements IDriveController {
         // TODO Auto-generated method stub
         return connectorAndIndexer;
     }
+
+    @Override
+    public JoystickButton getSlowDrive() {
+        // TODO Auto-generated method stub
+        return slowDrive;
+    }
 }

@@ -48,8 +48,9 @@ public class Drivetrain extends SubsystemBase {
     driveLeftMotor2.setInverted(false);
 
     gyro = new AHRS(Port.kUSB);
-    spike = new Relay(Constants.Drivetrain.spikeRelayChannel);
+    spike = new Relay(1);
 
+    stopSpike();
     resetGyro();
   }
 
@@ -183,11 +184,11 @@ public class Drivetrain extends SubsystemBase {
 
   //Relay Toggles
   public void powerSpike() {
-    spike.set(Value.kOn);
+    spike.set(Value.kForward);
   }
 
   public void stopSpike() {
-    spike.set(Value.kOff);
+    spike.set(Value.kReverse);
   }
   
   @Override

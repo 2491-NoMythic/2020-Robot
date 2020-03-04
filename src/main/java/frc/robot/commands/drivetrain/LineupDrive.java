@@ -26,20 +26,19 @@ public class LineupDrive extends CommandBase {
     mDrive = drivetrain;
     m_ControlBoard = board;
     addRequirements(drivetrain);
-    mDrive.powerSpike();
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+    mDrive.powerSpike();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    turnSpeed = m_ControlBoard.getRawTurnAxis()/5;
-    
+    turnSpeed = m_ControlBoard.getRawTurnAxis()/7;
+    mDrive.drivePercentOutput(-turnSpeed, turnSpeed);
   }
 
   // Called once the command ends or is interrupted.

@@ -30,7 +30,6 @@ public class AutoIntake extends CommandBase {
     m_Intake = intake;
     m_ControlBoard = controlBoard;
     addRequirements(intake);
-    addRequirements(indexer);
   }
 
   // Called when the command is initially scheduled.
@@ -40,7 +39,7 @@ public class AutoIntake extends CommandBase {
       m_Intake.toggleIntakeSolenoid();
     }
     SmartDashboard.putBoolean("Working", true);
-    new RunIndexer(m_Indexer).schedule();
+    //new RunIndexer(m_Indexer).schedule();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

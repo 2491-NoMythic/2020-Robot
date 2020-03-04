@@ -23,6 +23,8 @@ public interface IDriveController {
     public double getRawTurnAxis();
 
     public double getHorizontalClimbAxis();
+
+    public JoystickButton getSlowDrive();
  
 }
         

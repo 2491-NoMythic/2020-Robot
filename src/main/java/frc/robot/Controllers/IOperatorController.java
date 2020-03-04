@@ -31,11 +31,11 @@ public interface IOperatorController {
 
 	public JoystickButton getShooterButton();
 
-	public JoystickButton getSlowModeButton();
-
 	public JoystickButton getFunnelerAndIndexer();
 
 	public JoystickButton runIndexer();
+
+	public JoystickButton backIndexer();
 
 	public double getIntakeAxis();
 

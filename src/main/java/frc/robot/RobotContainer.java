@@ -18,6 +18,7 @@ import frc.robot.commands.DefaultIntakeRoutine;
 import frc.robot.commands.FunnlerTest;
 import frc.robot.commands.RunIndexer;
 import frc.robot.commands.ShiftLol;
+import frc.robot.commands.funnelOnlyDefaultCommand;
 import frc.robot.commands.climber.ClimbExtendControl;
 import frc.robot.commands.climber.RobotUp;
 import frc.robot.commands.shooter.RunConnector;
@@ -48,10 +49,9 @@ public class RobotContainer {
 
   private final RunShooterAtSpeedPID shooterAtSpeedPID = new RunShooterAtSpeedPID(m_Shooter);
   private final RunConnector runConnector = new RunConnector(m_Indexer);
-  private final ClimbExtendControl climbExtendControl = new ClimbExtendControl(m_Climber, m_ControlBoard);
+  private final ClimbExtendControl climbExtendControl = new ClimbExtendControl(m_Climber, m_Indexer, m_ControlBoard);
   private final RobotUp robotUp = new RobotUp(m_drivetrain, m_Climber, m_ControlBoard);
   private final FunnlerTest funnelTest = new FunnlerTest(m_Indexer);
-  private final RunIndexer runIndexer = new RunIndexer(m_Indexer);
   private final ConnectorAndIndex connectorAndIndex = new ConnectorAndIndex(m_Indexer);
   
   /**
@@ -67,11 +67,11 @@ public class RobotContainer {
         m_ControlBoard,
         m_drivetrain)
     );
-    /*m_Indexer.setDefaultCommand(
-      new DefaultIntakeRoutine(
+    m_Indexer.setDefaultCommand(
+      new funnelOnlyDefaultCommand(
         m_Indexer,
-        m_Intake)
-    );*/
+        m_ControlBoard)
+    );
   }
 
   /**
@@ -93,8 +93,9 @@ public class RobotContainer {
     m_ControlBoard.getDisableRobotUp().cancelWhenPressed(robotUp);
     m_ControlBoard.getShooterButton().whileHeld(shooterAtSpeedPID);
     m_ControlBoard.getConnectorAndIndexer().whileHeld(connectorAndIndex);
-    m_ControlBoard.runIndexer().whileHeld(runIndexer);
-    m_ControlBoard.getSlowModeButton().whileHeld(new LineupDrive(m_drivetrain,m_ControlBoard));
+    m_ControlBoard.runIndexer().whileHeld(new RunIndexer(m_Indexer, true));
+    m_ControlBoard.getSlowDrive().whileHeld(new LineupDrive(m_drivetrain,m_ControlBoard));
+    m_ControlBoard.backIndexer().whileHeld(new RunIndexer(m_Indexer,false));
   }
 
 

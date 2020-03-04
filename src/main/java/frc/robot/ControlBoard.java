@@ -119,8 +119,9 @@ public class ControlBoard implements IControlBoard {
     }
 
     @Override
-    public JoystickButton getSlowModeButton() {
-        return mOperatorController.getSlowModeButton();
+    public JoystickButton getSlowDrive() {
+        // TODO Auto-generated method stub
+        return mDriveController.getSlowDrive();
     }
 
     @Override
@@ -128,11 +129,17 @@ public class ControlBoard implements IControlBoard {
         // TODO Auto-generated method stub
         return mOperatorController.getShooterSpeed();
     }
+    @Override
+    public JoystickButton backIndexer() {
+        // TODO Auto-generated method stub
+        return mOperatorController.backIndexer();
+    }
 
     @Override
     public void setShooterSpeed() {
         // TODO Auto-generated method stub
     }
+
 
 
 }

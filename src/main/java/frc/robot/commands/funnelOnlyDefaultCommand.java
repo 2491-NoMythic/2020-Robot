@@ -5,25 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.climber;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.ControlBoard;
-import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Indexer;
 
-public class ClimbUp extends CommandBase {
+public class funnelOnlyDefaultCommand extends CommandBase {
   /**
-   * Creates a new ClimbUp.
+   * Creates a new funnelOnlyDefaultCommand.
    */
-  Climber m_Climber;
-  ControlBoard m_ControlBoard;
+  Indexer m_Indexer;
+  ControlBoard mControlBoard;
 
-  public ClimbUp(Climber climber, Indexer indexer, ControlBoard controlBoard) {
+  public funnelOnlyDefaultCommand(Indexer indexer, ControlBoard controlBoard) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_Climber = climber;
-    m_ControlBoard = controlBoard;
-    addRequirements(m_Climber);
+    m_Indexer = indexer;
+    mControlBoard = controlBoard;
     addRequirements(indexer);
   }
 
@@ -35,6 +33,16 @@ public class ClimbUp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if(mControlBoard.getLeftClimbAxis() < -0.5){
+      m_Indexer.runFunnelMotorLeft(-.5);
+      m_Indexer.runFunnelMotorRight(-.5);
+    } else if(mControlBoard.getLeftClimbAxis() > 0.5) {
+      m_Indexer.runFunnelMotorLeft(.75);
+      m_Indexer.runFunnelMotorRight(1);
+    } else {
+      m_Indexer.runFunnelMotorLeft(0);
+      m_Indexer.runFunnelMotorRight(0);
+    }
   }
 
   // Called once the command ends or is interrupted.

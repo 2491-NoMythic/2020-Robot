@@ -112,7 +112,7 @@ public class ButtonBoard implements IOperatorController {
     }
 
     @Override
-    public JoystickButton getSlowModeButton() {
+    public JoystickButton backIndexer() {
         // TODO Auto-generated method stub
         return null;
     }

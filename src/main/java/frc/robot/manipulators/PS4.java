@@ -22,7 +22,7 @@ public class PS4 implements IOperatorController {
     private final Joystick m_joystick;
     private static PS4 m_Instance = null;
     private JoystickButton activateIntakeButton, activateClimbButton, deactivateClimbButton, activateRobotUpButton,
-            deactivateRobotUpButton, climbSaftey1, climbSaftey2, funnelerAndIndexer, shooterButton, runIndexer, slowModeButton;
+            deactivateRobotUpButton, climbSaftey1, climbSaftey2, funnelerAndIndexer, shooterButton, runIndexer, backIndexer;
 
     public static PS4 getInstance() {
         if (m_Instance == null) {
@@ -43,7 +43,7 @@ public class PS4 implements IOperatorController {
         funnelerAndIndexer = new JoystickButton(m_joystick, Constants.Controller.PS4.funnelerAndIndexerID);
         shooterButton = new JoystickButton(m_joystick, Constants.Controller.PS4.shooterButtonID);
         runIndexer = new JoystickButton(m_joystick, Constants.Controller.PS4.runIndexerButtonID);
-        slowModeButton = new JoystickButton(m_joystick, Constants.Controller.PS4.slowModeButtonID);
+        backIndexer = new JoystickButton(m_joystick, Constants.Controller.PS4.backIndexerButtonID);
     }
 
     @Override
@@ -121,9 +121,9 @@ public class PS4 implements IOperatorController {
     }
 
     @Override
-    public JoystickButton getSlowModeButton() {
+    public JoystickButton backIndexer() {
         // TODO Auto-generated method stub
-        return slowModeButton;
+        return backIndexer;
     }
 
     @Override

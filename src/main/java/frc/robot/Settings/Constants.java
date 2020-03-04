@@ -87,13 +87,11 @@ public final class Constants {
             public static final int deactivateRobotUpButtonID = 4;
             public static final int climbSaftey1ID = 7;
             public static final int climbSaftey2ID = 8;
-            public static final int funnelerAndIndexerID = 14;
-            public static final int shooterButtonID = 5;
-            public static final int runIndexerButtonID = 0;
+			public static final int funnelerAndIndexerID = 15;
+			public static final int shooterButtonID = 5;
+            public static final int runIndexerButtonID = 14;
+            public static final int backIndexerButtonID = 13;
             public static final int slowModeButtonID = 10;
-            public static final int lowShootID = 0;
-            public static final int midShootID = 0;
-            public static final int highShootID = 0;
         }
     }
 
