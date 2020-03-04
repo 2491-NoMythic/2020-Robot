@@ -1,13 +1,10 @@
 package frc.robot;
 
-import com.fasterxml.jackson.databind.node.DoubleNode;
 
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.Controllers.IDriveController;
 import frc.robot.Controllers.IOperatorController;
 import frc.robot.Settings.Constants.ShooterSpeeds;
-import frc.robot.manipulators.ButtonBoard;
 import frc.robot.manipulators.PS4;
 import frc.robot.manipulators.TM;
 

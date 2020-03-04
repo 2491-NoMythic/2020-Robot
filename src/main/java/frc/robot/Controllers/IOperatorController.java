@@ -8,8 +8,6 @@
 package frc.robot.Controllers;
 
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
-import frc.robot.Settings.Constants;
 import frc.robot.Settings.Constants.ShooterSpeeds;
 
 /**
