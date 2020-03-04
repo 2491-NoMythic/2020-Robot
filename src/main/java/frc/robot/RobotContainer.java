@@ -23,6 +23,8 @@ import frc.robot.commands.climber.RobotUp;
 import frc.robot.commands.shooter.RunConnector;
 import frc.robot.commands.shooter.RunFullSpeed;
 import frc.robot.commands.shooter.RunShooterAtSpeedPID;
+import frc.robot.Settings.Constants;
+import frc.robot.commands.AutonomousCommand;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
@@ -53,6 +55,7 @@ public class RobotContainer {
   private final FunnlerTest funnelTest = new FunnlerTest(m_Indexer);
   private final RunIndexer runIndexer = new RunIndexer(m_Indexer);
   private final ConnectorAndIndex connectorAndIndex = new ConnectorAndIndex(m_Indexer);
+  private final AutonomousCommand autonomousCommand = new AutonomousCommand(m_drivetrain, m_Shooter, m_Indexer, Constants.Drivetrain.timeDriveSpeed, Constants.Drivetrain.timeDriveTime);
   
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -106,7 +109,6 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
-    //TODO: change null to m_autonomousCommand once it has been coded
+    return autonomousCommand;
   }
 }
