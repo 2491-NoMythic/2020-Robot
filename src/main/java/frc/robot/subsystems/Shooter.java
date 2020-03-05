@@ -143,6 +143,8 @@ public class Shooter extends SubsystemBase {
     final double f = SmartDashboard.getNumber("kF", 0);
     final double z = SmartDashboard.getNumber("IZone", 0);
 
+    SmartDashboard.putNumber("Shooter Speed", getEncoderRate());
+
     // if PID coefficients on SmartDashboard have changed, write new values to
     // controller
     if ((p != pGain)) {

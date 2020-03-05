@@ -134,7 +134,7 @@ public class PS4 implements IOperatorController {
             Variables.Shooter.shooterSpeed = ShooterSpeeds.midSpeed;
     }   else if (m_joystick.getPOV() == 180){
             Variables.Shooter.shooterSpeed = ShooterSpeeds.highSpeed;
-    }   else {
+    }   else if (m_joystick.getPOV() == 90){
             Variables.Shooter.shooterSpeed = ShooterSpeeds.stop;
     }
     }

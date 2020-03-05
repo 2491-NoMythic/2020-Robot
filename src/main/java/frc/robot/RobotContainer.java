@@ -18,6 +18,7 @@ import frc.robot.commands.DefaultIntakeRoutine;
 import frc.robot.commands.FunnlerTest;
 import frc.robot.commands.RunIndexer;
 import frc.robot.commands.ShiftLol;
+import frc.robot.commands.Simple3Ball;
 import frc.robot.commands.funnelOnlyDefaultCommand;
 import frc.robot.commands.climber.ClimbExtendControl;
 import frc.robot.commands.climber.RobotUp;
@@ -110,6 +111,6 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return autonomousCommand;
+    return new Simple3Ball(m_drivetrain, m_Shooter, m_Indexer);
   }
 }

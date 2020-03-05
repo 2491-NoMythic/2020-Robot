@@ -20,6 +20,6 @@ public class Variables {
     }
 
     public static class Shooter{
-        public static ShooterSpeeds shooterSpeed = ShooterSpeeds.stop;
+        public static ShooterSpeeds shooterSpeed = ShooterSpeeds.lowSpeed;
     }
 }

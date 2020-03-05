@@ -138,6 +138,7 @@ public class ControlBoard implements IControlBoard {
     @Override
     public void setShooterSpeed() {
         // TODO Auto-generated method stub
+        mOperatorController.setShooterSpeed();
     }
 
 
