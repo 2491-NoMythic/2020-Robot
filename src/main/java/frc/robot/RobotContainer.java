@@ -47,7 +47,7 @@ public class RobotContainer {
 
   private final ControlBoard m_ControlBoard = ControlBoard.getInstance();
 
-  private final RunShooterAtSpeedPID shooterAtSpeedPID = new RunShooterAtSpeedPID(m_Shooter);
+  private final RunShooterAtSpeedPID shooterAtSpeedPID = new RunShooterAtSpeedPID(m_Shooter, m_ControlBoard);
   private final RunConnector runConnector = new RunConnector(m_Indexer);
   private final ClimbExtendControl climbExtendControl = new ClimbExtendControl(m_Climber, m_Indexer, m_ControlBoard);
   private final RobotUp robotUp = new RobotUp(m_drivetrain, m_Climber, m_ControlBoard);
@@ -81,7 +81,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    SmartDashboard.putData(new RunShooterAtSpeedPID(m_Shooter));
+    SmartDashboard.putData(new RunShooterAtSpeedPID(m_Shooter, m_ControlBoard));
     SmartDashboard.putData(new RunConnector(m_Indexer));
     SmartDashboard.putData(new FunnlerTest(m_Indexer));
     SmartDashboard.putData(new ShiftLol(m_Climber, m_drivetrain));

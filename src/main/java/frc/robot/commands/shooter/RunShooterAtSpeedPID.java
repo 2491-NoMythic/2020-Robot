@@ -23,10 +23,11 @@ public class RunShooterAtSpeedPID extends CommandBase {
   double currentSpeed;
   ControlBoard mBoard;
 
-  public RunShooterAtSpeedPID(Shooter shooter) {
+  public RunShooterAtSpeedPID(Shooter shooter, ControlBoard cBoard) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooter);
     mShooter = shooter;
+    mBoard = cBoard;
   }
 
   // Called when the command is initially scheduled.
@@ -37,6 +38,7 @@ public class RunShooterAtSpeedPID extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    mBoard.setShooterSpeed();
     switch(Variables.Shooter.shooterSpeed){
       case lowSpeed:
           currentSpeed = 16500;
