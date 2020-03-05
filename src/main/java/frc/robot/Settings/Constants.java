@@ -20,7 +20,11 @@ package frc.robot.Settings;
 public final class Constants {
 
     public final class Drivetrain {
-        // controllers
+        //TimeDrive Values
+        public final static double timeDriveSpeed = .6;
+        public final static double timeDriveTime = 2;
+
+        //controllers
         public final static int driveController = 0;
         public final static double deadzone = 0.05;
 
