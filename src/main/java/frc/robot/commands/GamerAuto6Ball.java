@@ -35,8 +35,8 @@ public class GamerAuto6Ball extends CommandBase {
     mDex = index;
     mTak = intake;
     timer = new Timer();
-    turnLeft = new Rotate(mDrive, -15);
-    turnRight = new Rotate(mDrive, 15);
+    turnLeft = new Rotate(mDrive, -30);
+    turnRight = new Rotate(mDrive, 30);
   }
 
   // Called when the command is initially scheduled.
