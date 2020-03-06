@@ -22,7 +22,7 @@ public class PS4 implements IOperatorController {
     private final Joystick m_joystick;
     private static PS4 m_Instance = null;
     private JoystickButton activateIntakeButton, activateClimbButton, deactivateClimbButton, activateRobotUpButton,
-            deactivateRobotUpButton, climbSaftey1, climbSaftey2, funnelerAndIndexer, shooterButton, runIndexer, backIndexer;
+            deactivateRobotUpButton, climbSaftey1, climbSaftey2, funnelerAndIndexer, shooterButton, runIndexer, backIndexer, sleepyShotButton;
 
     public static PS4 getInstance() {
         if (m_Instance == null) {
@@ -44,6 +44,8 @@ public class PS4 implements IOperatorController {
         shooterButton = new JoystickButton(m_joystick, Constants.Controller.PS4.shooterButtonID);
         runIndexer = new JoystickButton(m_joystick, Constants.Controller.PS4.runIndexerButtonID);
         backIndexer = new JoystickButton(m_joystick, Constants.Controller.PS4.backIndexerButtonID);
+        sleepyShotButton = new JoystickButton(m_joystick, 10);
+
     }
 
     @Override
@@ -130,13 +132,15 @@ public class PS4 implements IOperatorController {
     public void setShooterSpeed() {
         if (m_joystick.getPOV() == 0){
             Variables.Shooter.shooterSpeed = ShooterSpeeds.lowSpeed;
-    }   else if (m_joystick.getPOV() == 270){
+        }else if (m_joystick.getPOV() == 270){
             Variables.Shooter.shooterSpeed = ShooterSpeeds.midSpeed;
-    }   else if (m_joystick.getPOV() == 180){
+        }else if (m_joystick.getPOV() == 180){
             Variables.Shooter.shooterSpeed = ShooterSpeeds.highSpeed;
-    }   else if (m_joystick.getPOV() == 90){
-            Variables.Shooter.shooterSpeed = ShooterSpeeds.stop;
-    }
+        }else if (m_joystick.getPOV() == 90){
+            Variables.Shooter.shooterSpeed = ShooterSpeeds.stop;   
+        }else if (sleepyShotButton.get()){
+            Variables.Shooter.shooterSpeed = ShooterSpeeds.sleepSpeed;
+        }
     }
 
     @Override

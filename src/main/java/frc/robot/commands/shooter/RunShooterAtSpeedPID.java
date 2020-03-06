@@ -41,17 +41,20 @@ public class RunShooterAtSpeedPID extends CommandBase {
     mBoard.setShooterSpeed();
     switch(Variables.Shooter.shooterSpeed){
       case lowSpeed:
-          currentSpeed = 16500;
+        currentSpeed = 16500;
         break;
       case midSpeed:
-          currentSpeed = 19000;
+        currentSpeed = 19000;
         break;
       case highSpeed:
-          currentSpeed = 21000;
+        currentSpeed = 21000;
         break;
       case stop:
-          currentSpeed = 0;
-      break;
+        currentSpeed = 0;
+        break;
+      case sleepSpeed:
+        currentSpeed = 2000;
+        break;
     }
     mShooter.runLeftShooterVelocity(currentSpeed);
   }

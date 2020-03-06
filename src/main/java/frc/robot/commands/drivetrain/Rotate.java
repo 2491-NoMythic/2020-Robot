@@ -8,8 +8,10 @@
 package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Settings.Constants;
+import frc.robot.Settings.Variables;
 import frc.robot.subsystems.Drivetrain;
 
 public class Rotate extends CommandBase {
@@ -26,13 +28,13 @@ public class Rotate extends CommandBase {
     this.drivetrain = drivetrain;
     addRequirements(drivetrain);
     this.degrees = degrees;
-    pid = new PIDController(Constants.Drivetrain.RotationCommand.kP, Constants.Drivetrain.RotationCommand.kI, Constants.Drivetrain.RotationCommand.kD);
-    pid.setTolerance(2,10);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    pid = new PIDController(Variables.Drivetrain.RotationCommand.kP, Variables.Drivetrain.RotationCommand.kI, Variables.Drivetrain.RotationCommand.kD);
+    pid.setTolerance(1,10);
     pid.setSetpoint(drivetrain.getRawGyroAngle() + degrees);
   }
 

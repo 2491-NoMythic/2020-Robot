@@ -22,4 +22,12 @@ public class Variables {
     public static class Shooter{
         public static ShooterSpeeds shooterSpeed = ShooterSpeeds.lowSpeed;
     }
+
+    public static class Drivetrain{
+        public static class RotationCommand{
+            public static double kP = 0.015;
+            public static double kI = 0.028;
+            public static double kD = 0;
+        }
+    }
 }

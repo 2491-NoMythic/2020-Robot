@@ -12,8 +12,11 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.SerialPort.Port;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Settings.Constants;
+import frc.robot.Settings.Variables;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -52,6 +55,10 @@ public class Drivetrain extends SubsystemBase {
 
     stopSpike();
     resetGyro();
+
+    SmartDashboard.putNumber("Rotate P", Variables.Drivetrain.RotationCommand.kP);
+    SmartDashboard.putNumber("Rotate I", Variables.Drivetrain.RotationCommand.kI);
+    SmartDashboard.putNumber("Rotate D", Variables.Drivetrain.RotationCommand.kD);
   }
 
 
@@ -193,6 +200,16 @@ public class Drivetrain extends SubsystemBase {
   
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Angle", getGyroAngle());
+    if ((SmartDashboard.getNumber("Rotate P", 0) != Variables.Drivetrain.RotationCommand.kP)) {
+      Variables.Drivetrain.RotationCommand.kP = SmartDashboard.getNumber("Rotate P", 0);
+    }
+    if ((SmartDashboard.getNumber("Rotate I", 0) != Variables.Drivetrain.RotationCommand.kI)) {
+      Variables.Drivetrain.RotationCommand.kI = SmartDashboard.getNumber("Rotate I", 0);
+    }
+    if ((SmartDashboard.getNumber("Rotate D", 0) != Variables.Drivetrain.RotationCommand.kD)) {
+      Variables.Drivetrain.RotationCommand.kD = SmartDashboard.getNumber("Rotate D", 0);
+    }
     // This method will be called once per scheduler run
   }
 }

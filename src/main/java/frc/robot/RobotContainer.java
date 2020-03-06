@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.LineupDrive;
+import frc.robot.commands.drivetrain.Rotate;
 import frc.robot.commands.intake.AutoIntake;
 import frc.robot.commands.ConnectorAndIndex;
 import frc.robot.commands.DefaultIntakeRoutine;
@@ -100,6 +101,7 @@ public class RobotContainer {
     m_ControlBoard.runIndexer().whileHeld(new RunIndexer(m_Indexer, true));
     m_ControlBoard.getSlowDrive().whileHeld(new LineupDrive(m_drivetrain,m_ControlBoard));
     m_ControlBoard.backIndexer().whileHeld(new RunIndexer(m_Indexer,false));
+    SmartDashboard.putData("TurnUp", new Rotate(m_drivetrain, 30));
   }
 
 
