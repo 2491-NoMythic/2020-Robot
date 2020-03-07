@@ -27,7 +27,10 @@ public class GamerAuto6Ball extends CommandBase {
   Intake mTak;
   Timer timer;
   int state;
+  double currentTim;
   Rotate turnLeft, turnRight;
+  double firstTime, secondTime, thirdTime, forthTime, beltTime, whenToDriveBack, driveSpeed;
+  boolean iDontKnow, secTimLOl, thirdTimLOL;
 
   public GamerAuto6Ball(Drivetrain drive, Shooter shoot, Indexer index, Intake intake) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -38,7 +41,13 @@ public class GamerAuto6Ball extends CommandBase {
     mTak = intake;
     timer = new Timer();
     turnLeft = new Rotate(mDrive, -30);
-    turnRight = new Rotate(mDrive, 30);          
+    turnRight = new Rotate(mDrive, 30);    
+    SmartDashboard.putNumber("firstTime", 0);
+    SmartDashboard.putNumber("secondTime", 0);  
+    SmartDashboard.putNumber("thirdTime", 0);  
+    SmartDashboard.putNumber("forthTime", 0);  
+    SmartDashboard.putNumber("beltTime", 0);   
+    SmartDashboard.putNumber("firstTime", 0);       
   }
 
   // Called when the command is initially scheduled.
@@ -47,6 +56,10 @@ public class GamerAuto6Ball extends CommandBase {
     timer.reset();
     timer.start();
     state = 0;
+    iDontKnow = true;
+    currentTim = 0;
+    secTimLOl = false;
+    thirdTimLOL = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -74,7 +87,95 @@ public class GamerAuto6Ball extends CommandBase {
         if(timer.get() > 5.2){
           state++;
         }
-        
+        break;
+      case 3:
+        turnRight.cancel();
+        mDrive.drivePercentOutput(-driveSpeed, -driveSpeed);
+        mTak.toggleIntakeSolenoid();
+        mTak.StartIntakeMotor(-1);
+        if(timer.get() > (5.2 + firstTime)){
+          state++;
+        }
+        break;
+      case 4:
+        if(iDontKnow){
+          iDontKnow = false;
+          currentTim = timer.get();
+        }
+        runBallIn();
+        if(timer.get() > (currentTim + beltTime)){
+          state = 5;
+          iDontKnow = true;
+          currentTim = 0;
+          stopBallIn();
+          if(secTimLOl){
+            thirdTimLOL = true;
+          }
+          secTimLOl = true;
+          if(thirdTimLOL){
+            state = 7;
+            break;
+          } else if(secTimLOl){
+            state = 6;
+            break;
+          } else{
+            state = 5;
+            break;
+          }
+        }
+      case 5:
+        if(iDontKnow){
+          iDontKnow = false;
+          currentTim = timer.get();
+        }
+        if(timer.get() > (currentTim + secondTime)){
+          state = 4;
+          iDontKnow = true;
+        }
+        break;
+      case 6:
+        if(iDontKnow){
+          iDontKnow = false;
+          currentTim = timer.get();
+        }
+        if(timer.get() > (currentTim + thirdTime)){
+          state = 4;
+          iDontKnow = true;
+        }
+        break;
+      case 7:
+        if(iDontKnow){
+          iDontKnow = false;
+          currentTim = timer.get();
+        }
+        mTak.toggleIntakeSolenoid();
+        mTak.StartIntakeMotor(0);
+        mDrive.drivePercentOutput(driveSpeed, driveSpeed);
+        if(timer.get() > (currentTim + firstTime + secondTime + thirdTime)){
+          state = 8;
+          iDontKnow = true;
+        }
+        break; 
+      case 8:
+        if(iDontKnow){
+          iDontKnow = false;
+          currentTim = timer.get();
+        }
+        turnLeft.schedule();
+        mShoot.runLeftShooterVelocity(2000);
+        if(timer.get() > (currentTim + 2)){
+          state = 9;
+          iDontKnow = true;
+        }
+        break;
+      case 9:
+        if(iDontKnow){
+          iDontKnow = false;
+          currentTim = timer.get();
+        }
+        mDex.runConnectorMotor(1);
+        mDex.runIndexMotor(-1);
+        break;
     }
   }
 
@@ -87,5 +188,17 @@ public class GamerAuto6Ball extends CommandBase {
   @Override
   public boolean isFinished() {
     return state >= 3;
+  }
+
+  private void runBallIn(){
+    mDex.runFunnelMotorLeft(1);
+    mDex.runFunnelMotorRight(0.75);
+    mDex.runIndexMotor(-0.5);
+  }
+
+  private void stopBallIn(){
+    mDex.runFunnelMotorLeft(0);
+    mDex.runFunnelMotorRight(0);
+    mDex.runIndexMotor(0);
   }
 }
