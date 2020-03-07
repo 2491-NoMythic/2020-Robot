@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Settings.Variables;
@@ -31,7 +32,6 @@ public class GamerAuto6Ball extends CommandBase {
   Rotate turnLeft, turnRight;
   double firstTime, secondTime, thirdTime, forthTime, beltTime, whenToDriveBack, driveSpeed;
   boolean iDontKnow, secTimLOl, thirdTimLOL;
-
   public GamerAuto6Ball(Drivetrain drive, Shooter shoot, Indexer index, Intake intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive,shoot,index,intake);
@@ -40,19 +40,26 @@ public class GamerAuto6Ball extends CommandBase {
     mDex = index;
     mTak = intake;
     timer = new Timer();
-    turnLeft = new Rotate(mDrive, -30);
-    turnRight = new Rotate(mDrive, 30);    
+    turnLeft = new Rotate(mDrive, -25);
+    turnRight = new Rotate(mDrive, 25);    
     SmartDashboard.putNumber("firstTime", 0);
     SmartDashboard.putNumber("secondTime", 0);  
     SmartDashboard.putNumber("thirdTime", 0);  
     SmartDashboard.putNumber("forthTime", 0);  
     SmartDashboard.putNumber("beltTime", 0);   
-    SmartDashboard.putNumber("firstTime", 0);       
+    SmartDashboard.putNumber("driveSpeed", 0);       
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    firstTime = 3;
+    driveSpeed = 0.3;
+    secondTime = SmartDashboard.getNumber("secondTime", 0);
+    thirdTime = SmartDashboard.getNumber("thirdTIme", 0);
+    forthTime = SmartDashboard.getNumber("forthTime", 0);
+    beltTime = SmartDashboard.getNumber("beltTime", 0);
+    driveSpeed = SmartDashboard.getNumber("driveSpeed", 0);
     timer.reset();
     timer.start();
     state = 0;
@@ -65,9 +72,11 @@ public class GamerAuto6Ball extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    SmartDashboard.putNumber("state", state);
+    SmartDashboard.putNumber("tyimer", timer.get());
     switch(state){
       case 0:
-        mShoot.runLeftShooterVelocity(2000);
+        mShoot.runLeftShooterVelocity(16500);
         if(timer.get() > 1.2){
           state++;
         }
@@ -77,24 +86,24 @@ public class GamerAuto6Ball extends CommandBase {
         mDex.runIndexMotor(-1);
         if(timer.get()>3.2){
           state++;
-          mShoot.runLeftShooterVelocity(0);
           mDex.runConnectorMotor(0);
           mDex.runIndexMotor(0);
         }
         break;
       case 2:
         turnRight.schedule();
-        if(timer.get() > 5.2){
+        if(timer.get()>5.2){
           state++;
+          turnRight.cancel();
         }
         break;
       case 3:
-        turnRight.cancel();
         mDrive.drivePercentOutput(-driveSpeed, -driveSpeed);
         mTak.toggleIntakeSolenoid();
         mTak.StartIntakeMotor(-1);
+        runBallIn();
         if(timer.get() > (5.2 + firstTime)){
-          state++;
+          state = 7;
         }
         break;
       case 4:
@@ -119,7 +128,7 @@ public class GamerAuto6Ball extends CommandBase {
             state = 6;
             break;
           } else{
-            state = 5;
+            state = 7;
             break;
           }
         }
@@ -148,10 +157,8 @@ public class GamerAuto6Ball extends CommandBase {
           iDontKnow = false;
           currentTim = timer.get();
         }
-        mTak.toggleIntakeSolenoid();
-        mTak.StartIntakeMotor(0);
         mDrive.drivePercentOutput(driveSpeed, driveSpeed);
-        if(timer.get() > (currentTim + firstTime + secondTime + thirdTime)){
+        if(timer.get() > (currentTim + firstTime)){
           state = 8;
           iDontKnow = true;
         }
@@ -162,7 +169,7 @@ public class GamerAuto6Ball extends CommandBase {
           currentTim = timer.get();
         }
         turnLeft.schedule();
-        mShoot.runLeftShooterVelocity(2000);
+        mShoot.runLeftShooterVelocity(16500);
         if(timer.get() > (currentTim + 2)){
           state = 9;
           iDontKnow = true;

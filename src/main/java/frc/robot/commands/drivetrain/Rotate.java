@@ -26,7 +26,6 @@ public class Rotate extends CommandBase {
   public Rotate(Drivetrain drivetrain, double degrees) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.drivetrain = drivetrain;
-    addRequirements(drivetrain);
     this.degrees = degrees;
   }
 
