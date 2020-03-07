@@ -18,6 +18,7 @@ import frc.robot.commands.ConnectorAndIndex;
 import frc.robot.commands.DefaultIntakeRoutine;
 import frc.robot.commands.FunnlerTest;
 import frc.robot.commands.GamerAuto6Ball;
+import frc.robot.commands.ProjectSnobbbyShores;
 import frc.robot.commands.RunIndexer;
 import frc.robot.commands.ShiftLol;
 import frc.robot.commands.Simple3Ball;
@@ -115,6 +116,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     //return new Simple3Ball(m_drivetrain, m_Shooter, m_Indexer);
-    return new GamerAuto6Ball(m_drivetrain, m_Shooter, m_Indexer, m_Intake);
+    //return new GamerAuto6Ball(m_drivetrain, m_Shooter, m_Indexer, m_Intake);
+    return new ProjectSnobbbyShores(m_Shooter, m_Indexer, m_drivetrain, m_Intake);
   }
 }

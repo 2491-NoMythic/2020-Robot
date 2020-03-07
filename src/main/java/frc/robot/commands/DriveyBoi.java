@@ -30,6 +30,7 @@ public class DriveyBoi extends CommandBase {
     dex = index;
     this.driveBackTime = driveBackTime;
     addRequirements(drive, take, index);
+    time = new Timer();
   }
 
   // Called when the command is initially scheduled.

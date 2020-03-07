@@ -7,6 +7,7 @@
 
 package frc.robot.commands.drivetrain;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -19,6 +20,7 @@ public class Rotate extends CommandBase {
   private Drivetrain drivetrain;
   private double degrees;
   private PIDController pid;
+  private Timer timer;
 
   /**
    * Creates a new Rotate command.
@@ -27,6 +29,7 @@ public class Rotate extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     this.drivetrain = drivetrain;
     this.degrees = degrees;
+    timer = new Timer();
   }
 
   // Called when the command is initially scheduled.
@@ -36,6 +39,8 @@ public class Rotate extends CommandBase {
     pid.setTolerance(1,10);
     pid.setSetpoint(drivetrain.getRawGyroAngle() + degrees);
     Variables.Drivetrain.Auto.isRunningFirstTurn = true;
+    timer.reset();
+    timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -55,6 +60,6 @@ public class Rotate extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return pid.atSetpoint();
+    return pid.atSetpoint() || (timer.get() > 2);
   }
 }
