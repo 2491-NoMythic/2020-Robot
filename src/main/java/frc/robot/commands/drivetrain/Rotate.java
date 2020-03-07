@@ -36,6 +36,7 @@ public class Rotate extends CommandBase {
     pid = new PIDController(Variables.Drivetrain.RotationCommand.kP, Variables.Drivetrain.RotationCommand.kI, Variables.Drivetrain.RotationCommand.kD);
     pid.setTolerance(1,10);
     pid.setSetpoint(drivetrain.getRawGyroAngle() + degrees);
+    Variables.Drivetrain.Auto.isRunningFirstTurn = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -49,6 +50,7 @@ public class Rotate extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     drivetrain.stop();
+    Variables.Drivetrain.Auto.isRunningFirstTurn = false;
   }
 
   // Returns true when the command should end.

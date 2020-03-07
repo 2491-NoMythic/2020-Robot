@@ -8,7 +8,9 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Settings.Variables;
 import frc.robot.commands.drivetrain.Rotate;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Indexer;
@@ -36,7 +38,7 @@ public class GamerAuto6Ball extends CommandBase {
     mTak = intake;
     timer = new Timer();
     turnLeft = new Rotate(mDrive, -30);
-    turnRight = new Rotate(mDrive, 30);
+    turnRight = new Rotate(mDrive, 30);          
   }
 
   // Called when the command is initially scheduled.
@@ -52,17 +54,16 @@ public class GamerAuto6Ball extends CommandBase {
   public void execute() {
     switch(state){
       case 0:
-        turnLeft.schedule();
-        mShoot.runLeftShooterVelocity(16500);
-        if(mShoot.getEncoderRate() > 16500 && turnRight.isFinished()){
-          state = 1;
+        mShoot.runLeftShooterVelocity(2000);
+        if(timer.get() > 1.2){
+          state++;
         }
         break;
       case 1:
         mDex.runConnectorMotor(1);
-        mDex.runIndexMotor(-0.5);
-        if(timer.get()>5){
-          state = 2;
+        mDex.runIndexMotor(-1);
+        if(timer.get()>3.2){
+          state++;
           mShoot.runLeftShooterVelocity(0);
           mDex.runConnectorMotor(0);
           mDex.runIndexMotor(0);
@@ -70,8 +71,8 @@ public class GamerAuto6Ball extends CommandBase {
         break;
       case 2:
         turnRight.schedule();
-        if(turnRight.isFinished()){
-          state = 3;
+        if(timer.get() > 5.2){
+          state++;
         }
         
     }

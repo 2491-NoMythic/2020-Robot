@@ -29,5 +29,9 @@ public class Variables {
             public static double kI = 0.028;
             public static double kD = 0;
         }
+
+        public static class Auto{
+            public static boolean isRunningFirstTurn = false;
+        }
     }
 }
