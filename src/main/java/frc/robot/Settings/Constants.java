@@ -19,6 +19,8 @@ package frc.robot.Settings;
  */
 public final class Constants {
 
+    public final static boolean slowMode = false;
+
     public final class Drivetrain {
         // controllers
         public final static int driveController = 0;

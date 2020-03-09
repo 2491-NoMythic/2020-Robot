@@ -50,7 +50,12 @@ public class Drive extends CommandBase {
     if(SmartDashboard.getBoolean("Record?", false)){
       System.out.print("{ " + currentLeftSpeed + ", " + currentRightSpeed + " },");
     }
-		
+    
+    if(Constants.slowMode){
+      currentLeftSpeed = currentLeftSpeed/2;
+      currentRightSpeed = currentRightSpeed/2;
+    }
+
 		if (Constants.Drivetrain.useLinerAcceleration) {
 			double leftAcceleration = (currentLeftSpeed - lastLeftSpeed);
 			double signOfLeftAcceleration = leftAcceleration / Math.abs(leftAcceleration);
