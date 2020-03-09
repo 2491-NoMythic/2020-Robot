@@ -115,8 +115,8 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    //return new Simple3Ball(m_drivetrain, m_Shooter, m_Indexer);
+    return new Simple3Ball(m_drivetrain, m_Shooter, m_Indexer);
     //return new GamerAuto6Ball(m_drivetrain, m_Shooter, m_Indexer, m_Intake);
-    return new ProjectSnobbbyShores(m_Shooter, m_Indexer, m_drivetrain, m_Intake);
+    //return new ProjectSnobbbyShores(m_Shooter, m_Indexer, m_drivetrain, m_Intake);
   }
 }

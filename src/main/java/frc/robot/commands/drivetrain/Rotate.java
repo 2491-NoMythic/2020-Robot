@@ -60,6 +60,6 @@ public class Rotate extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return pid.atSetpoint() || (timer.get() > 2);
+    return pid.atSetpoint() || (timer.get() > 1.5);
   }
 }

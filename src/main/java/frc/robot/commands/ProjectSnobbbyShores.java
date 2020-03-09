@@ -24,6 +24,6 @@ public class ProjectSnobbbyShores extends SequentialCommandGroup {
   public ProjectSnobbbyShores(Shooter shoot, Indexer index, Drivetrain drivetrain, Intake intake) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    addCommands(new Shoot(shoot, index), new Rotate(drivetrain, 25), new DriveyBoi(drivetrain, intake, index, 3), new Rotate(drivetrain, -25), new Shoot(shoot, index));
+    addCommands(new Shoot(shoot, index), new Rotate(drivetrain, 22), new DriveyBoi(drivetrain, intake, index, 4.4), new Rotate(drivetrain, -11), new Shoot(shoot, index));
   }
 }

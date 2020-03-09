@@ -49,7 +49,9 @@ public class Shoot extends CommandBase {
         break;
       case 1:
         dex.runConnectorMotor(1);
-        dex.runIndexMotor(-1);
+        dex.runIndexMotor(-.8);
+        dex.runFunnelMotorLeft(0.75);
+        dex.runFunnelMotorRight(1);
         if(timer.get()>3.2){
           state++;
           dex.runConnectorMotor(0);

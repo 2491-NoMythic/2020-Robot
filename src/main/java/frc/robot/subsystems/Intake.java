@@ -44,6 +44,10 @@ public class Intake extends SubsystemBase {
     }  
   }
 
+  public void pushIntake(){
+    IntakeSolenoid.set(Value.kForward);
+  }
+
   public void pullIntakeIn(){
     IntakeSolenoid.set(Value.kReverse);
   }

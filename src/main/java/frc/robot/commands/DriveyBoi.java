@@ -39,6 +39,7 @@ public class DriveyBoi extends CommandBase {
     time.reset();
     time.start();
     state = 0;
+    tak.pullIntakeIn();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -46,24 +47,22 @@ public class DriveyBoi extends CommandBase {
   public void execute() {
     switch(state){
       case 0:
-        dri.drivePercentOutput(-0.3, -0.3);
-        tak.toggleIntakeSolenoid();
-        tak.StartIntakeMotor(-1);
+        dri.drivePercentOutput(0.3, 0.3);
+        tak.pushIntake();
         dex.runFunnelMotorLeft(0.75);
         dex.runFunnelMotorRight(1);
-        dex.runIndexMotor(-0.5);
+        dex.runIndexMotor(-0.80);
         if(time.get() > driveBackTime){
           state = 1;
+        } else if(time.get() > 1){
+          tak.StartIntakeMotor(1);
         }
         break;
       case 1:
-        dri.drivePercentOutput(0.3, 0.3);
+        dri.drivePercentOutput(-0.3, -0.3);
         tak.toggleIntakeSolenoid();
-        tak.StartIntakeMotor(0);
-        dex.runFunnelMotorLeft(0);
-        dex.runFunnelMotorRight(0);
         dex.runIndexMotor(0);
-        if(time.get() > driveBackTime){
+        if(time.get() > driveBackTime + 2.2){
           state = 2;
         }
         break;
