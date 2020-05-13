@@ -42,15 +42,28 @@ import edu.wpi.first.wpilibj2.command.Command;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
+  // The robot's subsystems and commands are defined.
+
+  /**
+   * Here is where we create the instances of the subsystems. These static instances reflect the physical systems on the
+   * robot. When trying to interface with the physical systems of the robot, these need to be used.
+   */
   private final Drivetrain m_drivetrain = new Drivetrain();
   private final Shooter m_Shooter = new Shooter();
   private final Indexer m_Indexer = new Indexer();
   private final Intake m_Intake = new Intake();
   private final Climber m_Climber = new Climber();
 
+  /**
+   * Here is where we get the current instace of the controlboard that we are using. There can only be one instance of
+   * the controlboard ever, so the control board in this class is a refrence to the singleton controlboard.
+   */
   private final ControlBoard m_ControlBoard = ControlBoard.getInstance();
 
+  /**
+   * Here is where we declare instances of the commands that we want to run. Notice that these will only run the
+   * instanciation of the class once.
+   */
   private final RunShooterAtSpeedPID shooterAtSpeedPID = new RunShooterAtSpeedPID(m_Shooter, m_ControlBoard);
   private final RunConnector runConnector = new RunConnector(m_Indexer);
   private final ClimbExtendControl climbExtendControl = new ClimbExtendControl(m_Climber, m_Indexer, m_ControlBoard);
@@ -86,11 +99,14 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    //Data that is put on the smart dashboard will appear as a UI element.
     SmartDashboard.putData(new RunShooterAtSpeedPID(m_Shooter, m_ControlBoard));
     SmartDashboard.putData(new RunConnector(m_Indexer));
     SmartDashboard.putData(new FunnlerTest(m_Indexer));
     SmartDashboard.putData(new ShiftLol(m_Climber, m_drivetrain));
     SmartDashboard.putNumber("Axis", m_ControlBoard.getLeftClimbAxis());
+    //Button assignments
+    //.and is used to create the safteys. Note that in current form safteys are not neccesary for turining off the system.
     m_ControlBoard.getActivateLiftButton().and(m_ControlBoard.getClimbCheck1()).and(m_ControlBoard.getClimbCheck2()).whenActive(climbExtendControl);
     m_ControlBoard.getDeactivateLiftButton().cancelWhenPressed(climbExtendControl);
     m_ControlBoard.getActivateIntakeButton().whileHeld(new AutoIntake(m_Intake, m_ControlBoard, m_Indexer));
